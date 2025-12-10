@@ -174,5 +174,26 @@
                 }
             ]
         }
+    ],
+    "product": [
+        {
+            "section": "banner_full",
+            "header": "Your health in trusted hands",
+            "media": {
+                "desktop": "assets/images/product-banner-runner-full.jpg",
+                "mobile": "assets/images/product-banner-runner-mobile.jpg"
+            },
+            "cta_text": "Our Mission",
+            "cta_href": "/our-mission"
+        },
+        {
+            "section": "faqs"
+        },
+        {
+            "section": "lifestyle_50_50"
+        },
+        {
+            "section": "product_reviews"
+        }
     ]
 }
