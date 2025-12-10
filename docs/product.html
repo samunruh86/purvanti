@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product | Purvanti Wellness</title>
+  <link rel="icon" href="/assets/images/favicon.png" type="image/png" sizes="32x32">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="product">
+  <div id="site-header"></div>
+  <main class="page-main product-page">
+    <div id="loading-note" class="loading-note">Loading product details...</div>
+    <section id="product-hero" class="product-hero" hidden>
+      <div class="wrap">
+        <nav class="product-hero__crumbs" aria-label="Breadcrumb">
+          <a data-crumb-home href="/">Home</a>
+          <span aria-hidden="true">/</span>
+          <a data-crumb-collection href="/collections/frontpage">Wellness Products</a>
+          <span aria-hidden="true">/</span>
+          <span data-product-crumb></span>
+        </nav>
+        <div class="product-hero__inner">
+          <div class="product-hero__gallery">
+            <div class="product-hero__thumbs" data-product-thumbs></div>
+            <div class="product-hero__main">
+              <img data-product-main src="" alt="">
+            </div>
+          </div>
+          <div class="product-hero__details">
+            <h1 class="product-hero__title" data-product-title>This is the short title</h1>
+            <div class="product-hero__pill" data-product-pill>This is the long title</div>
+            <p class="product-hero__summary" data-product-summary></p>
+            <div class="product-hero__meta">
+              <span class="product-hero__price" data-product-price></span>
+              <div class="product-hero__rating" data-product-rating></div>
+              <span class="product-hero__tax">Tax included.</span>
+            </div>
+            <div class="product-hero__cta-row">
+              <div class="product-hero__qty">
+                <button type="button" data-qty-minus aria-label="Decrease quantity">−</button>
+                <input type="number" inputmode="numeric" aria-label="Quantity" value="1" min="1" data-qty-input>
+                <button type="button" data-qty-plus aria-label="Increase quantity">+</button>
+              </div>
+              <button class="product-hero__btn" type="button" data-product-cart>ADD TO CART</button>
+            </div>
+            <div class="product-hero__cta-secondary">+10000 Happy Customers | Free shipping on US</div>
+            <button class="product-hero__details-row" type="button" data-details-toggle>
+              <p>PRODUCT DETAILS</p>
+              <span class="product-hero__details-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="product-hero__details-content" data-product-details hidden></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div id="product-sections"></div>
+  </main>
+  <div id="site-footer"></div>
+  <script src="assets/main.js"></script>
+  <script src="assets/products.js"></script>
+</body>
+</html>

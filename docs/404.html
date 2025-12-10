@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting...</title>
+  <link rel="icon" href="assets/images/favicon.png" type="image/png" sizes="32x32">
+  <style>
+    :root { color-scheme: light; }
+    body { font-family: Arial, sans-serif; margin: 0; display: grid; place-items: center; min-height: 100vh; background: #f7f5ed; color: #111; }
+    .card { background: #fff; padding: 22px 26px; border-radius: 14px; border: 1px solid #e6dfcf; box-shadow: 0 12px 28px rgba(0,0,0,0.08); max-width: 560px; text-align: center; }
+    h1 { margin: 0 0 8px; font-size: 22px; }
+    p { margin: 0 0 12px; }
+    small { color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Redirecting…</h1>
+    <p>Sending you to the right product page.</p>
+    <small>If nothing happens, <a id="manual-link" href="/">go home</a>.</small>
+  </div>
+  <script>
+    (function () {
+      const { pathname, search, hash } = window.location;
+      const match = pathname.match(/^(.*)\/products\/([^\/?#]+)/i);
+      if (match) {
+        const base = match[1] || "/";
+        const handle = match[2];
+        const cleanBase = base.endsWith("/") ? base.slice(0, -1) : base;
+        const target = `${cleanBase}/product.html?handle=${handle}${search || ""}${hash || ""}`;
+        document.getElementById("manual-link").href = target;
+        window.location.replace(target);
+        return;
+      }
+      // Fallback: go home
+      const home = "/";
+      document.getElementById("manual-link").href = home;
+      window.location.replace(home);
+    })();
+  </script>
+</body>
+</html>

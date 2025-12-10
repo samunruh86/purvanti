@@ -1,4 +1,17 @@
 {
+    "nav": [
+        {
+            "categories": [
+                {"header": "Minerals & Electrolytes",    "cta_href": "/collections/minerals-electrolytes",  "image": "assets/images/category-minerals-electrolytes.png"},
+                {"header": "Vitamins & Multivitamins",   "cta_href": "/collections/vitamins-multivitamins", "image": "assets/images/category-vitamins-multivitamins.png"},
+                {"header": "Omegas & Heart Health",      "cta_href": "/collections/omegas-heart-health",    "image": "assets/images/category-omegas-heart-health.png"},
+                {"header": "Proteins & Performance",     "cta_href": "/collections/proteins-performance",   "image": "assets/images/category-proteins-performance.png"},
+                {"header": "Gut & Digestive Health",     "cta_href": "/collections/gut-digestive-health",   "image": "assets/images/category-gut-digestive-health.png"},
+                {"header": "Superfoods & Mushrooms",     "cta_href": "/collections/superfoods-mushrooms",   "image": "assets/images/category-superfoods-mushrooms.png"},
+                {"header": "Stress & Sleep",             "cta_href": "/collections/stress-sleep",           "image": "assets/images/category-stress-sleep.png"}
+            ]
+        }
+    ],
     "home": [
         {
             "section": "hero",
@@ -187,13 +200,50 @@
             "cta_href": "/our-mission"
         },
         {
-            "section": "faqs"
+            "section": "faqs",
+            "pre_header": "Everything You Need to Know!",
+            "title": "Frequently Asked Questions",
+            "items": [
+                {
+                    "question": "Are wellness supplements safe to use?",
+                    "answer": "Our supplements are formulated with quality ingredients and third-party testing where available. Always review the label and consult your healthcare provider before starting a new regimen."
+                },
+                {
+                    "question": "How should I store my supplements?",
+                    "answer": "Keep your bottles in a cool, dry place away from direct sunlight and moisture. Avoid storing them in humid bathrooms or hot cars."
+                },
+                {
+                    "question": "Do you offer international shipping?",
+                    "answer": "We currently ship within the US. We’re exploring options for expanded international delivery—sign up for updates to be notified."
+                },
+                {
+                    "question": "What is your return policy?",
+                    "answer": "If you’re not satisfied, contact us within 30 days of delivery. Unopened items can be returned for a refund; opened items may qualify for store credit."
+                }
+            ]
         },
         {
-            "section": "lifestyle_50_50"
+            "section": "lifestyle_50_50",
+            "cards": [
+                {
+                    "title": "Immunity Boost",
+                    "cta_text": "Check Now",
+                    "cta_href": "/collections/frontpage",
+                    "image": "assets/images/product-50-50-a.jpg"
+                },
+                {
+                    "title": "Energy Boost",
+                    "cta_text": "Check Now",
+                    "cta_href": "/collections/frontpage",
+                    "image": "assets/images/product-50-50-b.jpg"
+                }
+            ]
         },
         {
-            "section": "product_reviews"
+            "section": "product_reviews",
+            "pre_header": "What Our Customers Say",
+            "headline": "+10000 Happy Customers",
+            "lifestyle_image": "assets/images/product-50-50-b.jpg"
         }
     ]
 }

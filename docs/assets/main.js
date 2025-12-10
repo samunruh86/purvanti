@@ -1,5 +1,5 @@
-const CONTENT_PATH = "assets/data/content.json";
 const PRODUCTS_PATH = "assets/data/products_all.json";
+const CONTENT_PATH = "assets/data/content.json";
 
 const sectionBuilders = {
   hero: renderHero,
@@ -16,11 +16,12 @@ const sectionBuilders = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  hydratePage();
+  const app = document.getElementById("app");
+  if (!app) return;
+  hydratePage(app);
 });
 
-async function hydratePage() {
-  const app = document.getElementById("app");
+async function hydratePage(app) {
   const loadingNote = document.getElementById("loading-note");
 
   try {
@@ -32,7 +33,7 @@ async function hydratePage() {
     const homeSections = Array.isArray(content?.home) ? content.home : [];
     const productMap = mapProducts(products?.products || []);
 
-    renderChrome(productMap);
+    renderChrome(productMap, content?.nav?.[0]);
 
     homeSections.forEach((block) => {
       const builder = sectionBuilders[block.section];
@@ -40,6 +41,12 @@ async function hydratePage() {
       const node = builder(block, productMap);
       if (node) app.appendChild(node);
     });
+
+    window.dispatchEvent(
+      new CustomEvent("purvanti:page-hydrated", {
+        detail: { products: uniqueProducts(productMap) },
+      })
+    );
   } catch (error) {
     console.error(error);
     if (app) {
@@ -60,9 +67,33 @@ async function fetchJSON(path) {
 
 function mapProducts(list) {
   return list.reduce((map, item) => {
-    map.set(item.id, item);
+    if (item.id) map.set(item.id, item);
+    if (item.handle) map.set(item.handle, item);
     return map;
   }, new Map());
+}
+
+function uniqueProducts(productMap) {
+  return Array.from(new Set(productMap.values()));
+}
+
+function resolveAssetPath(path) {
+  if (!path) return "";
+  if (/^https?:\/\//i.test(path) || path.startsWith("/")) return path;
+  return `${getBasePath()}${path}`;
+}
+
+function getBasePath() {
+  const path = window.location.pathname || "/";
+  if (path.includes("/products/")) {
+    return path.split("/products/")[0] + "/";
+  }
+  if (path.includes("product.html")) {
+    return path.replace(/product\.html.*/i, "");
+  }
+  const lastSlash = path.lastIndexOf("/");
+  if (lastSlash === -1) return "/";
+  return path.slice(0, lastSlash + 1);
 }
 
 function renderHero(data) {
@@ -203,7 +234,7 @@ function renderFeatured(data, productMap) {
 function renderProductCard(product) {
   const card = document.createElement("a");
   card.className = "featured__card";
-  card.href = product.url || "#";
+  card.href = productPageHref(product);
 
   const media = document.createElement("div");
   media.className = "featured__media";
@@ -240,12 +271,12 @@ function renderBanner(data) {
   if (data.media?.mobile) {
     const sourceMobile = document.createElement("source");
     sourceMobile.media = "(max-width: 768px)";
-    sourceMobile.srcset = data.media.mobile;
+    sourceMobile.srcset = resolveAssetPath(data.media.mobile);
     picture.appendChild(sourceMobile);
   }
 
   const img = document.createElement("img");
-  img.src = data.media?.desktop || data.media?.mobile || "";
+  img.src = resolveAssetPath(data.media?.desktop || data.media?.mobile || "");
   img.alt = data.header || "Banner image";
   picture.appendChild(img);
 
@@ -278,6 +309,12 @@ function renderBanner(data) {
 
   section.append(media, content);
   return section;
+}
+
+function productPageHref(product) {
+  const handle = product?.handle || product?.id;
+  if (handle) return `${getBasePath()}product.html#handle=${handle}`;
+  return product?.url || "#";
 }
 
 function formatPrice(value) {
@@ -650,10 +687,10 @@ function buildEnduranceCard(product) {
   price.className = "endurance-card__price";
   price.textContent = formatPrice(product.price);
 
-  const cta = document.createElement("button");
-  cta.type = "button";
+  const cta = document.createElement("a");
   cta.className = "endurance-card__cta";
-  cta.textContent = "Add to Cart";
+  cta.href = productPageHref(product);
+  cta.textContent = "View product";
 
   card.append(media, name, meta, rating, price, cta);
   return card;
@@ -826,8 +863,11 @@ function renderNewArrivals(data, productMap) {
 }
 
 function buildArrivalCard(product) {
-  const card = document.createElement("div");
+  const card = document.createElement("a");
   card.className = "arrivals-card";
+  card.href = productPageHref(product);
+  card.style.textDecoration = "none";
+  card.style.color = "inherit";
 
   const media = document.createElement("div");
   media.className = "arrivals-card__media";
@@ -859,10 +899,10 @@ function buildArrivalCard(product) {
   price.className = "arrivals-card__price";
   price.textContent = formatPrice(product.price);
 
-  const cta = document.createElement("button");
-  cta.type = "button";
+  const cta = document.createElement("a");
   cta.className = "arrivals-card__cta";
-  cta.textContent = "Add to Cart";
+  cta.href = productPageHref(product);
+  cta.textContent = "View product";
 
   body.append(name, meta, rating, price, cta);
   card.append(media, body);
@@ -925,16 +965,17 @@ function renderReviews(data) {
 }
 
 /* Header + footer */
-function renderChrome(productMap) {
-  renderHeader();
+function renderChrome(productMap, navContent) {
+  renderHeader(productMap, navContent);
   renderFooter(productMap);
 }
 
-function renderHeader() {
+function renderHeader(productMap, navContent) {
   const target = document.getElementById("site-header");
   if (!target) return;
 
   const frag = document.createDocumentFragment();
+  const base = getBasePath();
 
   const header = document.createElement("header");
   header.className = "site-header";
@@ -946,7 +987,7 @@ function renderHeader() {
   brand.className = "header__brand";
   brand.href = "/";
   const logo = document.createElement("img");
-  logo.src = "assets/svgs/logo-black.svg";
+  logo.src = `${base}assets/svgs/logo-black.svg`;
   logo.alt = "Purvanti";
   brand.appendChild(logo);
   bar.appendChild(brand);
@@ -955,7 +996,7 @@ function renderHeader() {
   nav.className = "header__nav";
 
   const navItems = [
-    { label: "Shop", href: "/collections/frontpage", dropdown: true },
+    { label: "Shop", href: "/collections/frontpage", dropdown: true, categories: navContent?.categories },
     { label: "About", href: "/pages/about" },
     { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/pages/contact" },
@@ -965,17 +1006,27 @@ function renderHeader() {
     const link = document.createElement("a");
     link.href = item.href;
     link.textContent = item.label;
-    if (item.dropdown) link.dataset.dropdown = "true";
-    link.addEventListener("click", () => nav.classList.remove("is-open"));
+    if (item.dropdown) {
+      link.dataset.dropdown = "true";
+      const dropdown = buildNavDropdown(item.categories, productMap);
+      if (dropdown) {
+        const wrapper = document.createElement("div");
+        wrapper.className = "header__nav-item";
+        wrapper.dataset.dropdown = "true";
+        wrapper.append(link, dropdown);
+        nav.appendChild(wrapper);
+        return;
+      }
+    }
     nav.appendChild(link);
   });
 
   const actions = document.createElement("div");
   actions.className = "header__actions";
 
-  const searchBtn = iconButton("Search", "assets/svgs/nav-search.svg");
-  const accountBtn = iconButton("Account", "assets/svgs/nav-person.svg");
-  const cartBtn = iconButton("Cart", "assets/svgs/nav-cart.svg");
+  const searchBtn = iconButton("Search", `${base}assets/svgs/nav-search.svg`);
+  const accountBtn = iconButton("Account", `${base}assets/svgs/nav-person.svg`);
+  const cartBtn = iconButton("Cart", `${base}assets/svgs/nav-cart.svg`);
   actions.append(searchBtn, accountBtn, cartBtn);
 
   const menuToggle = document.createElement("button");
@@ -991,6 +1042,12 @@ function renderHeader() {
 
   frag.appendChild(header);
   target.replaceChildren(frag);
+
+  // Expose header height so dropdown can align to full width position
+  requestAnimationFrame(() => {
+    const h = header.getBoundingClientRect().height;
+    document.documentElement.style.setProperty("--header-height", `${h}px`);
+  });
 }
 
 function iconButton(label, iconSrc) {
@@ -1015,6 +1072,7 @@ function renderFooter(productMap) {
 
   const section = document.createElement("footer");
   section.className = "footer";
+  const base = getBasePath();
 
   const inner = document.createElement("div");
   inner.className = "footer__inner";
@@ -1030,10 +1088,13 @@ function renderFooter(productMap) {
   brandBlock.append(brandTitle, brandText);
   inner.appendChild(brandBlock);
 
-  inner.appendChild(buildListBlock("Products", Array.from(productMap.values()).slice(0, 6).map((p) => ({
-    label: p.title_short || p.title_long || "",
-    href: p.url || "#",
-  }))));
+  const footerProducts = uniqueProducts(productMap)
+    .slice(0, 6)
+    .map((p) => ({
+      label: p.title_short || p.title_long || "",
+      href: productPageHref(p),
+    }));
+  inner.appendChild(buildListBlock("Products", footerProducts));
 
   inner.appendChild(
     buildListBlock("Info", [
@@ -1061,11 +1122,11 @@ function renderFooter(productMap) {
   const payments = document.createElement("div");
   payments.className = "footer__payments";
   [
-    "assets/svgs/payment-visa.svg",
-    "assets/svgs/payment-mastercard.svg",
-    "assets/svgs/payment-amex.svg",
-    "assets/svgs/payment-apple.svg",
-    "assets/svgs/payment-discover.svg",
+    `${base}assets/svgs/payment-visa.svg`,
+    `${base}assets/svgs/payment-mastercard.svg`,
+    `${base}assets/svgs/payment-amex.svg`,
+    `${base}assets/svgs/payment-apple.svg`,
+    `${base}assets/svgs/payment-discover.svg`,
   ].forEach((src) => {
     const badge = document.createElement("div");
     badge.className = "footer__payment";
@@ -1080,7 +1141,7 @@ function renderFooter(productMap) {
   const brandMark = document.createElement("div");
   brandMark.className = "footer__brandmark";
   const logoWhite = document.createElement("img");
-  logoWhite.src = "assets/svgs/logo-bottom.svg";
+  logoWhite.src = `${base}assets/svgs/logo-bottom.svg`;
   logoWhite.alt = "Purvanti";
   brandMark.appendChild(logoWhite);
 
@@ -1105,4 +1166,37 @@ function buildListBlock(title, links) {
   });
   block.append(heading, list);
   return block;
+}
+
+function buildNavDropdown(categories, productMap) {
+  if (!Array.isArray(categories) || !categories.length) return null;
+  const panel = document.createElement("div");
+  panel.className = "nav-dropdown";
+
+  const list = document.createElement("div");
+  list.className = "nav-dropdown__list";
+
+  categories.forEach((cat) => {
+    const item = document.createElement("a");
+    item.className = "nav-dropdown__item";
+    item.href = cat.cta_href || "#";
+
+    const img = document.createElement("img");
+    img.src = resolveAssetPath(cat.image || "");
+    img.alt = cat.header || "Category";
+
+    const text = document.createElement("div");
+    text.className = "nav-dropdown__text";
+    const catLabel = document.createElement("p");
+    catLabel.className = "nav-dropdown__category";
+    catLabel.textContent = cat.header || "";
+    text.append(catLabel);
+
+    item.append(img, text);
+    list.appendChild(item);
+  });
+
+  if (!list.children.length) return null;
+  panel.appendChild(list);
+  return panel;
 }
