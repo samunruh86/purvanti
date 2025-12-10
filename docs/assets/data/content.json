@@ -35,7 +35,144 @@
             },
             "cta_text": "Boost Energy",
             "cta_href": "/collections/frontpage"
-           
+        },
+        {
+            "section": "product_lifestyle_carousel",
+            "slides": [
+                {
+                    "headline": "Boost Your Energy Levels!",
+                    "product_id": "pr290626",
+                    "lifestyle_image": "assets/images/home-lifestyle-c1a-full.jpg"
+                },
+                {
+                    "headline": "Relax Naturally, Live Fully!",
+                    "product_id": "pr178380",
+                    "lifestyle_image": "assets/images/home-lifestyle-c1a-full.jpg"
+                }
+            ]
+        },
+        {
+            "section": "video_reels",
+            "title": "Real Stores, Real Recommendations!",
+            "items": [
+                {
+                    "video": "assets/videos/reels-1.mp4",
+                    "poster": "assets/images/reels-1.jpg",
+                    "product_id": "pr188026"
+                },
+                {
+                    "video": "assets/videos/reels-2.mp4",
+                    "poster": "assets/images/reels-2.jpg",
+                    "product_id": "pr136188"
+                },
+                {
+                    "video": "assets/videos/reels-3.mp4",
+                    "poster": "assets/images/reels-3.jpg",
+                    "product_id": "pr253894"
+                },
+                {
+                    "video": "assets/videos/reels-4.mp4",
+                    "poster": "assets/images/reels-4.jpg",
+                    "product_id": "pr178380"
+                },
+                {
+                    "video": "assets/videos/reels-5.mp4",
+                    "poster": "assets/images/reels-5.jpg",
+                    "product_id": "pr290626"
+                },
+                {
+                    "video": "assets/videos/reels-6.mp4",
+                    "poster": "assets/images/reels-6.jpg",
+                    "product_id": "pr160265"
+                }
+            ]
+        },
+        {
+            "section": "endurance_grid",
+            "title": "Engineered for Endurance",
+            "product_ids": [
+                "pr178380",
+                "pr290626",
+                "pr136188",
+                "pr188026",
+                "pr680073",
+                "pr160265"
+            ]
+        },
+        {
+            "section": "brand_statement",
+            "title": "Empowering your health naturally",
+            "body": "At Wellness, we believe that true vitality starts from within. That's why we create high-quality, natural supplements designed to support your well-being, enhance your energy, and help you thrive every day.",
+            "cta_text": "About us",
+            "cta_href": "/pages/about"
+        },
+        {
+            "section": "blog_feature",
+            "title": "Latest From The Journal",
+            "posts": [
+                {
+                    "date": "January 20, 2025",
+                    "title": "The Power of Omega-3: Why You Need It In Your Diet",
+                    "excerpt": "Omega-3 fatty acids are essential fats that play a critical role in maintaining overall health. Unlike some nutrients that your body can produce, Omega-3s must come from your diet or...",
+                    "image": "assets/images/blog-post-1.jpg",
+                    "href": "/blog/omega-3-benefits"
+                },
+                {
+                    "date": "January 19, 2025",
+                    "title": "Feel Better Every Day: Supplements for a Happier, Healthier You",
+                    "excerpt": "Life can be demanding, and feeling your best every day can sometimes feel like a challenge. But what if there was a simple way to boost your energy, mood, and...",
+                    "image": "assets/images/blog-post-2.jpg",
+                    "href": "/blog/feel-better-every-day"
+                },
+                {
+                    "date": "January 19, 2025",
+                    "title": "The Science Behind Quality: Inside Our Supplement Laboratory",
+                    "excerpt": "When it comes to supplements, quality is everything. That's why we’ve made it our mission to ensure every product you purchase meets the highest standards of safety and efficacy. At...",
+                    "image": "assets/images/blog-post-3.jpg",
+                    "href": "/blog/inside-our-lab"
+                }
+            ]
+        },
+        {
+            "section": "mission_video",
+            "pre_header": "Fuel your body, sustain the planet",
+            "header": "Sustainable solutions for a healthier life.",
+            "cta_text": "Our mission",
+            "cta_href": "/pages/mission",
+            "video": "assets/videos/home-banner-bg.mp4"
+        },
+        {
+            "section": "new_arrivals",
+            "title": "Shop the top new arrivals",
+            "product_ids": [
+                "pr188026",
+                "pr178380",
+                "pr290626",
+                "pr136188",
+                "pr680073",
+                "pr160265"
+            ]
+        },
+        {
+            "section": "reviews_slider",
+            "title": "What people are saying",
+            "items": [
+                {
+                    "quote": "Finally, a product that delivers on its promises. My skin glows, and I feel amazing inside and out!",
+                    "author": "Martin B.",
+                    "image": "assets/images/home-reviews-1.jpg"
+                },
+                {
+                    "quote": "These supplements fit seamlessly into my routine and keep my energy steady all day.",
+                    "author": "Priya K.",
+                    "image": "assets/images/home-reviews-2.jpg"
+                },
+                {
+                    "quote": "Quality I can trust and results I can feel. I’m a fan for life.",
+                    "author": "Jason L.",
+                    "image": "assets/images/home-reviews-3.jpg"
+                }
+            ]
         }
     ]
 }
