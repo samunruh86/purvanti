@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
+    <link rel="stylesheet" href="assets/styles/main.css" />
+  </head>
+  <body>
+    <main style="padding: 2rem; text-align: center;">
+      <p>Redirecting…</p>
+    </main>
+    <script>
+      (function () {
+        var path = window.location.pathname;
+        var match = path.match(/\/products\/([^/?#]+)/i);
+        if (match && match[1]) {
+          var handle = match[1];
+          var target = "/product.html?handle=" + encodeURIComponent(handle) + window.location.search + window.location.hash;
+          window.location.replace(target);
+          return;
+        }
+        // default: go home
+        window.location.replace("/index.html");
+      })();
+    </script>
+  </body>
+  </html>

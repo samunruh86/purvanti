@@ -1,0 +1,644 @@
+{
+  "schema_version": "2.0",
+  "products": [
+    {
+      "id": "womens-multi-capsules",
+      "title": "Women's Multi Capsules",
+      "handle": "womens-multi-capsules",
+      "url": "/products/womens-multi-capsules",
+      "collections": [
+        "frontpage",
+        "wellness-products"
+      ],
+      "brand": "WELLNESS",
+      "badge": "",
+      "labels": {
+        "category": "Multivitamin",
+        "dietary": [
+          "plant-based"
+        ],
+        "feature_tags": [
+          "Iron",
+          "Zinc",
+          "Folate",
+          "Vitamin A"
+        ]
+      },
+      "price": 36,
+      "summary": "Fill nutritional gaps and feel your best with Women\u2019s Multivitamin. This all-in-one supports immunity, energy, mood, sleep, hormones, periods, muscle recovery, and skin health.",
+      "description": "Supports overall health and well-beingLooking to fill nutritional gaps or feel more like yourself? Women\u2019s Multivitamin is your all-in-one solution for general health and wellness. This comprehensive supplement is designed to support immunity, energy, mood, sleep, hormonal balance, healthy periods, muscle recovery, and skin health",
+      "benefits": [
+        "Fills nutritional gaps with essential vitamins and minerals",
+        "Boosts immunity for healthier everyday living",
+        "Enhances energy levels and combats fatigue",
+        "Supports mood balance and emotional well-being",
+        "Promotes better sleep quality",
+        "Supports hormonal balance and eases period symptoms",
+        "Aids muscle recovery after activity",
+        "Improves skin health and radiance"
+      ],
+      "media": {
+        "full": [
+          "/assets/products/media/womens-multi-capsules/large_1.png",
+          "/assets/products/media/womens-multi-capsules/large_2.png",
+          "/assets/products/media/womens-multi-capsules/large_3.jpg"
+        ],
+        "mobile": [
+          "/assets/products/media/womens-multi-capsules/mobile_1.png",
+          "/assets/products/media/womens-multi-capsules/mobile_2.png",
+          "/assets/products/media/womens-multi-capsules/mobile_3.jpg"
+        ],
+        "lifestyle": [
+          "/assets/products/media/womens-multi-capsules/lifestyle_1.jpg",
+          "/assets/products/media/womens-multi-capsules/lifestyle_2.jpg",
+          "/assets/products/media/womens-multi-capsules/lifestyle_3.jpg"
+        ],
+        "placements": [
+          {
+            "placement": "homepage-slider",
+            "headline": "Complete care for your health!",
+            "desktop": "/assets/products/media/womens-multi-capsules/placement_desktop_1.jpg",
+            "mobile": "/assets/products/media/womens-multi-capsules/placement_mobile_1.jpg"
+          },
+          {
+            "placement": "product-hero",
+            "headline": "Real Stories, Real Results \u2013 Your Health in Trusted Hands!",
+            "desktop": "/assets/products/media/womens-multi-capsules/lifestyle_3.jpg",
+            "mobile": "/assets/products/media/womens-multi-capsules/lifestyle_1.jpg"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mens-multi-capsules",
+      "title": "Men's Multi Capsules",
+      "handle": "mens-multi-capsules",
+      "url": "/products/mens-multi-capsules",
+      "collections": [
+        "frontpage",
+        "wellness-products"
+      ],
+      "brand": "WELLNESS",
+      "badge": "",
+      "labels": {
+        "category": "Multivitamin",
+        "dietary": [],
+        "feature_tags": []
+      },
+      "price": 42,
+      "summary": "Daily men\u2019s multivitamin support in capsule form.",
+      "description": "Everyday multivitamin support designed for men.",
+      "benefits": [
+        "Supports overall men\u2019s wellness",
+        "Helps cover daily micronutrient needs",
+        "Convenient capsule format"
+      ],
+      "media": {
+        "full": [
+          "/assets/products/media/mens-multi-capsules/large_1.png",
+          "/assets/products/media/mens-multi-capsules/large_2.png"
+        ],
+        "mobile": [
+          "/assets/products/media/mens-multi-capsules/mobile_1.jpg",
+          "/assets/products/media/mens-multi-capsules/mobile_2.png"
+        ],
+        "lifestyle": [
+          "/assets/products/media/mens-multi-capsules/lifestyle_1.jpg"
+        ],
+        "placements": []
+      }
+    },
+    {
+      "id": "boost-energy-capsules",
+      "title": "Boost Energy Capsules",
+      "handle": "boost-energy-capsules",
+      "url": "/products/boost-energy-capsules",
+      "collections": [
+        "frontpage",
+        "wellness-products"
+      ],
+      "brand": "WELLNESS",
+      "badge": "",
+      "labels": {
+        "category": "Energy",
+        "dietary": [],
+        "feature_tags": []
+      },
+      "price": 36,
+      "summary": "Boost your energy levels with targeted capsule support.",
+      "description": "Energy-focused capsules for daily use.",
+      "benefits": [
+        "Supports steady daily energy",
+        "Pairs with active lifestyles",
+        "Easy once-a-day capsule"
+      ],
+      "media": {
+        "full": [
+          "/assets/products/media/boost-energy-capsules/large_1.png",
+          "/assets/products/media/boost-energy-capsules/large_2.jpg"
+        ],
+        "mobile": [
+          "/assets/products/media/boost-energy-capsules/mobile_1.png",
+          "/assets/products/media/boost-energy-capsules/mobile_2.jpg"
+        ],
+        "lifestyle": [
+          "/assets/products/media/boost-energy-capsules/lifestyle_1.jpg"
+        ],
+        "placements": [
+          {
+            "placement": "homepage-slider",
+            "headline": "Boost Your Energy Levels!",
+            "desktop": "/assets/products/media/boost-energy-capsules/placement_desktop_1.jpg",
+            "mobile": "/assets/products/media/boost-energy-capsules/placement_mobile_1.jpg"
+          }
+        ]
+      }
+    },
+    {
+      "id": "stress-relief-capsules",
+      "title": "Stress Relief Capsules",
+      "handle": "stress-relief-capsules",
+      "url": "/products/stress-relief-capsules",
+      "collections": [
+        "frontpage",
+        "wellness-products"
+      ],
+      "brand": "WELLNESS",
+      "badge": "",
+      "labels": {
+        "category": "Relaxation",
+        "dietary": [],
+        "feature_tags": []
+      },
+      "price": 36,
+      "summary": "Relax naturally and live fully with stress support capsules.",
+      "description": "Stress relief capsules for daily balance.",
+      "benefits": [
+        "Calming support for busy days",
+        "Helps you unwind and recharge",
+        "Capsules fit into any routine"
+      ],
+      "media": {
+        "full": [
+          "/assets/products/media/stress-relief-capsules/large_1.png",
+          "/assets/products/media/stress-relief-capsules/large_2.png"
+        ],
+        "mobile": [
+          "/assets/products/media/stress-relief-capsules/mobile_1.png"
+        ],
+        "lifestyle": [
+          "/assets/products/media/stress-relief-capsules/lifestyle_1.png"
+        ],
+        "placements": [
+          {
+            "placement": "homepage-slider",
+            "headline": "Relax Naturally, Live Fully!",
+            "desktop": "/assets/products/media/stress-relief-capsules/placement_desktop_1.jpg",
+            "mobile": "/assets/products/media/stress-relief-capsules/placement_mobile_1.jpg"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hair-skin-nails-capsules",
+      "title": "Hair, Skin & Nails Capsules",
+      "handle": "hair-skin-nails-capsules",
+      "url": "/products/hair-skin-nails-capsules",
+      "collections": [
+        "frontpage",
+        "wellness-products"
+      ],
+      "brand": "WELLNESS",
+      "badge": "",
+      "labels": {
+        "category": "Beauty",
+        "dietary": [],
+        "feature_tags": []
+      },
+      "price": 60,
+      "summary": "Beauty capsules that support strong hair, healthy skin, and resilient nails.",
+      "description": "Capsules formulated for hair, skin, and nail support.",
+      "benefits": [
+        "Supports strong hair, skin, and nails",
+        "Beauty-focused micronutrient blend",
+        "Simple daily capsule"
+      ],
+      "media": {
+        "full": [
+          "/assets/products/media/hair-skin-nails-capsules/large_1.png",
+          "/assets/products/media/hair-skin-nails-capsules/large_2.png"
+        ],
+        "mobile": [
+          "/assets/products/media/hair-skin-nails-capsules/mobile_1.png"
+        ],
+        "lifestyle": [
+          "/assets/products/media/hair-skin-nails-capsules/lifestyle_1.png"
+        ],
+        "placements": []
+      }
+    },
+    {
+      "id": "immunity-boost-capsules",
+      "title": "Immunity Boost Capsules",
+      "handle": "immunity-boost-capsules",
+      "url": "/products/immunity-boost-capsules",
+      "collections": [
+        "frontpage",
+        "wellness-products"
+      ],
+      "brand": "WELLNESS",
+      "badge": "",
+      "labels": {
+        "category": "Immunity",
+        "dietary": [],
+        "feature_tags": []
+      },
+      "price": 38,
+      "summary": "Daily immune support to help keep you strong year-round.",
+      "description": "Capsules formulated to back your immune defenses every day.",
+      "benefits": [
+        "Supports healthy immune response",
+        "Everyday wellness backing",
+        "Simple capsule you can take with your routine"
+      ],
+      "media": {
+        "full": [
+          "/assets/products/media/immunity-boost-capsules/large_1.png",
+          "/assets/products/media/immunity-boost-capsules/large_2.png"
+        ],
+        "mobile": [
+          "/assets/products/media/immunity-boost-capsules/mobile_1.png",
+          "/assets/products/media/immunity-boost-capsules/mobile_2.png"
+        ],
+        "lifestyle": [
+          "/assets/products/media/immunity-boost-capsules/lifestyle_1.jpg"
+        ],
+        "placements": []
+      }
+    },
+    {
+      "id": "collagen-capsules",
+      "title": "Collagen Capsules",
+      "handle": "collagen-capsules",
+      "url": "/products/collagen-capsules",
+      "collections": [
+        "frontpage",
+        "wellness-products"
+      ],
+      "brand": "WELLNESS",
+      "badge": "",
+      "labels": {
+        "category": "Recovery",
+        "dietary": [],
+        "feature_tags": []
+      },
+      "price": 44,
+      "summary": "Collagen support to nourish hair, skin, joints, and recovery.",
+      "description": "Capsule collagen blend crafted to back daily strength and glow.",
+      "benefits": [
+        "Supports joint and tissue recovery",
+        "Promotes skin elasticity and glow",
+        "Convenient collagen in capsule form"
+      ],
+      "media": {
+        "full": [
+          "/assets/products/media/collagen-capsules/large_1.png",
+          "/assets/products/media/collagen-capsules/large_2.png"
+        ],
+        "mobile": [
+          "/assets/products/media/collagen-capsules/mobile_1.png",
+          "/assets/products/media/collagen-capsules/mobile_2.png"
+        ],
+        "lifestyle": [
+          "/assets/products/media/collagen-capsules/lifestyle_1.jpg"
+        ],
+        "placements": []
+      }
+    }
+    ,
+    {
+      "id": "maurten-gel-100",
+      "title": "Maurten Gel 100",
+      "handle": "maurten-gel-100",
+      "url": "/products/maurten-gel-100",
+      "collections": [
+        "endurance"
+      ],
+      "brand": "WELLNESS",
+      "badge": "",
+      "labels": {
+        "category": "Endurance",
+        "dietary": [],
+        "feature_tags": []
+      },
+      "price": 42,
+      "rating": 5,
+      "reviews_count": 5,
+      "summary": "Fast-absorbing gel for endurance efforts.",
+      "description": "Energy gel crafted to fuel long sessions without gut stress.",
+      "benefits": [
+        "Quick carb delivery for endurance",
+        "Easy on the stomach",
+        "Pocket-ready sachet"
+      ],
+      "media": {
+        "full": [
+          "/assets/products/media/maurten-gel-100/large_1.png"
+        ],
+        "mobile": [
+          "/assets/products/media/maurten-gel-100/large_1.png"
+        ],
+        "lifestyle": [],
+        "placements": []
+      }
+    },
+    {
+      "id": "amacx-turbo-drink-watermelon",
+      "title": "AMACX Turbo Drink Watermelon",
+      "handle": "amacx-turbo-drink-watermelon",
+      "url": "/products/amacx-turbo-drink-watermelon",
+      "collections": [
+        "endurance"
+      ],
+      "brand": "WELLNESS",
+      "badge": "",
+      "labels": {
+        "category": "Endurance",
+        "dietary": [],
+        "feature_tags": []
+      },
+      "price": 42,
+      "rating": 5,
+      "reviews_count": 5,
+      "summary": "Hydration and carbs for mid-session power.",
+      "description": "A watermelon drink mix that keeps you fueled and hydrated.",
+      "benefits": [
+        "Hydration + carbs in one mix",
+        "Light watermelon flavor",
+        "Easy to mix on the go"
+      ],
+      "media": {
+        "full": [
+          "/assets/products/media/amacx-turbo-drink-watermelon/large_1.png"
+        ],
+        "mobile": [
+          "/assets/products/media/amacx-turbo-drink-watermelon/large_1.png"
+        ],
+        "lifestyle": [],
+        "placements": []
+      }
+    },
+    {
+      "id": "clif-bloks-strawberry",
+      "title": "Clif Bloks Strawberry",
+      "handle": "clif-bloks-strawberry",
+      "url": "/products/clif-bloks-strawberry",
+      "collections": [
+        "endurance"
+      ],
+      "brand": "WELLNESS",
+      "badge": "",
+      "labels": {
+        "category": "Endurance",
+        "dietary": [],
+        "feature_tags": []
+      },
+      "price": 42,
+      "rating": 5,
+      "reviews_count": 5,
+      "summary": "Chewable carbs to keep you moving.",
+      "description": "Strawberry chews with fast carbs for training days.",
+      "benefits": [
+        "Quick carbs in chew form",
+        "Easy portion control",
+        "Great taste on the move"
+      ],
+      "media": {
+        "full": [
+          "/assets/products/media/clif-bloks-strawberry/large_1.png"
+        ],
+        "mobile": [
+          "/assets/products/media/clif-bloks-strawberry/large_1.png"
+        ],
+        "lifestyle": [],
+        "placements": []
+      }
+    },
+    {
+      "id": "styrkr-protein-bar",
+      "title": "STYRKR Protein Bar",
+      "handle": "styrkr-protein-bar",
+      "url": "/products/styrkr-protein-bar",
+      "collections": [
+        "endurance"
+      ],
+      "brand": "WELLNESS",
+      "badge": "",
+      "labels": {
+        "category": "Recovery",
+        "dietary": [],
+        "feature_tags": []
+      },
+      "price": 42,
+      "rating": 5,
+      "reviews_count": 5,
+      "summary": "Protein bar to rebuild after hard sessions.",
+      "description": "A post-ride bar with balanced protein and carbs.",
+      "benefits": [
+        "Supports muscle recovery",
+        "Portable refuel option",
+        "Balanced macros"
+      ],
+      "media": {
+        "full": [
+          "/assets/products/media/styrkr-protein-bar/large_1.png"
+        ],
+        "mobile": [
+          "/assets/products/media/styrkr-protein-bar/large_1.png"
+        ],
+        "lifestyle": [],
+        "placements": []
+      }
+    },
+    {
+      "id": "tailwind-endurance-fuel",
+      "title": "Tailwind Endurance Fuel",
+      "handle": "tailwind-endurance-fuel",
+      "url": "/products/tailwind-endurance-fuel",
+      "collections": [
+        "endurance"
+      ],
+      "brand": "WELLNESS",
+      "badge": "",
+      "labels": {
+        "category": "Endurance",
+        "dietary": [],
+        "feature_tags": []
+      },
+      "price": 42,
+      "rating": 5,
+      "reviews_count": 5,
+      "summary": "All-in-one fuel for long miles.",
+      "description": "Hydrating fuel mix designed for hours-long training.",
+      "benefits": [
+        "All-in-one calories + electrolytes",
+        "Stomach-friendly for long sessions",
+        "Easy to sip over hours"
+      ],
+      "media": {
+        "full": [
+          "/assets/products/media/tailwind-endurance-fuel/large_1.jpg"
+        ],
+        "mobile": [
+          "/assets/products/media/tailwind-endurance-fuel/large_1.jpg"
+        ],
+        "lifestyle": [],
+        "placements": []
+      }
+    },
+    {
+      "id": "amacx-energy-gel",
+      "title": "AMACX Energy Gel",
+      "handle": "amacx-energy-gel",
+      "url": "/products/amacx-energy-gel",
+      "collections": [
+        "endurance"
+      ],
+      "brand": "WELLNESS",
+      "badge": "",
+      "labels": {
+        "category": "Endurance",
+        "dietary": [],
+        "feature_tags": []
+      },
+      "price": 42,
+      "rating": 5,
+      "reviews_count": 5,
+      "summary": "Carb-dense gel for race day or hard training.",
+      "description": "A smooth, easy-to-take gel to top off energy mid-effort.",
+      "benefits": [
+        "High-carb gel for intensity",
+        "Quick absorption",
+        "Compact race-day size"
+      ],
+      "media": {
+        "full": [
+          "/assets/products/media/amacx-energy-gel/large_1.jpg"
+        ],
+        "mobile": [
+          "/assets/products/media/amacx-energy-gel/large_1.jpg"
+        ],
+        "lifestyle": [],
+        "placements": []
+      }
+    },
+    {
+      "id": "dream-recovery-mouth-tape",
+      "title": "Dream Recovery Mouth Tape",
+      "handle": "dream-recovery-mouth-tape",
+      "url": "/products/dream-recovery-mouth-tape",
+      "collections": [
+        "new-arrivals"
+      ],
+      "brand": "WELLNESS",
+      "badge": "",
+      "labels": {
+        "category": "Sleep",
+        "dietary": [],
+        "feature_tags": []
+      },
+      "price": 42,
+      "rating": 5,
+      "reviews_count": 5,
+      "summary": "Breath-easy mouth tape to support restful nights.",
+      "description": "A gentle mouth tape designed to encourage nasal breathing and deeper sleep.",
+      "benefits": [
+        "Encourages nasal breathing for better rest",
+        "Gentle adhesive for overnight comfort",
+        "Travel-friendly and easy to use"
+      ],
+      "media": {
+        "full": [
+          "/assets/products/media/dream-recovery-mouth-tape/large_1.png"
+        ],
+        "mobile": [
+          "/assets/products/media/dream-recovery-mouth-tape/large_1.png"
+        ],
+        "lifestyle": [],
+        "placements": []
+      }
+    },
+    {
+      "id": "lets-go-bhb-ketone-liposome",
+      "title": "Let's Go! BHB Ketone Liposome",
+      "handle": "lets-go-bhb-ketone-liposome",
+      "url": "/products/lets-go-bhb-ketone-liposome",
+      "collections": [
+        "new-arrivals"
+      ],
+      "brand": "WELLNESS",
+      "badge": "",
+      "labels": {
+        "category": "Energy",
+        "dietary": [],
+        "feature_tags": []
+      },
+      "price": 42,
+      "rating": 5,
+      "reviews_count": 5,
+      "summary": "Ready-to-go ketone support in convenient packets.",
+      "description": "BHB liposome mix crafted to support quick, clean energy on the go.",
+      "benefits": [
+        "Supports clean, quick energy",
+        "Convenient single-serve format",
+        "Tastes great and mixes fast"
+      ],
+      "media": {
+        "full": [
+          "/assets/products/media/lets-go-bhb-ketone-liposome/large_1.png"
+        ],
+        "mobile": [
+          "/assets/products/media/lets-go-bhb-ketone-liposome/large_1.png"
+        ],
+        "lifestyle": [],
+        "placements": []
+      }
+    },
+    {
+      "id": "noble-grass-fed-beef-protein-complex",
+      "title": "Noble Grass-Fed Beef Protein Complex",
+      "handle": "noble-grass-fed-beef-protein-complex",
+      "url": "/products/noble-grass-fed-beef-protein-complex",
+      "collections": [
+        "new-arrivals"
+      ],
+      "brand": "WELLNESS",
+      "badge": "",
+      "labels": {
+        "category": "Protein",
+        "dietary": [],
+        "feature_tags": []
+      },
+      "price": 42,
+      "rating": 5,
+      "reviews_count": 5,
+      "summary": "Grass-fed protein blend for clean daily recovery.",
+      "description": "High-quality beef protein complex to support lean muscle and everyday wellness.",
+      "benefits": [
+        "Complete protein from grass-fed sources",
+        "Supports muscle recovery",
+        "Smooth-mixing daily shake"
+      ],
+      "media": {
+        "full": [
+          "/assets/products/media/noble-grass-fed-beef-protein-complex/large_1.png"
+        ],
+        "mobile": [
+          "/assets/products/media/noble-grass-fed-beef-protein-complex/large_1.png"
+        ],
+        "lifestyle": [],
+        "placements": []
+      }
+    }
+  ]
+}

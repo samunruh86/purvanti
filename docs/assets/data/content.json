@@ -1,0 +1,41 @@
+{
+    "home": [
+        {
+            "section": "hero",
+            "pre_header": "The Future of Wellness",
+            "header": "Gear up for great health",
+            "video": [
+                "assets/videos/hero-desktop.mp4",
+                "assets/videos/hero-mobile.mp4"
+            ],
+            "images": [
+                "assets/images/home-hero-full.jpg"
+            ]
+        },
+        {
+            "section": "featured_collection",
+            "pre_header": "Plant Powered",
+            "header": "Daily supplements with benefits for you to feel good",
+            "product_ids": [
+                "pr160265",
+                "pr680073",
+                "pr178380",
+                "pr188026",
+                "pr121794"
+            ],
+            "cta_text": "View all",
+            "cta_href": "/collections/frontpage"
+        },
+        {
+            "section": "banner_full",
+            "header": "Your wellness, our priority!",
+            "media": {
+                "desktop": "assets/images/home-banner-runner-full.jpg",
+                "mobile": "assets/images/home-banner-runner-full.jpg"
+            },
+            "cta_text": "Boost Energy",
+            "cta_href": "/collections/frontpage"
+           
+        }
+    ]
+}
