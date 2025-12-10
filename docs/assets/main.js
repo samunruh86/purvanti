@@ -1080,7 +1080,7 @@ function renderFooter(productMap) {
   const brandMark = document.createElement("div");
   brandMark.className = "footer__brandmark";
   const logoWhite = document.createElement("img");
-  logoWhite.src = "assets/svgs/logo-white.svg";
+  logoWhite.src = "assets/svgs/logo-bottom.svg";
   logoWhite.alt = "Purvanti";
   brandMark.appendChild(logoWhite);
 
