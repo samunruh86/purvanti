@@ -250,13 +250,12 @@ function renderProductHero(hero, product) {
     qtyInput.addEventListener("change", clampQty);
   }
 
-  const media = product.media || {};
-  const galleryImages = media.full?.length
-    ? media.full
-    : media.mobile?.length
-    ? media.mobile
-    : [];
-  setupGallery(galleryImages, mainImg, thumbWrap, nameText);
+  const media = productMediaLocal(product);
+  const fullImages = media.full;
+  const smallImages = media.mobile;
+  const mainImages = fullImages.length ? fullImages : smallImages;
+  const thumbImages = smallImages.length ? smallImages : mainImages;
+  setupGallery(thumbImages, mainImg, thumbWrap, nameText, mainImages);
 
   hero.hidden = false;
 }
@@ -491,10 +490,11 @@ function summarize(text) {
   return first.trim();
 }
 
-function setupGallery(images, mainImg, thumbWrap, altText) {
+function setupGallery(images, mainImg, thumbWrap, altText, mainImages = []) {
   const galleryImages = images.length ? images : [mainImg?.src || ""];
+  const mainSet = mainImages.length ? mainImages : galleryImages;
   if (mainImg) {
-    mainImg.src = galleryImages[0] || "";
+    mainImg.src = mainSet[0] || galleryImages[0] || "";
     mainImg.alt = altText || "Product";
   }
 
@@ -512,7 +512,7 @@ function setupGallery(images, mainImg, thumbWrap, altText) {
 
     btn.addEventListener("click", () => {
       if (mainImg) {
-        mainImg.src = src;
+        mainImg.src = mainSet[idx] || src;
         mainImg.alt = altText;
       }
       thumbWrap
@@ -524,4 +524,44 @@ function setupGallery(images, mainImg, thumbWrap, altText) {
     if (idx === 0) btn.classList.add("is-active");
     thumbWrap.appendChild(btn);
   });
+}
+
+function productMediaLocal(product) {
+  const pid = product?.id || product?.handle;
+  const existing = product?.media || {};
+  const fullRaw =
+    (existing.full && existing.full.length && existing.full) ||
+    (pid
+      ? [
+          `assets/images/products/full/${pid}-primary.png`,
+          `assets/images/products/full/${pid}-secondary.png`,
+        ]
+      : []);
+  const mobileRaw =
+    (existing.mobile && existing.mobile.length && existing.mobile) ||
+    (pid
+      ? [
+          `assets/images/products/small/${pid}-primary.png`,
+          `assets/images/products/small/${pid}-secondary.png`,
+        ]
+      : []);
+  return {
+    full: fullRaw.map(resolveAssetPathLocal),
+    mobile: mobileRaw.map(resolveAssetPathLocal),
+  };
+}
+
+function resolveAssetPathLocal(path) {
+  if (!path) return "";
+  if (/^https?:\/\//i.test(path) || path.startsWith("/")) return path;
+  const pathname = window.location.pathname || "/";
+  if (pathname.includes("/products/")) {
+    return `${pathname.split("/products/")[0]}/${path}`;
+  }
+  if (pathname.includes("product.html")) {
+    return pathname.replace(/product\.html.*/i, path);
+  }
+  const lastSlash = pathname.lastIndexOf("/");
+  const base = lastSlash === -1 ? "/" : pathname.slice(0, lastSlash + 1);
+  return `${base}${path}`;
 }

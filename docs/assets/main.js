@@ -749,7 +749,7 @@ function renderProductCard(product) {
   const media = document.createElement("div");
   media.className = "featured__media";
   const img = document.createElement("img");
-  img.src = product.media?.full?.[0] || "";
+  img.src = productImageSrc(product, "small", 0);
   img.alt = product.title_short || product.title_long || "Product";
   media.appendChild(img);
 
@@ -839,6 +839,35 @@ function formatPrice(value) {
   return `$${amount.toFixed(2)}`;
 }
 
+function productMedia(product) {
+  const pid = product?.id || product?.handle;
+  const existing = product?.media || {};
+  const full =
+    (existing.full && existing.full.length && existing.full) ||
+    (pid
+      ? [
+          `assets/images/products/full/${pid}-primary.png`,
+          `assets/images/products/full/${pid}-secondary.png`,
+        ]
+      : []);
+  const mobile =
+    (existing.mobile && existing.mobile.length && existing.mobile) ||
+    (pid
+      ? [
+          `assets/images/products/small/${pid}-primary.png`,
+          `assets/images/products/small/${pid}-secondary.png`,
+        ]
+      : []);
+  return { full, mobile };
+}
+
+function productImageSrc(product, size = "small", idx = 0) {
+  const media = productMedia(product);
+  const list = size === "full" ? media.full : media.mobile;
+  const fallback = size === "full" ? media.mobile : media.full;
+  return list[idx] || fallback[idx] || list[0] || fallback[0] || "";
+}
+
 function renderCategoryHero(target, category) {
   if (!target) return;
   target.hidden = false;
@@ -907,7 +936,7 @@ function renderCategoryProductCard(product) {
   const media = document.createElement("div");
   media.className = "category-card__media";
   const img = document.createElement("img");
-  img.src = product.media?.full?.[0] || "";
+  img.src = productImageSrc(product, "small", 0);
   img.alt = product.title_short || product.title_long || "Product";
   media.appendChild(img);
 
@@ -1159,7 +1188,7 @@ function renderLifestyleCarousel(data, productMap) {
     productPane.style.backgroundColor = palette[idx % palette.length];
 
     const productImg = document.createElement("img");
-    productImg.src = product.media?.full?.[0] || "";
+    productImg.src = productImageSrc(product, "full", 0);
     productImg.alt = product.title_short || product.title_long || "Product";
 
     const name = document.createElement("h3");
@@ -1316,7 +1345,7 @@ function renderVideoReels(data, productMap) {
     card.className = "video-reels__card";
 
     const pImg = document.createElement("img");
-    pImg.src = product.media?.full?.[0] || "";
+    pImg.src = productImageSrc(product, "small", 0);
     pImg.alt = product.title_short || product.title_long || "Product";
 
     const cardText = document.createElement("div");
@@ -1489,7 +1518,7 @@ function buildEnduranceCard(product) {
   media.className = "endurance-card__media";
 
   const img = document.createElement("img");
-  img.src = product.media?.full?.[0] || "";
+  img.src = productImageSrc(product, "small", 0);
   img.alt = product.title_short || product.title_long || "Product";
   media.appendChild(img);
 
@@ -1671,7 +1700,7 @@ function buildArrivalCard(product) {
   const media = document.createElement("div");
   media.className = "arrivals-card__media";
   const img = document.createElement("img");
-  img.src = product.media?.full?.[0] || "";
+  img.src = productImageSrc(product, "small", 0);
   img.alt = product.title_short || product.title_long || "Product";
   media.appendChild(img);
 
