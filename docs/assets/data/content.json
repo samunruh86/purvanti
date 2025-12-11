@@ -274,7 +274,13 @@
         {
             "section": "product_reviews",
             "pre_header": "What Our Customers Say",
-            "headline": "+10000 Happy Customers",
+            "headline": "Genuine Feedback",
+            "lifestyle_images": [
+                "product-reviews-1.jpg",
+                "product-reviews-2.jpg",
+                "product-reviews-3.jpg",
+                "product-reviews-4.jpg"
+            ],
             "lifestyle_image": "assets/images/main/product-50-50-b.jpg"
         }
     ],
