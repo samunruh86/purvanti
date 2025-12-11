@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Category | Purvanti Wellness</title>
+  <link rel="icon" href="/assets/images/favicon.png" type="image/png" sizes="32x32">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="category">
+  <div id="site-header"></div>
+  <main class="page-main category-page">
+    <div id="loading-note" class="loading-note">Loading category...</div>
+    <section id="category-hero" class="category-hero" hidden></section>
+    <section class="category-intro">
+      <p id="category-title" class="category-intro__category">Wellness Products</p>
+      <p class="category-intro__eyebrow">Plant Powered</p>
+      <h2 class="category-intro__headline">
+        Daily <span class="category-intro__icon">🌿</span> supplements with benefits
+        for you to <span class="category-intro__icon">🙂</span> feel good
+      </h2>
+    </section>
+    <section class="category-grid-wrap">
+      <div class="category-grid__toolbar">
+        <p class="category-grid__count" data-category-count>0 products</p>
+        <div class="category-grid__sort">
+          <span>Sort by:</span>
+          <button type="button" class="category-grid__sort-btn">Best selling</button>
+        </div>
+      </div>
+      <div id="category-products" class="category-grid"></div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="assets/main.js"></script>
+  <script src="assets/products.js"></script>
+</body>
+</html>

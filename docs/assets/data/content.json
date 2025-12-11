@@ -1,17 +1,65 @@
 {
-    "nav": [
+    "nav": [],
+    "categories": [
         {
-            "categories": [
-                {"header": "Minerals & Electrolytes",    "cta_href": "/collections/minerals-electrolytes",  "image": "assets/images/category-minerals-electrolytes.png"},
-                {"header": "Vitamins & Multivitamins",   "cta_href": "/collections/vitamins-multivitamins", "image": "assets/images/category-vitamins-multivitamins.png"},
-                {"header": "Omegas & Heart Health",      "cta_href": "/collections/omegas-heart-health",    "image": "assets/images/category-omegas-heart-health.png"},
-                {"header": "Proteins & Performance",     "cta_href": "/collections/proteins-performance",   "image": "assets/images/category-proteins-performance.png"},
-                {"header": "Gut & Digestive Health",     "cta_href": "/collections/gut-digestive-health",   "image": "assets/images/category-gut-digestive-health.png"},
-                {"header": "Superfoods & Mushrooms",     "cta_href": "/collections/superfoods-mushrooms",   "image": "assets/images/category-superfoods-mushrooms.png"},
-                {"header": "Stress & Sleep",             "cta_href": "/collections/stress-sleep",           "image": "assets/images/category-stress-sleep.png"}
-            ]
+            "category": "Minerals & Electrolytes",
+            "cta_href": "/category.html?category=minerals-electrolytes",
+            "image": "assets/images/category-minerals-electrolytes.png",
+            "tagline": "Balance hydration and essential minerals.",
+            "pre_header": "Essential balance",
+            "video": "assets/videos/home-banner-bg.mp4"
+        },
+        {
+            "category": "Vitamins & Multivitamins",
+            "cta_href": "/category.html?category=vitamins-multivitamins",
+            "image": "assets/images/category-vitamins-multivitamins.png",
+            "tagline": "Daily nutrients for whole-body wellness.",
+            "pre_header": "Daily essentials",
+            "video": "assets/videos/home-banner-bg.mp4"
+        },
+        {
+            "category": "Omegas & Heart Health",
+            "cta_href": "/category.html?category=omegas-heart-health",
+            "image": "assets/images/category-omegas-heart-health.png",
+            "tagline": "Support cardiovascular and cognitive function.",
+            "pre_header": "Heart & brain fuel",
+            "video": "assets/videos/home-banner-bg.mp4"
+        },
+        {
+            "category": "Proteins & Performance",
+            "cta_href": "/category.html?category=proteins-performance",
+            "image": "assets/images/category-proteins-performance.png",
+            "tagline": "Fuel recovery and strength with clean protein.",
+            "pre_header": "Stronger every day",
+            "video": "assets/videos/home-banner-bg.mp4"
+        },
+        {
+            "category": "Gut & Digestive Health",
+            "cta_href": "/category.html?category=gut-digestive-health",
+            "image": "assets/images/category-gut-digestive-health.png",
+            "tagline": "Support digestion and microbiome balance.",
+            "pre_header": "Happy gut",
+            "video": "assets/videos/home-banner-bg.mp4"
+        },
+        {
+            "category": "Superfoods & Mushrooms",
+            "cta_href": "/category.html?category=superfoods-mushrooms",
+            "image": "assets/images/category-superfoods-mushrooms.png",
+            "tagline": "Antioxidant-rich blends for everyday vitality.",
+            "pre_header": "Superpowered blends",
+            "video": "assets/videos/home-banner-bg.mp4"
+        },
+        {
+            "category": "Stress & Sleep",
+            "cta_href": "/category.html?category=stress-sleep",
+            "image": "assets/images/category-stress-sleep.png",
+            "tagline": "Calm the mind and support restful sleep.",
+            "pre_header": "Rest & unwind",
+            "video": "assets/videos/home-banner-bg.mp4"
         }
     ],
+
+    
     "home": [
         {
             "section": "hero",

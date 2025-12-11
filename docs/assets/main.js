@@ -16,6 +16,13 @@ const sectionBuilders = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+  rewriteCategoryAnchors();
+  const pageType = document.body.dataset.page;
+  if (pageType === "category") {
+    hydrateCategoryPage();
+    return;
+  }
+
   const app = document.getElementById("app");
   if (!app) return;
   hydratePage(app);
@@ -31,9 +38,10 @@ async function hydratePage(app) {
     ]);
 
     const homeSections = Array.isArray(content?.home) ? content.home : [];
+    const categories = content?.categories || [];
     const productMap = mapProducts(products?.products || []);
 
-    renderChrome(productMap, content?.nav?.[0]);
+    renderChrome(productMap, categories);
 
     homeSections.forEach((block) => {
       const builder = sectionBuilders[block.section];
@@ -94,6 +102,151 @@ function getBasePath() {
   const lastSlash = path.lastIndexOf("/");
   if (lastSlash === -1) return "/";
   return path.slice(0, lastSlash + 1);
+}
+
+async function hydrateCategoryPage() {
+  const loadingNote = document.getElementById("loading-note");
+  const hero = document.getElementById("category-hero");
+  const introTitle = document.getElementById("category-title");
+  const introEyebrow = document.querySelector(".category-intro__eyebrow");
+  const introHeadline = document.querySelector(".category-intro__headline");
+  const countEl = document.querySelector("[data-category-count]");
+  const listTarget = document.getElementById("category-products");
+
+  try {
+    const [content, products] = await Promise.all([
+      fetchJSON(CONTENT_PATH),
+      fetchJSON(PRODUCTS_PATH),
+    ]);
+
+    const categories = content?.categories || [];
+    const productMap = mapProducts(products?.products || []);
+
+    renderChrome(productMap, categories);
+
+    const currentCategory = resolveCurrentCategory(categories);
+    if (!currentCategory) {
+      if (listTarget) listTarget.textContent = "Category not found.";
+      return;
+    }
+
+    updateCategoryPrettyPath(currentCategory);
+    const categoryName = currentCategory.category;
+    const items = filterProductsByCategory(productMap, categoryName);
+
+    renderCategoryHero(hero, currentCategory);
+    if (introTitle) introTitle.textContent = categoryName || "Wellness Products";
+    if (introEyebrow) introEyebrow.textContent = currentCategory.pre_header || "Plant Powered";
+    if (introHeadline)
+      introHeadline.textContent =
+        currentCategory.tagline || "Daily supplements with benefits for you to feel good";
+    if (countEl) {
+      const count = items.length;
+      countEl.textContent = `${count} product${count === 1 ? "" : "s"}`;
+    }
+    renderCategoryProducts(listTarget, items);
+  } catch (error) {
+    console.error(error);
+    if (listTarget) {
+      listTarget.textContent = "We couldn't load this category right now.";
+    }
+  } finally {
+    loadingNote?.remove();
+  }
+}
+
+function resolveCurrentCategory(categories) {
+  if (!Array.isArray(categories) || !categories.length) return null;
+
+  const params = new URLSearchParams(window.location.search);
+  const fromParam = params.get("category") || params.get("slug");
+  const pathLast = window.location.pathname.split("/").filter(Boolean).pop();
+  const stored = getStoredCategorySlug();
+
+  const candidates = [fromParam, pathLast, stored];
+  const normalizedCategories = categories.map((cat) => ({
+    ...cat,
+    slug: normalizeCategorySlug(cat.category) || categorySlugFromHref(cat.cta_href),
+  }));
+
+  for (const candidate of candidates) {
+    if (!candidate) continue;
+    const slug = normalizeCategorySlug(candidate);
+    const found = normalizedCategories.find((cat) => cat.slug === slug);
+    if (found) return found;
+  }
+
+  return normalizedCategories[0] || null;
+}
+
+function normalizeCategorySlug(value) {
+  return (value || "")
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function categorySlugFromHref(href) {
+  if (!href) return "";
+  try {
+    const url = new URL(href, window.location.origin);
+    const param = url.searchParams.get("category") || url.searchParams.get("slug");
+    if (param) return normalizeCategorySlug(param);
+    const parts = url.pathname.split("/").filter(Boolean);
+    if (parts.length) return normalizeCategorySlug(parts[parts.length - 1]);
+  } catch (error) {
+    console.error(error);
+  }
+  return normalizeCategorySlug(href);
+}
+
+function filterProductsByCategory(productMap, categoryName) {
+  const slug = normalizeCategorySlug(categoryName);
+  if (!slug) return [];
+  return uniqueProducts(productMap).filter(
+    (product) => normalizeCategorySlug(product.category) === slug
+  );
+}
+
+function rewriteCategoryAnchors() {
+  document.querySelectorAll('a[href*="category.html"]').forEach((anchor) => {
+    const href = anchor.getAttribute("href");
+    const slug = categorySlugFromHref(href);
+    if (!slug) return;
+    const storeSlug = () => {
+      try {
+        sessionStorage.setItem("purvanti:lastCategory", slug);
+      } catch (error) {
+        console.warn("Could not store category slug", error);
+      }
+    };
+    anchor.addEventListener("click", storeSlug);
+    anchor.addEventListener("auxclick", storeSlug);
+    anchor.addEventListener("mousedown", storeSlug);
+  });
+}
+
+function getStoredCategorySlug() {
+  try {
+    return sessionStorage.getItem("purvanti:lastCategory");
+  } catch (error) {
+    console.warn("Could not read stored category slug", error);
+    return null;
+  }
+}
+
+function updateCategoryPrettyPath(category) {
+  if (!category) return;
+  const slug = normalizeCategorySlug(category.category) || category.slug;
+  if (!slug) return;
+  const base = getBasePath().replace(/\/$/, "");
+  const target = `${base}/category.html?category=${slug}`;
+  const current = `${window.location.pathname}${window.location.search}`;
+  if (current !== target) {
+    window.history.replaceState({}, "", target);
+  }
 }
 
 function renderHero(data) {
@@ -321,6 +474,98 @@ function formatPrice(value) {
   const amount = Number(value);
   if (!Number.isFinite(amount)) return "";
   return `$${amount.toFixed(2)}`;
+}
+
+function renderCategoryHero(target, category) {
+  if (!target) return;
+  target.hidden = false;
+  target.innerHTML = "";
+
+  const wrap = document.createElement("div");
+  wrap.className = "category-hero__inner";
+
+  const media = document.createElement("div");
+  media.className = "category-hero__media";
+
+  const video = document.createElement("video");
+  video.className = "category-hero__video";
+  video.autoplay = true;
+  video.loop = true;
+  video.muted = true;
+  video.playsInline = true;
+  video.poster = resolveAssetPath(category.image || "assets/images/home-hero-full.jpg");
+  const source = document.createElement("source");
+  source.src = resolveAssetPath(category.video || "assets/videos/home-banner-bg.mp4");
+  source.type = "video/mp4";
+  video.appendChild(source);
+
+  const mediaOverlay = document.createElement("div");
+  mediaOverlay.className = "category-hero__overlay";
+
+  const content = document.createElement("div");
+  content.className = "category-hero__content";
+  const eyebrow = document.createElement("p");
+  eyebrow.className = "category-hero__eyebrow";
+  eyebrow.textContent = category.pre_header || "Explore our";
+  const title = document.createElement("h1");
+  title.className = "category-hero__title";
+  title.textContent = category.category || "Wellness Products";
+
+  content.append(eyebrow, title);
+  media.append(video, mediaOverlay);
+  wrap.append(media, content);
+  target.appendChild(wrap);
+}
+
+function renderCategoryProducts(target, products) {
+  if (!target) return;
+  target.innerHTML = "";
+
+  const list = Array.isArray(products) ? products : [];
+  if (!list.length) {
+    const empty = document.createElement("p");
+    empty.className = "category-grid__empty";
+    empty.textContent = "No products found in this category.";
+    target.appendChild(empty);
+    return;
+  }
+
+  list.forEach((product) => {
+    const card = renderCategoryProductCard(product);
+    target.appendChild(card);
+  });
+}
+
+function renderCategoryProductCard(product) {
+  const card = document.createElement("a");
+  card.className = "category-card";
+  card.href = productPageHref(product);
+
+  const media = document.createElement("div");
+  media.className = "category-card__media";
+  const img = document.createElement("img");
+  img.src = product.media?.full?.[0] || "";
+  img.alt = product.title_short || product.title_long || "Product";
+  media.appendChild(img);
+
+  const body = document.createElement("div");
+  body.className = "category-card__body";
+  const name = document.createElement("h3");
+  name.className = "category-card__name";
+  name.textContent = product.title_short || product.title_long || "Product";
+  const meta = document.createElement("div");
+  meta.className = "category-card__meta";
+  const brand = document.createElement("p");
+  brand.className = "category-card__brand";
+  brand.textContent = product.brand || product.category || "";
+  const price = document.createElement("p");
+  price.className = "category-card__price";
+  price.textContent = formatPrice(product.price);
+  meta.append(brand, price);
+
+  body.append(name, meta);
+  card.append(media, body);
+  return card;
 }
 
 function renderLifestyleCarousel(data, productMap) {
@@ -965,12 +1210,12 @@ function renderReviews(data) {
 }
 
 /* Header + footer */
-function renderChrome(productMap, navContent) {
-  renderHeader(productMap, navContent);
+function renderChrome(productMap, categories) {
+  renderHeader(productMap, categories);
   renderFooter(productMap);
 }
 
-function renderHeader(productMap, navContent) {
+function renderHeader(productMap, categories) {
   const target = document.getElementById("site-header");
   if (!target) return;
 
@@ -996,7 +1241,7 @@ function renderHeader(productMap, navContent) {
   nav.className = "header__nav";
 
   const navItems = [
-    { label: "Shop", href: "/collections/frontpage", dropdown: true, categories: navContent?.categories },
+    { label: "Shop", href: "/collections/frontpage", dropdown: true, categories },
     { label: "About", href: "/pages/about" },
     { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/pages/contact" },
@@ -1042,6 +1287,7 @@ function renderHeader(productMap, navContent) {
 
   frag.appendChild(header);
   target.replaceChildren(frag);
+  rewriteCategoryAnchors();
 
   // Expose header height so dropdown can align to full width position
   requestAnimationFrame(() => {
@@ -1183,13 +1429,13 @@ function buildNavDropdown(categories, productMap) {
 
     const img = document.createElement("img");
     img.src = resolveAssetPath(cat.image || "");
-    img.alt = cat.header || "Category";
+    img.alt = cat.category || "Category";
 
     const text = document.createElement("div");
     text.className = "nav-dropdown__text";
     const catLabel = document.createElement("p");
     catLabel.className = "nav-dropdown__category";
-    catLabel.textContent = cat.header || "";
+    catLabel.textContent = cat.category || "";
     text.append(catLabel);
 
     item.append(img, text);

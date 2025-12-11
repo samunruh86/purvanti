@@ -59,7 +59,8 @@ async function hydrateProductPage() {
     currentProduct = product;
 
     updatePrettyPath(product);
-    renderChrome(productMapCache);
+    const categories = contentCache?.categories || [];
+    renderChrome(productMapCache, categories);
     renderProductHero(hero, product);
     renderProductSections(sectionsTarget);
   } catch (error) {
