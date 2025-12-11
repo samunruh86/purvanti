@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Purvanti Wellness</title>
+  <link rel="icon" href="/assets/images/main/favicon.png" type="image/png" sizes="32x32">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="contact">
+  <div id="site-header"></div>
+  <main class="page-main contact-page">
+    <section class="contact-section">
+      <div class="wrap contact-section__grid">
+        <div class="contact-section__copy">
+          <p class="eyebrow">Contact</p>
+          <h1 class="contact-section__title">We’re here to help</h1>
+          <p class="contact-section__body">Questions about products, ingredients, or your order? Reach out and our team will respond quickly.</p>
+        </div>
+        <form class="contact-form" data-contact-form data-form-name="contact_main">
+          <div class="contact-form__row">
+            <label class="contact-form__field">
+              <span>Name</span>
+              <input type="text" name="name" placeholder="Your name" required>
+            </label>
+            <label class="contact-form__field">
+              <span>Email</span>
+              <input type="email" name="email" placeholder="you@example.com" required>
+            </label>
+          </div>
+          <div class="contact-form__row">
+            <label class="contact-form__field">
+              <span>Phone (optional)</span>
+              <input type="tel" name="phone" placeholder="(555) 123-4567">
+            </label>
+            <label class="contact-form__field">
+              <span>Order # (optional)</span>
+              <input type="text" name="order_number" placeholder="If reaching about an order">
+            </label>
+          </div>
+          <label class="contact-form__field contact-form__field--wide">
+            <span>How can we help?</span>
+            <textarea name="message" rows="4" placeholder="Tell us what you need" required></textarea>
+          </label>
+          <div class="contact-form__actions">
+            <button type="submit" class="btn contact-form__submit">Send message</button>
+            <p class="contact__status" data-contact-status role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="contact-banner">
+      <img src="assets/images/main/home-banner-runner-full.jpg" alt="Purvanti lifestyle">
+      <div class="contact-banner__overlay">
+        <div class="contact-banner__text">
+          <p class="eyebrow">Team Purvanti</p>
+          <h2>Thoughtful support from real people</h2>
+          <p>We’re committed to fast answers on wellness guidance, ingredients, shipping, and wholesale inquiries.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="assets/main.js"></script>
+  <script src="assets/products.js"></script>
+</body>
+</html>

@@ -63,6 +63,11 @@
             "section": "hero",
             "pre_header": "The Future of Wellness",
             "header": "Gear up for great health",
+            "video_desktop": "assets/videos/hero-desktop.mp4",
+            "video_desktop_still": "assets/videos/hero-desktop.jpg",
+            "video_mobile": "assets/videos/hero-mobile.mp4",
+            "video_mobile_still": "assets/videos/hero-mobile.jpg",
+
             "video": [
                 "assets/videos/hero-desktop.mp4",
                 "assets/videos/hero-mobile.mp4"
@@ -176,7 +181,8 @@
             "header": "Sustainable solutions for a healthier life.",
             "cta_text": "Our mission",
             "cta_href": "/pages/mission",
-            "video": "assets/videos/home-banner-bg.mp4"
+            "video": "assets/videos/home-banner-bg.mp4",
+            "video_still": "assets/videos/home-banner-bg.jpg"
         },
         {
             "section": "new_arrivals",
@@ -273,7 +279,20 @@
     "journalAll": {
         "pre_header": "From the journal",
         "header": "Fresh takes on everyday wellness",
-        "image": "assets/images/main/home-banner-runner-full.jpg"
+        "image": "assets/images/main/journal-hero.jpg"
+    },
+    "contact": {
+        "hero": {
+            "pre_header": "Contact",
+            "header": "We’re here to help",
+            "subhead": "Questions about products, ingredients, or your order? Reach out and our team will respond quickly."
+        },
+        "banner_full": {
+            "pre_header": "Team Purvanti",
+            "header": "Thoughtful support from real people",
+            "subhead": "We’re committed to fast answers on wellness guidance, ingredients, shipping, and wholesale inquiries.",
+            "image": "assets/images/main/main-contact.jpg"
+        }
     },
     "about": {
         "hero": {
@@ -302,11 +321,6 @@
                 "body": "At Wellness Inc., we combine cutting-edge innovation with the power of nature to create products that truly make a difference. Trusted by countless satisfied customers, our commitment to quality and well-being has made us a leader in redefining health."
             }
         ],
-
-        "brand_statement": {
-            "title": "Empowering your health naturally",
-            "body": "At Wellness, we believe that true vitality starts from within. That's why we create high-quality, natural supplements designed to support your well-being, enhance your energy, and help you thrive every day."
-        },
 
         "letter": {
             "eyebrow": "Letter from CEO",

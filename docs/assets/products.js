@@ -201,6 +201,23 @@ function renderProductHero(hero, product) {
   if (crumbHome) crumbHome.href = `${base}`;
   if (crumbCollection) crumbCollection.href = `${base}collections/frontpage`;
 
+  let clampQty = () => 1;
+  if (qtyInput) {
+    qtyInput.value = "1";
+    clampQty = () => {
+      const val = Math.max(1, Number(qtyInput.value) || 1);
+      qtyInput.value = String(val);
+      return val;
+    };
+    qtyMinus?.addEventListener("click", () => {
+      qtyInput.value = String(Math.max(1, (Number(qtyInput.value) || 1) - 1));
+    });
+    qtyPlus?.addEventListener("click", () => {
+      qtyInput.value = String((Number(qtyInput.value) || 1) + 1);
+    });
+    qtyInput.addEventListener("change", clampQty);
+  }
+
   if (detailsWrap && detailsToggle) {
     const list = document.createElement("ul");
     (product.bullets || []).forEach((item) => {
@@ -225,6 +242,11 @@ function renderProductHero(hero, product) {
 
   if (cartBtn) {
     cartBtn.addEventListener("click", () => {
+      const qty = clampQty();
+      if (typeof addToCart === "function") {
+        addToCart(product, qty);
+        openCartDrawer?.();
+      }
       cartBtn.classList.add("is-active");
       cartBtn.textContent = "Added to bag";
       setTimeout(() => {
@@ -232,22 +254,6 @@ function renderProductHero(hero, product) {
         cartBtn.textContent = "ADD TO CART";
       }, 1200);
     });
-  }
-
-  if (qtyInput) {
-    qtyInput.value = "1";
-    const clampQty = () => {
-      const val = Math.max(1, Number(qtyInput.value) || 1);
-      qtyInput.value = String(val);
-      return val;
-    };
-    qtyMinus?.addEventListener("click", () => {
-      qtyInput.value = String(Math.max(1, (Number(qtyInput.value) || 1) - 1));
-    });
-    qtyPlus?.addEventListener("click", () => {
-      qtyInput.value = String((Number(qtyInput.value) || 1) + 1);
-    });
-    qtyInput.addEventListener("change", clampQty);
   }
 
   const media = productMediaLocal(product);
