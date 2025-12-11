@@ -4,7 +4,7 @@
         {
             "category": "Minerals & Electrolytes",
             "cta_href": "/category.html?category=minerals-electrolytes",
-            "image": "assets/images/category-minerals-electrolytes.png",
+            "image": "assets/images/main/category-minerals-electrolytes.png",
             "tagline": "Balance hydration and essential minerals.",
             "pre_header": "Essential balance",
             "video": "assets/videos/home-banner-bg.mp4"
@@ -12,7 +12,7 @@
         {
             "category": "Vitamins & Multivitamins",
             "cta_href": "/category.html?category=vitamins-multivitamins",
-            "image": "assets/images/category-vitamins-multivitamins.png",
+            "image": "assets/images/main/category-vitamins-multivitamins.png",
             "tagline": "Daily nutrients for whole-body wellness.",
             "pre_header": "Daily essentials",
             "video": "assets/videos/home-banner-bg.mp4"
@@ -20,7 +20,7 @@
         {
             "category": "Omegas & Heart Health",
             "cta_href": "/category.html?category=omegas-heart-health",
-            "image": "assets/images/category-omegas-heart-health.png",
+            "image": "assets/images/main/category-omegas-heart-health.png",
             "tagline": "Support cardiovascular and cognitive function.",
             "pre_header": "Heart & brain fuel",
             "video": "assets/videos/home-banner-bg.mp4"
@@ -28,7 +28,7 @@
         {
             "category": "Proteins & Performance",
             "cta_href": "/category.html?category=proteins-performance",
-            "image": "assets/images/category-proteins-performance.png",
+            "image": "assets/images/main/category-proteins-performance.png",
             "tagline": "Fuel recovery and strength with clean protein.",
             "pre_header": "Stronger every day",
             "video": "assets/videos/home-banner-bg.mp4"
@@ -36,7 +36,7 @@
         {
             "category": "Gut & Digestive Health",
             "cta_href": "/category.html?category=gut-digestive-health",
-            "image": "assets/images/category-gut-digestive-health.png",
+            "image": "assets/images/main/category-gut-digestive-health.png",
             "tagline": "Support digestion and microbiome balance.",
             "pre_header": "Happy gut",
             "video": "assets/videos/home-banner-bg.mp4"
@@ -44,7 +44,7 @@
         {
             "category": "Superfoods & Mushrooms",
             "cta_href": "/category.html?category=superfoods-mushrooms",
-            "image": "assets/images/category-superfoods-mushrooms.png",
+            "image": "assets/images/main/category-superfoods-mushrooms.png",
             "tagline": "Antioxidant-rich blends for everyday vitality.",
             "pre_header": "Superpowered blends",
             "video": "assets/videos/home-banner-bg.mp4"
@@ -52,14 +52,12 @@
         {
             "category": "Stress & Sleep",
             "cta_href": "/category.html?category=stress-sleep",
-            "image": "assets/images/category-stress-sleep.png",
+            "image": "assets/images/main/category-stress-sleep.png",
             "tagline": "Calm the mind and support restful sleep.",
             "pre_header": "Rest & unwind",
             "video": "assets/videos/home-banner-bg.mp4"
         }
     ],
-
-    
     "home": [
         {
             "section": "hero",
@@ -70,7 +68,7 @@
                 "assets/videos/hero-mobile.mp4"
             ],
             "images": [
-                "assets/images/home-hero-full.jpg"
+                "assets/images/main/home-hero-full.jpg"
             ]
         },
         {
@@ -91,8 +89,8 @@
             "section": "banner_full",
             "header": "Your wellness, our priority!",
             "media": {
-                "desktop": "assets/images/home-banner-runner-full.jpg",
-                "mobile": "assets/images/home-banner-runner-full.jpg"
+                "desktop": "assets/images/main/home-banner-runner-full.jpg",
+                "mobile": "assets/images/main/home-banner-runner-full.jpg"
             },
             "cta_text": "Boost Energy",
             "cta_href": "/collections/frontpage"
@@ -103,12 +101,12 @@
                 {
                     "headline": "Boost Your Energy Levels!",
                     "product_id": "pr290626",
-                    "lifestyle_image": "assets/images/home-lifestyle-c1a-full.jpg"
+                    "lifestyle_image": "assets/images/main/home-lifestyle-c1a-full.jpg"
                 },
                 {
                     "headline": "Relax Naturally, Live Fully!",
                     "product_id": "pr178380",
-                    "lifestyle_image": "assets/images/home-lifestyle-c1a-full.jpg"
+                    "lifestyle_image": "assets/images/main/home-lifestyle-c1a-full.jpg"
                 }
             ]
         },
@@ -118,32 +116,32 @@
             "items": [
                 {
                     "video": "assets/videos/reels-1.mp4",
-                    "poster": "assets/images/reels-1.jpg",
+                    "poster": "assets/images/main/reels-1.jpg",
                     "product_id": "pr188026"
                 },
                 {
                     "video": "assets/videos/reels-2.mp4",
-                    "poster": "assets/images/reels-2.jpg",
+                    "poster": "assets/images/main/reels-2.jpg",
                     "product_id": "pr136188"
                 },
                 {
                     "video": "assets/videos/reels-3.mp4",
-                    "poster": "assets/images/reels-3.jpg",
+                    "poster": "assets/images/main/reels-3.jpg",
                     "product_id": "pr253894"
                 },
                 {
                     "video": "assets/videos/reels-4.mp4",
-                    "poster": "assets/images/reels-4.jpg",
+                    "poster": "assets/images/main/reels-4.jpg",
                     "product_id": "pr178380"
                 },
                 {
                     "video": "assets/videos/reels-5.mp4",
-                    "poster": "assets/images/reels-5.jpg",
+                    "poster": "assets/images/main/reels-5.jpg",
                     "product_id": "pr290626"
                 },
                 {
                     "video": "assets/videos/reels-6.mp4",
-                    "poster": "assets/images/reels-6.jpg",
+                    "poster": "assets/images/main/reels-6.jpg",
                     "product_id": "pr160265"
                 }
             ]
@@ -170,29 +168,7 @@
         {
             "section": "blog_feature",
             "title": "Latest From The Journal",
-            "posts": [
-                {
-                    "date": "January 20, 2025",
-                    "title": "The Power of Omega-3: Why You Need It In Your Diet",
-                    "excerpt": "Omega-3 fatty acids are essential fats that play a critical role in maintaining overall health. Unlike some nutrients that your body can produce, Omega-3s must come from your diet or...",
-                    "image": "assets/images/blog-post-1.jpg",
-                    "href": "/blog/omega-3-benefits"
-                },
-                {
-                    "date": "January 19, 2025",
-                    "title": "Feel Better Every Day: Supplements for a Happier, Healthier You",
-                    "excerpt": "Life can be demanding, and feeling your best every day can sometimes feel like a challenge. But what if there was a simple way to boost your energy, mood, and...",
-                    "image": "assets/images/blog-post-2.jpg",
-                    "href": "/blog/feel-better-every-day"
-                },
-                {
-                    "date": "January 19, 2025",
-                    "title": "The Science Behind Quality: Inside Our Supplement Laboratory",
-                    "excerpt": "When it comes to supplements, quality is everything. That's why we’ve made it our mission to ensure every product you purchase meets the highest standards of safety and efficacy. At...",
-                    "image": "assets/images/blog-post-3.jpg",
-                    "href": "/blog/inside-our-lab"
-                }
-            ]
+            "posts": []
         },
         {
             "section": "mission_video",
@@ -221,17 +197,17 @@
                 {
                     "quote": "Finally, a product that delivers on its promises. My skin glows, and I feel amazing inside and out!",
                     "author": "Martin B.",
-                    "image": "assets/images/home-reviews-1.jpg"
+                    "image": "assets/images/main/home-reviews-1.jpg"
                 },
                 {
                     "quote": "These supplements fit seamlessly into my routine and keep my energy steady all day.",
                     "author": "Priya K.",
-                    "image": "assets/images/home-reviews-2.jpg"
+                    "image": "assets/images/main/home-reviews-2.jpg"
                 },
                 {
                     "quote": "Quality I can trust and results I can feel. I’m a fan for life.",
                     "author": "Jason L.",
-                    "image": "assets/images/home-reviews-3.jpg"
+                    "image": "assets/images/main/home-reviews-3.jpg"
                 }
             ]
         }
@@ -241,8 +217,8 @@
             "section": "banner_full",
             "header": "Your health in trusted hands",
             "media": {
-                "desktop": "assets/images/product-banner-runner-full.jpg",
-                "mobile": "assets/images/product-banner-runner-mobile.jpg"
+                "desktop": "assets/images/main/product-banner-runner-full.jpg",
+                "mobile": "assets/images/main/product-banner-runner-mobile.jpg"
             },
             "cta_text": "Our Mission",
             "cta_href": "/our-mission"
@@ -277,13 +253,13 @@
                     "title": "Immunity Boost",
                     "cta_text": "Check Now",
                     "cta_href": "/collections/frontpage",
-                    "image": "assets/images/product-50-50-a.jpg"
+                    "image": "assets/images/main/product-50-50-a.jpg"
                 },
                 {
                     "title": "Energy Boost",
                     "cta_text": "Check Now",
                     "cta_href": "/collections/frontpage",
-                    "image": "assets/images/product-50-50-b.jpg"
+                    "image": "assets/images/main/product-50-50-b.jpg"
                 }
             ]
         },
@@ -291,7 +267,17 @@
             "section": "product_reviews",
             "pre_header": "What Our Customers Say",
             "headline": "+10000 Happy Customers",
-            "lifestyle_image": "assets/images/product-50-50-b.jpg"
+            "lifestyle_image": "assets/images/main/product-50-50-b.jpg"
         }
-    ]
+    ],
+    "journal": {
+        "pre_header": "From the journal",
+        "header": "Fresh takes on everyday wellness",
+        "image": "assets/images/main/home-banner-runner-full.jpg"
+    },
+    "journalAll": {
+        "pre_header": "From the journal",
+        "header": "Fresh takes on everyday wellness",
+        "image": "assets/images/main/home-banner-runner-full.jpg"
+    }
 }

@@ -1,5 +1,6 @@
 const PRODUCTS_PATH = "assets/data/products_all.json";
 const CONTENT_PATH = "assets/data/content.json";
+const POSTS_PATH = "assets/data/posts.json";
 
 const sectionBuilders = {
   hero: renderHero,
@@ -17,9 +18,18 @@ const sectionBuilders = {
 
 document.addEventListener("DOMContentLoaded", () => {
   rewriteCategoryAnchors();
+  rewriteBlogAnchors();
   const pageType = document.body.dataset.page;
   if (pageType === "category") {
     hydrateCategoryPage();
+    return;
+  }
+  if (pageType === "journal") {
+    hydrateBlogPage();
+    return;
+  }
+  if (pageType === "journal-list") {
+    hydrateJournalListPage();
     return;
   }
 
@@ -32,21 +42,26 @@ async function hydratePage(app) {
   const loadingNote = document.getElementById("loading-note");
 
   try {
-    const [content, products] = await Promise.all([
+    const [content, products, posts] = await Promise.all([
       fetchJSON(CONTENT_PATH),
       fetchJSON(PRODUCTS_PATH),
+      fetchJSON(POSTS_PATH),
     ]);
 
     const homeSections = Array.isArray(content?.home) ? content.home : [];
     const categories = content?.categories || [];
     const productMap = mapProducts(products?.products || []);
+    const preparedPosts = preparePosts(posts || []);
+    const latestPosts = preparedPosts.slice(0, 3);
 
     renderChrome(productMap, categories);
 
     homeSections.forEach((block) => {
       const builder = sectionBuilders[block.section];
       if (!builder) return;
-      const node = builder(block, productMap);
+    const dataForBlock =
+      block.section === "blog_feature" ? { ...block, posts: latestPosts } : block;
+    const node = builder(dataForBlock, productMap, preparedPosts);
       if (node) app.appendChild(node);
     });
 
@@ -85,6 +100,81 @@ function uniqueProducts(productMap) {
   return Array.from(new Set(productMap.values()));
 }
 
+function preparePosts(list) {
+  const today = new Date();
+  const normalized = Array.isArray(list) ? list : [];
+  return normalized
+    .map((post) => {
+      const month = Number(post.month) || 1;
+      const day = Number(post.day) || 1;
+      let year = today.getFullYear();
+      let date = new Date(year, month - 1, day);
+      if (date > today) {
+        year -= 1;
+        date = new Date(year, month - 1, day);
+      }
+      const dateStr = formatDate(date);
+      return {
+        ...post,
+        date: dateStr,
+        isoDate: date.toISOString(),
+        href: blogPageHref(post),
+      };
+    })
+    .sort((a, b) => new Date(b.isoDate) - new Date(a.isoDate));
+}
+
+function formatDate(date) {
+  return date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+function formatRichText(text) {
+  if (!text) return "";
+  return text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+}
+
+function buildBlogCard(post) {
+  const card = document.createElement("article");
+  card.className = "blog-card";
+
+  const media = document.createElement("div");
+  media.className = "blog-card__media";
+  const img = document.createElement("img");
+  img.src = resolveAssetPath(post.image || post.image_full || post.image_small || "");
+  img.alt = post.title || "Blog image";
+  media.appendChild(img);
+
+  const meta = document.createElement("p");
+  meta.className = "blog-card__meta";
+  meta.textContent = post.date || "";
+
+  const h4 = document.createElement("h4");
+  h4.className = "blog-card__title";
+  h4.textContent = post.title || "";
+
+  const excerpt = document.createElement("p");
+  excerpt.className = "blog-card__excerpt";
+  excerpt.textContent = post.excerpt || "";
+
+  const link = document.createElement("a");
+  link.className = "blog-card__link";
+  link.href = blogPageHref(post);
+  link.dataset.blogSlug = post.slug || "";
+  link.textContent = "Read more";
+  attachBlogLinkHandlers(link, post.slug);
+
+  card.append(media, meta, h4, excerpt, link);
+  return card;
+}
+
+function buildBlogHref(post) {
+  return blogPageHref(post);
+}
+
 function resolveAssetPath(path) {
   if (!path) return "";
   if (/^https?:\/\//i.test(path) || path.startsWith("/")) return path;
@@ -98,6 +188,15 @@ function getBasePath() {
   }
   if (path.includes("product.html")) {
     return path.replace(/product\.html.*/i, "");
+  }
+  if (path.includes("/journal/")) {
+    return path.split("/journal/")[0] + "/";
+  }
+  if (path.includes("journal.html")) {
+    return path.replace(/journal\.html.*/i, "");
+  }
+  if (path.endsWith("/journal")) {
+    return path.replace(/journal\/?$/, "");
   }
   const lastSlash = path.lastIndexOf("/");
   if (lastSlash === -1) return "/";
@@ -150,6 +249,129 @@ async function hydrateCategoryPage() {
     if (listTarget) {
       listTarget.textContent = "We couldn't load this category right now.";
     }
+  } finally {
+    loadingNote?.remove();
+  }
+}
+
+async function hydrateBlogPage() {
+  const loadingNote = document.getElementById("loading-note");
+  const heroImg = document.getElementById("blog-hero-image");
+  const metaEl = document.getElementById("blog-meta");
+  const titleEl = document.getElementById("blog-title");
+  const bodyEl = document.getElementById("blog-body");
+  const cardList = document.getElementById("blog-related");
+
+  try {
+    const [content, products, postsRaw] = await Promise.all([
+      fetchJSON(CONTENT_PATH),
+      fetchJSON(PRODUCTS_PATH),
+      fetchJSON(POSTS_PATH),
+    ]);
+
+    const categories = content?.categories || [];
+    const productMap = mapProducts(products?.products || []);
+    const posts = preparePosts(postsRaw || []);
+    renderChrome(productMap, categories);
+
+    const targetSlug =
+      getBlogSlugFromLocation() || getStoredBlogSlug();
+    const current = posts.find((p) => p.slug === targetSlug) || posts[0] || null;
+    if (!current) throw new Error("No posts available");
+
+    if (heroImg) {
+      heroImg.src = resolveAssetPath(current.image_full || current.image_small || "");
+      heroImg.alt = current.title || "Blog hero";
+    }
+    if (metaEl) metaEl.textContent = `Posted by ${current.author || "Team Purvanti"} on ${current.date}`;
+    if (titleEl) titleEl.innerHTML = formatRichText(current.title) || "";
+    const article = document.getElementById("blog-article");
+    if (article) article.hidden = false;
+
+    if (bodyEl) {
+      bodyEl.innerHTML = "";
+      (current.body || []).forEach((para) => {
+        const p = document.createElement("p");
+        p.innerHTML = formatRichText(para);
+        bodyEl.appendChild(p);
+      });
+    }
+
+    if (cardList) {
+      cardList.innerHTML = "";
+      posts
+        .filter((p) => p.slug !== current.slug)
+        .slice(0, 3)
+        .forEach((post) => {
+          const card = document.createElement("article");
+          card.className = "blog-mini";
+
+          const img = document.createElement("img");
+          img.src = resolveAssetPath(post.image_small || post.image_full || "");
+          img.alt = post.title || "Blog image";
+
+          const meta = document.createElement("p");
+          meta.className = "blog-mini__meta";
+          meta.textContent = post.date || "";
+
+          const h3 = document.createElement("h3");
+          h3.className = "blog-mini__title";
+          h3.innerHTML = formatRichText(post.title) || "";
+
+          const link = document.createElement("a");
+          link.className = "blog-mini__link";
+          link.href = blogPageHref(post);
+          link.dataset.blogSlug = post.slug || "";
+          link.textContent = "Read more";
+          attachBlogLinkHandlers(link, post.slug);
+
+          card.append(img, meta, h3, link);
+          cardList.appendChild(card);
+        });
+    }
+
+    updateBlogPrettyPath(current);
+  } catch (error) {
+    console.error(error);
+    if (titleEl) titleEl.textContent = "We couldn't load this article right now.";
+  } finally {
+    loadingNote?.remove();
+  }
+}
+
+async function hydrateJournalListPage() {
+  const loadingNote = document.getElementById("loading-note");
+  const hero = document.getElementById("journal-hero");
+  const eyebrowEl = document.querySelector(".journal-intro__eyebrow");
+  const titleEl = document.querySelector(".journal-intro__title");
+  const grid = document.getElementById("journal-grid");
+
+  try {
+    const [content, products, postsRaw] = await Promise.all([
+      fetchJSON(CONTENT_PATH),
+      fetchJSON(PRODUCTS_PATH),
+      fetchJSON(POSTS_PATH),
+    ]);
+
+    const categories = content?.categories || [];
+    const productMap = mapProducts(products?.products || []);
+    const posts = preparePosts(postsRaw || []);
+    renderChrome(productMap, categories);
+
+    const heroData = content?.journalAll || content?.journal || {};
+    renderJournalHero(hero, heroData);
+    if (eyebrowEl) eyebrowEl.textContent = heroData.pre_header || "From the journal";
+    if (titleEl) titleEl.textContent = heroData.header || "Fresh takes on everyday wellness";
+
+    if (grid) {
+      grid.innerHTML = "";
+      posts.forEach((post) => {
+        grid.appendChild(buildBlogCard(post));
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    if (grid) grid.textContent = "We couldn't load the journal right now.";
   } finally {
     loadingNote?.remove();
   }
@@ -228,11 +450,31 @@ function rewriteCategoryAnchors() {
   });
 }
 
+function rewriteBlogAnchors() {
+  document.querySelectorAll('a[href*="journal"]').forEach((anchor) => {
+    const explicit = anchor.dataset.blogSlug || "";
+    const href = anchor.getAttribute("href") || "";
+    const params = new URLSearchParams(href.split("?")[1] || "");
+    const slug = explicit || params.get("slug") || extractBlogSlug(href) || "";
+    if (!slug) return;
+    attachBlogLinkHandlers(anchor, slug);
+  });
+}
+
 function getStoredCategorySlug() {
   try {
     return sessionStorage.getItem("purvanti:lastCategory");
   } catch (error) {
     console.warn("Could not read stored category slug", error);
+    return null;
+  }
+}
+
+function getStoredBlogSlug() {
+  try {
+    return sessionStorage.getItem("purvanti:lastBlogSlug");
+  } catch (error) {
+    console.warn("Could not read stored blog slug", error);
     return null;
   }
 }
@@ -247,6 +489,81 @@ function updateCategoryPrettyPath(category) {
   if (current !== target) {
     window.history.replaceState({}, "", target);
   }
+}
+
+function updateBlogPrettyPath(post) {
+  if (!post?.slug) return;
+  const base = getBasePath().replace(/\/$/, "");
+  const target = `${base}/journal/${post.slug}`;
+  const current = `${window.location.pathname}${window.location.search}`;
+  if (current !== target) {
+    window.history.replaceState({}, "", target);
+  }
+  try {
+    sessionStorage.setItem("purvanti:lastBlogSlug", post.slug);
+  } catch (error) {
+    console.warn("Could not store blog slug", error);
+  }
+}
+
+function attachBlogLinkHandlers(anchor, slug) {
+  const normalizedSlug = slug || anchor.dataset.blogSlug || "";
+  if (!normalizedSlug) return;
+  const href = blogPageHref({ slug: normalizedSlug });
+  anchor.href = href;
+  anchor.dataset.blogSlug = normalizedSlug;
+
+  const storeSlug = () => {
+    try {
+      sessionStorage.setItem("purvanti:lastBlogSlug", normalizedSlug);
+    } catch (error) {
+      console.warn("Could not store blog slug", error);
+    }
+  };
+
+  const ensureHref = () => {
+    anchor.href = buildBlogHref({ slug: normalizedSlug });
+  };
+
+  anchor.addEventListener("click", () => {
+    storeSlug();
+    ensureHref();
+  });
+  anchor.addEventListener("auxclick", () => {
+    storeSlug();
+    ensureHref();
+  });
+  anchor.addEventListener("mousedown", storeSlug);
+}
+
+function extractBlogSlug(href) {
+  if (!href) return "";
+  const fromHash = href.includes("#")
+    ? new URLSearchParams(href.split("#")[1]).get("slug")
+    : null;
+  if (fromHash) return fromHash;
+  const params = new URLSearchParams(href.split("?")[1] || "");
+  const fromQuery = params.get("slug");
+  if (fromQuery) return fromQuery;
+  const match = href.match(/journal\/([^/?#]+)/i);
+  return match ? match[1] : "";
+}
+
+function getBlogSlugFromLocation() {
+  const params = new URLSearchParams(window.location.search);
+  const fromQuery = params.get("slug");
+  if (fromQuery) return fromQuery;
+
+  if (window.location.hash) {
+    const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+    const fromHash = hashParams.get("slug");
+    if (fromHash) return fromHash;
+  }
+
+  const match = window.location.pathname.match(/\/journal\/([^/?#]+)/i);
+  if (match) return match[1];
+
+  return null;
 }
 
 function renderHero(data) {
@@ -470,6 +787,12 @@ function productPageHref(product) {
   return product?.url || "#";
 }
 
+function blogPageHref(post) {
+  const slug = post?.slug;
+  if (slug) return `${getBasePath()}journal/${slug}`;
+  return "/journal";
+}
+
 function formatPrice(value) {
   const amount = Number(value);
   if (!Number.isFinite(amount)) return "";
@@ -493,7 +816,7 @@ function renderCategoryHero(target, category) {
   video.loop = true;
   video.muted = true;
   video.playsInline = true;
-  video.poster = resolveAssetPath(category.image || "assets/images/home-hero-full.jpg");
+  video.poster = resolveAssetPath(category.image || "assets/images/main/home-hero-full.jpg");
   const source = document.createElement("source");
   source.src = resolveAssetPath(category.video || "assets/videos/home-banner-bg.mp4");
   source.type = "video/mp4";
@@ -566,6 +889,26 @@ function renderCategoryProductCard(product) {
   body.append(name, meta);
   card.append(media, body);
   return card;
+}
+
+function renderJournalHero(target, hero) {
+  if (!target) return;
+  target.hidden = false;
+  target.innerHTML = "";
+
+  const wrap = document.createElement("div");
+  wrap.className = "journal-hero__inner";
+
+  const img = document.createElement("img");
+  img.className = "journal-hero__image";
+  img.src = resolveAssetPath(hero.image || "assets/images/main/home-banner-runner-full.jpg");
+  img.alt = hero.header || "Journal banner";
+
+  const overlay = document.createElement("div");
+  overlay.className = "journal-hero__overlay";
+
+  wrap.append(img, overlay);
+  target.appendChild(wrap);
 }
 
 function renderLifestyleCarousel(data, productMap) {
@@ -707,10 +1050,11 @@ function renderVideoReels(data, productMap) {
   const dots = document.createElement("div");
   dots.className = "video-reels__dots";
 
-  const slides = items.map((item, idx) => {
+  function buildReelSlide(item, idx, includeDot = true) {
     const product = productMap.get(item.product_id) || {};
     const slide = document.createElement("div");
     slide.className = "video-reels__slide";
+    slide.dataset.index = idx;
 
     const media = document.createElement("div");
     media.className = "video-reels__media";
@@ -770,15 +1114,27 @@ function renderVideoReels(data, productMap) {
 
     slide.addEventListener("click", () => setActive(idx));
 
-    const dot = document.createElement("button");
-    dot.type = "button";
-    dot.className = "video-reels__dot";
-    dot.addEventListener("click", () => setActive(idx));
-    dots.appendChild(dot);
+    if (includeDot) {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "video-reels__dot";
+      dot.addEventListener("click", () => setActive(idx));
+      dots.appendChild(dot);
+      return { slide, video, playBtn, muteBtn, dot };
+    }
 
-    track.appendChild(slide);
-    return { slide, video, playBtn, muteBtn, dot };
-  });
+    return { slide, video, playBtn, muteBtn, dot: null };
+  }
+
+  const slides = items.map((item, idx) => buildReelSlide(item, idx, true));
+  const cloneLeft = items.map((item, idx) => buildReelSlide(item, idx, false));
+  const cloneRight = items.map((item, idx) => buildReelSlide(item, idx, false));
+
+  cloneLeft.forEach(({ slide }) => track.appendChild(slide));
+  slides.forEach(({ slide }) => track.appendChild(slide));
+  cloneRight.forEach(({ slide }) => track.appendChild(slide));
+
+  const allSlides = [...cloneLeft, ...slides, ...cloneRight];
 
   function updateTrackPadding() {
     const first = slides[0]?.slide;
@@ -850,7 +1206,9 @@ function renderVideoReels(data, productMap) {
   }
 
   function centerSlide(slide) {
-    const targetOffset = slide.offsetLeft + slide.offsetWidth / 2 - viewport.clientWidth / 2;
+    const indexInTrack = slides.length + slides.findIndex((s) => s.slide === slide);
+    const target = allSlides[indexInTrack]?.slide || slide;
+    const targetOffset = target.offsetLeft + target.offsetWidth / 2 - viewport.clientWidth / 2;
     track.style.transform = `translateX(${-targetOffset}px)`;
   }
 
@@ -999,38 +1357,11 @@ function renderBlogFeature(data) {
   grid.className = "blog__grid";
 
   posts.forEach((post) => {
-    const card = document.createElement("article");
-    card.className = "blog-card";
-
-    const media = document.createElement("div");
-    media.className = "blog-card__media";
-    const img = document.createElement("img");
-    img.src = post.image || "";
-    img.alt = post.title || "Blog image";
-    media.appendChild(img);
-
-    const meta = document.createElement("p");
-    meta.className = "blog-card__meta";
-    meta.textContent = post.date || "";
-
-    const h4 = document.createElement("h4");
-    h4.className = "blog-card__title";
-    h4.textContent = post.title || "";
-
-    const excerpt = document.createElement("p");
-    excerpt.className = "blog-card__excerpt";
-    excerpt.textContent = post.excerpt || "";
-
-    const link = document.createElement("a");
-    link.className = "blog-card__link";
-    link.href = post.href || "#";
-    link.textContent = "Read more";
-
-    card.append(media, meta, h4, excerpt, link);
-    grid.appendChild(card);
+    grid.appendChild(buildBlogCard(post));
   });
 
   section.append(head, grid);
+  rewriteBlogAnchors();
   return section;
 }
 
@@ -1232,7 +1563,7 @@ function renderHeader(productMap, categories) {
   brand.className = "header__brand";
   brand.href = "/";
   const logo = document.createElement("img");
-  logo.src = `${base}assets/svgs/logo-black.svg`;
+  logo.src = `${base}assets/icons/logo-black.svg`;
   logo.alt = "Purvanti";
   brand.appendChild(logo);
   bar.appendChild(brand);
@@ -1243,7 +1574,7 @@ function renderHeader(productMap, categories) {
   const navItems = [
     { label: "Shop", href: "/collections/frontpage", dropdown: true, categories },
     { label: "About", href: "/pages/about" },
-    { label: "Blog", href: "/blog" },
+    { label: "Journal", href: "/journal-all.html" },
     { label: "Contact", href: "/pages/contact" },
   ];
 
@@ -1269,9 +1600,9 @@ function renderHeader(productMap, categories) {
   const actions = document.createElement("div");
   actions.className = "header__actions";
 
-  const searchBtn = iconButton("Search", `${base}assets/svgs/nav-search.svg`);
-  const accountBtn = iconButton("Account", `${base}assets/svgs/nav-person.svg`);
-  const cartBtn = iconButton("Cart", `${base}assets/svgs/nav-cart.svg`);
+  const searchBtn = iconButton("Search", `${base}assets/icons/nav-search.svg`);
+  const accountBtn = iconButton("Account", `${base}assets/icons/nav-person.svg`);
+  const cartBtn = iconButton("Cart", `${base}assets/icons/nav-cart.svg`);
   actions.append(searchBtn, accountBtn, cartBtn);
 
   const menuToggle = document.createElement("button");
@@ -1368,11 +1699,11 @@ function renderFooter(productMap) {
   const payments = document.createElement("div");
   payments.className = "footer__payments";
   [
-    `${base}assets/svgs/payment-visa.svg`,
-    `${base}assets/svgs/payment-mastercard.svg`,
-    `${base}assets/svgs/payment-amex.svg`,
-    `${base}assets/svgs/payment-apple.svg`,
-    `${base}assets/svgs/payment-discover.svg`,
+    `${base}assets/icons/payment-visa.svg`,
+    `${base}assets/icons/payment-mastercard.svg`,
+    `${base}assets/icons/payment-amex.svg`,
+    `${base}assets/icons/payment-apple.svg`,
+    `${base}assets/icons/payment-discover.svg`,
   ].forEach((src) => {
     const badge = document.createElement("div");
     badge.className = "footer__payment";
@@ -1387,7 +1718,7 @@ function renderFooter(productMap) {
   const brandMark = document.createElement("div");
   brandMark.className = "footer__brandmark";
   const logoWhite = document.createElement("img");
-  logoWhite.src = `${base}assets/svgs/logo-bottom.svg`;
+  logoWhite.src = `${base}assets/icons/logo-bottom.svg`;
   logoWhite.alt = "Purvanti";
   brandMark.appendChild(logoWhite);
 
