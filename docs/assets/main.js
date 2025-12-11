@@ -323,11 +323,110 @@ function ensureCartDrawer() {
   const subtotal = document.createElement("span");
   subtotal.className = "cart__subtotal";
   summary.append(label, subtotal);
-  const checkout = document.createElement("a");
+  const checkout = document.createElement("button");
   checkout.className = "cart__checkout";
-  checkout.href = "#checkout";
   checkout.textContent = "Checkout";
-  footer.append(summary, checkout);
+  checkout.type = "button";
+
+  const account = document.createElement("div");
+  account.className = "cart__account";
+  account.innerHTML = `
+    <label class="cart__account-field">
+      <span>Email</span>
+      <input type="email" name="account_email" placeholder="you@example.com">
+    </label>
+    <label class="cart__account-field">
+      <span>Password</span>
+      <input type="password" name="account_password" placeholder="Your password">
+    </label>
+    <button type="button" class="cart__login">Login</button>
+    <button type="button" class="cart__signup">Sign Up</button>
+  `;
+
+  checkout.addEventListener("click", (e) => {
+    e.preventDefault();
+    const isOpen = account.classList.toggle("is-open");
+    account.hidden = !isOpen;
+  });
+
+  const loginBtn = account.querySelector(".cart__login");
+  const signupToggle = account.querySelector(".cart__signup");
+  const emailInput = account.querySelector('input[name="account_email"]');
+  const passwordField = account.querySelector('input[name="account_password"]')?.closest(".cart__account-field");
+  const passwordInput = account.querySelector('input[name="account_password"]');
+
+  account.addEventListener("click", (event) => {
+    const signupBtn = event.target.closest(".cart__signup");
+    if (!signupBtn) return;
+    event.preventDefault();
+    if (!signupBtn.classList.contains("is-signup")) {
+      signupBtn.classList.add("is-signup");
+      signupBtn.textContent = "Back to Login";
+      if (passwordField) {
+        passwordField.hidden = true;
+        passwordField.classList.add("is-hidden");
+      }
+      if (loginBtn) loginBtn.textContent = "Get Confirmation Code";
+    } else {
+      signupBtn.classList.remove("is-signup");
+      signupBtn.textContent = "Sign Up";
+      if (passwordField) {
+        passwordField.hidden = false;
+        passwordField.classList.remove("is-hidden");
+      }
+      if (loginBtn) loginBtn.textContent = "Login";
+    }
+  });
+
+  if (loginBtn) {
+    loginBtn.addEventListener("click", async () => {
+      const mode = signupToggle?.classList.contains("is-signup") ? "purvanti_signup" : "purvanti_login";
+      const emailVal = emailInput?.value?.trim();
+      const passwordVal = passwordInput?.value?.trim();
+
+      const clearErrors = () => {
+        emailInput?.classList.remove("is-error");
+        passwordInput?.classList.remove("is-error");
+      };
+      clearErrors();
+
+      if (!emailVal) {
+        emailInput?.classList.add("is-error");
+        emailInput?.focus();
+        return;
+      }
+      if (mode === "purvanti_login" && !passwordVal) {
+        passwordInput?.classList.add("is-error");
+        passwordInput?.focus();
+        return;
+      }
+
+      loginBtn.disabled = true;
+      const defaultText = loginBtn.textContent || "Submit";
+      loginBtn.textContent = mode === "purvanti_signup" ? "Sending..." : "Sending...";
+      try {
+        const formData = new FormData();
+        formData.append("account_email", emailVal);
+        if (mode === "purvanti_login" && passwordVal) {
+          formData.append("account_password", passwordVal);
+        }
+        const payload = buildFormPayload(account, formData);
+        const res = await recordFormSubmission(mode, payload);
+        if (res?.ok === false) {
+          throw new Error(res?.error || "Submission failed");
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        loginBtn.disabled = false;
+        loginBtn.textContent = mode === "purvanti_signup" ? "Get Confirmation Code" : "Login";
+      }
+    });
+  }
+
+  account.hidden = true;
+
+  footer.append(summary, checkout, account);
 
   drawer.append(head, list, empty, footer);
   overlay.append(backdrop, drawer);
@@ -2833,15 +2932,13 @@ function renderHeader(productMap, categories) {
   const actions = document.createElement("div");
   actions.className = "header__actions";
 
-  const searchBtn = iconButton("Search", `${base}assets/icons/nav-search.svg`);
-  const accountBtn = iconButton("Account", `${base}assets/icons/nav-person.svg`);
   const cartBtn = iconButton("Cart", `${base}assets/icons/nav-cart.svg`);
   cartBtn.dataset.cartTrigger = "true";
   const cartBadge = document.createElement("span");
   cartBadge.className = "header__cart-badge";
   cartBadge.hidden = true;
   cartBtn.appendChild(cartBadge);
-  actions.append(searchBtn, accountBtn, cartBtn);
+  actions.append(cartBtn);
 
   const menuToggle = document.createElement("button");
   menuToggle.className = "header__icon-btn header__menu-toggle";

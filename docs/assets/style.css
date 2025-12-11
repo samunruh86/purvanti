@@ -2368,7 +2368,7 @@ body[data-page="policy"] h2 {
 
 .header__cart-badge {
   position: absolute;
-  top: -6px;
+  top: -3px;
   right: -6px;
   min-width: 18px;
   padding: 2px 6px;
@@ -3942,6 +3942,86 @@ body[data-page="policy"] h2 {
 .cart__checkout.is-disabled {
   opacity: 0.5;
   pointer-events: none;
+}
+
+.cart__account {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 220ms ease, opacity 200ms ease, transform 200ms ease;
+  display: grid;
+  gap: 10px;
+  transform: translateY(-6px);
+}
+
+.cart__account.is-open {
+  max-height: 320px;
+  opacity: 1;
+  transform: translateY(0);
+  margin-top: 6px;
+}
+
+.cart__account-field {
+  display: grid;
+  gap: 6px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.cart__account-field span {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.cart__account-field input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #d4d7dd;
+  background: #ffffff;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.cart__account-field input.is-error {
+  border-color: #d14343;
+}
+
+.cart__account-field.is-hidden {
+  display: none;
+}
+
+.cart__login {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 1px solid #111;
+  background: #fff;
+  color: #111;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 140ms ease, background-color 140ms ease, color 140ms ease;
+}
+
+.cart__login:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  background: #f6f6f6;
+}
+
+.cart__signup {
+  background: none;
+  border: none;
+  color: #111;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 700;
+  justify-self: center;
+  padding-bottom: 10px;
 }
 
 .cart-line {
