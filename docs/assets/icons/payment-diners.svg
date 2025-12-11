@@ -1,0 +1,8 @@
+<svg width="72" height="36" viewBox="0 0 72 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="72" height="36" rx="4" fill="white"/>
+  <rect x="10" y="6" width="52" height="24" rx="12" fill="#0A6ECB" opacity="0.15"/>
+  <circle cx="26" cy="18" r="10" fill="#0A6ECB"/>
+  <circle cx="26" cy="18" r="6" fill="white"/>
+  <path d="M22 12.5h5.5c4 0 6.5 2.7 6.5 5.6 0 3.4-2.6 5.4-5.8 5.4H22v-11z" fill="#0A6ECB"/>
+  <text x="42" y="21" fill="#0A6ECB" font-family="Arial, sans-serif" font-size="10" font-weight="700">Diners</text>
+</svg>

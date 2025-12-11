@@ -3,6 +3,7 @@ const CONTENT_PATH = "assets/data/content.json";
 const POSTS_PATH = "assets/data/posts.json";
 const CART_STORAGE_KEY = "purvanti:cart";
 const FORM_ENDPOINT = "https://trigger-2gb-616502391258.us-central1.run.app";
+const GA_MEASUREMENT_ID = "G-3P4ZR2BW7E";
 
 let cartState = { items: [], updatedAt: null };
 let cartProductMap = new Map();
@@ -62,7 +63,26 @@ async function recordFormSubmission(formName = null, formData = {}) {
   }
 }
 
+function initAnalytics() {
+  if (!GA_MEASUREMENT_ID) return;
+  if (window.gtag) return;
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() {
+    window.dataLayer.push(arguments);
+  };
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+  document.head.appendChild(script);
+
+  window.gtag("js", new Date());
+  window.gtag("config", GA_MEASUREMENT_ID);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  initAnalytics();
   rewriteCategoryAnchors();
   rewriteBlogAnchors();
   const pageType = document.body.dataset.page;
@@ -84,6 +104,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   if (pageType === "contact") {
     hydrateContactPage();
+    return;
+  }
+  if (pageType === "policy") {
+    hydratePolicyPage();
     return;
   }
 
@@ -497,7 +521,12 @@ async function hydratePage(app) {
 }
 
 async function fetchJSON(path) {
-  const res = await fetch(path);
+  let url = path;
+  if (typeof path === "string" && !/^https?:\/\//i.test(path) && !path.startsWith("/")) {
+    const base = getBasePath();
+    url = `${base}${path.replace(/^\/+/, "")}`;
+  }
+  const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to load ${path}`);
   return res.json();
 }
@@ -602,6 +631,9 @@ function resolveAssetPath(path) {
 
 function getBasePath() {
   const path = window.location.pathname || "/";
+  if (path.includes("/pages/")) {
+    return path.split("/pages/")[0] + "/";
+  }
   if (path.includes("/products/")) {
     return path.split("/products/")[0] + "/";
   }
@@ -844,6 +876,7 @@ async function hydrateContactPage() {
     const categories = content?.categories || [];
     const productMap = mapProducts(products?.products || []);
     renderChrome(productMap, categories);
+    renderContactContent(content?.contact);
     initContactForm();
   } catch (error) {
     console.error(error);
@@ -855,6 +888,59 @@ async function hydrateContactPage() {
   } finally {
     loadingNote?.remove();
   }
+}
+
+async function hydratePolicyPage() {
+  const loadingNote = document.getElementById("loading-note");
+
+  try {
+    const [content, products] = await Promise.all([
+      fetchJSON(CONTENT_PATH),
+      fetchJSON(PRODUCTS_PATH),
+    ]);
+
+    const categories = content?.categories || [];
+    const productMap = mapProducts(products?.products || []);
+    renderChrome(productMap, categories);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    loadingNote?.remove();
+  }
+}
+
+function renderContactContent(contact = {}) {
+  const hero = contact.hero || {};
+  const heroEyebrow = document.querySelector("[data-contact-hero-eyebrow]");
+  const heroTitle = document.querySelector("[data-contact-hero-title]");
+  const heroBody = document.querySelector("[data-contact-hero-body]");
+  if (heroEyebrow) heroEyebrow.textContent = hero.pre_header || heroEyebrow.textContent || "Contact";
+  if (heroTitle) heroTitle.textContent = hero.header || heroTitle.textContent || "We're here to help";
+  if (heroBody)
+    heroBody.textContent =
+      hero.subhead ||
+      heroBody.textContent ||
+      "Questions about products, ingredients, or your order? Reach out and our team will respond quickly.";
+
+  const banner = contact.banner_full || {};
+  const bannerImg = document.querySelector("[data-contact-banner-img]");
+  if (bannerImg) {
+    const imgSrc = banner.image || banner.media?.desktop || banner.media?.mobile || bannerImg.src || "";
+    bannerImg.src = resolveAssetPath(imgSrc);
+    bannerImg.alt = banner.header || bannerImg.alt || "Contact banner";
+  }
+  const bannerEyebrow = document.querySelector("[data-contact-banner-eyebrow]");
+  const bannerTitle = document.querySelector("[data-contact-banner-title]");
+  const bannerBody = document.querySelector("[data-contact-banner-body]");
+  if (bannerEyebrow)
+    bannerEyebrow.textContent =
+      banner.pre_header || bannerEyebrow.textContent || hero.pre_header || "Team Purvanti";
+  if (bannerTitle) bannerTitle.textContent = banner.header || bannerTitle.textContent || "Thoughtful support from real people";
+  if (bannerBody)
+    bannerBody.textContent =
+      banner.subhead ||
+      bannerBody.textContent ||
+      "We're committed to fast answers on wellness guidance, ingredients, shipping, and wholesale inquiries.";
 }
 
 function initContactForm() {
@@ -1152,19 +1238,25 @@ function renderHero(data) {
   video.loop = true;
   video.muted = true;
   video.playsInline = true;
-  video.poster = data.images?.[0] || "";
+  const desktopVideo = data.video_desktop || data.video?.[0] || "";
+  const mobileVideo =
+    data.video_mobile ||
+    (Array.isArray(data.video) ? data.video[1] || data.video[0] || "" : "");
+  const videoPoster =
+    data.video_desktop_still || data.video_mobile_still || data.images?.[0] || "";
+  video.poster = videoPoster;
 
-  if (data.video?.[0]) {
+  if (desktopVideo) {
     const sourceDesktop = document.createElement("source");
-    sourceDesktop.src = data.video[0];
+    sourceDesktop.src = desktopVideo;
     sourceDesktop.type = "video/mp4";
     sourceDesktop.media = "(min-width: 769px)";
     video.appendChild(sourceDesktop);
   }
 
-  if (data.video?.[1]) {
+  if (mobileVideo) {
     const sourceMobile = document.createElement("source");
-    sourceMobile.src = data.video[1];
+    sourceMobile.src = mobileVideo;
     sourceMobile.type = "video/mp4";
     sourceMobile.media = "(max-width: 768px)";
     video.appendChild(sourceMobile);
@@ -1173,7 +1265,7 @@ function renderHero(data) {
   const fallback = document.createElement("img");
   fallback.className = "hero-block__fallback";
   fallback.alt = data.header || "hero background";
-  fallback.src = data.images?.[0] || "";
+  fallback.src = videoPoster || data.images?.[0] || "";
 
   const shade = document.createElement("div");
   shade.className = "hero-block__shade";
@@ -1427,17 +1519,29 @@ function renderCategoryHero(target, category) {
   const media = document.createElement("div");
   media.className = "category-hero__media";
 
+  const fallback = document.createElement("img");
+  fallback.className = "category-hero__fallback";
+  fallback.src = resolveAssetPath(
+    category.video_still || category.image || "assets/images/main/home-hero-full.jpg"
+  );
+  fallback.alt = category.category || "Category banner";
+
   const video = document.createElement("video");
   video.className = "category-hero__video";
   video.autoplay = true;
   video.loop = true;
   video.muted = true;
   video.playsInline = true;
-  video.poster = resolveAssetPath(category.image || "assets/images/main/home-hero-full.jpg");
+  video.poster = resolveAssetPath(
+    category.video_still || category.image || "assets/images/main/home-hero-full.jpg"
+  );
   const source = document.createElement("source");
   source.src = resolveAssetPath(category.video || "assets/videos/home-banner-bg.mp4");
   source.type = "video/mp4";
   video.appendChild(source);
+  video.addEventListener("error", () => {
+    video.hidden = true;
+  });
 
   const mediaOverlay = document.createElement("div");
   mediaOverlay.className = "category-hero__overlay";
@@ -1452,7 +1556,7 @@ function renderCategoryHero(target, category) {
   title.textContent = category.category || "Wellness Products";
 
   content.append(eyebrow, title);
-  media.append(video, mediaOverlay);
+  media.append(fallback, video, mediaOverlay);
   wrap.append(media, content);
   target.appendChild(wrap);
 }
@@ -2187,13 +2291,24 @@ function renderMissionVideo(data) {
   section.className = "mission";
   section.setAttribute("data-section", "mission-video");
 
+  const fallback = document.createElement("img");
+  fallback.className = "mission__video mission__video--fallback";
+  fallback.src = data.video_still || "";
+  fallback.alt = data.header || "Mission background";
+  fallback.loading = "lazy";
+
   const video = document.createElement("video");
   video.className = "mission__video";
   video.autoplay = true;
   video.loop = true;
   video.muted = true;
   video.playsInline = true;
+  video.poster = data.video_still || "";
   video.src = data.video || "";
+  video.hidden = !data.video;
+  video.addEventListener("error", () => {
+    video.hidden = true;
+  });
 
   const shade = document.createElement("div");
   shade.className = "mission__shade";
@@ -2223,7 +2338,7 @@ function renderMissionVideo(data) {
     content.appendChild(cta);
   }
 
-  section.append(video, shade, content);
+  section.append(fallback, video, shade, content);
   return section;
 }
 
@@ -2366,7 +2481,7 @@ function renderReviews(data) {
 /* Header + footer */
 function renderChrome(productMap, categories) {
   renderHeader(productMap, categories);
-  renderFooter(productMap);
+  renderFooter(productMap, categories);
   initCart(productMap);
 }
 
@@ -2472,7 +2587,7 @@ function iconButton(label, iconSrc) {
   return btn;
 }
 
-function renderFooter(productMap) {
+function renderFooter(productMap, categories = []) {
   const target = document.getElementById("site-footer");
   if (!target) return;
 
@@ -2483,83 +2598,121 @@ function renderFooter(productMap) {
   const inner = document.createElement("div");
   inner.className = "footer__inner";
 
-  const brandBlock = document.createElement("div");
-  const brandTitle = document.createElement("h4");
-  brandTitle.className = "footer__brand";
-  brandTitle.textContent = "Purvanti";
-  const brandText = document.createElement("p");
-  brandText.className = "footer__text";
-  brandText.textContent =
-    "Modern wellness essentials crafted for daily performance and recovery.";
-  brandBlock.append(brandTitle, brandText);
-  inner.appendChild(brandBlock);
+  const contactBlock = document.createElement("div");
+  contactBlock.className = "footer__block footer__block--contact";
+  contactBlock.append(
+    buildFooterHeading("Address"),
+    buildFooterText("1495 Canyon Blvd", "Boulder, CO 80302"),
+    buildFooterHeading("Contact")
+  );
+  const phone = document.createElement("a");
+  phone.href = "tel:17204191089";
+  phone.textContent = "1 (720) 419-1089";
+  const email = document.createElement("a");
+  email.href = "mailto:hello@purvanti.com";
+  email.textContent = "hello@purvanti.com";
+  const ticket = document.createElement("a");
+  ticket.href = "mailto:hello@purvanti.com?subject=Support%20Ticket";
+  ticket.textContent = "Support Ticket";
+  contactBlock.append(phone, email, ticket);
 
-  const footerProducts = uniqueProducts(productMap)
-    .slice(0, 6)
+  const categoriesList = (Array.isArray(categories) ? categories : [])
+    .slice(0, 7)
+    .map((cat) => ({
+      label: cat.category || "",
+      href: cat.cta_href || "#",
+    }));
+  const fallbackProducts = uniqueProducts(productMap)
+    .slice(0, 7)
     .map((p) => ({
       label: p.title_short || p.title_long || "",
       href: productPageHref(p),
     }));
-  inner.appendChild(buildListBlock("Products", footerProducts));
+  inner.append(
+    contactBlock,
+    buildListBlock("Products", categoriesList.length ? categoriesList : fallbackProducts)
+  );
 
-  inner.appendChild(
-    buildListBlock("Info", [
-      { label: "FAQ", href: "/pages/faq" },
-      { label: "About Us", href: "/pages/about" },
-      { label: "Our Mission", href: "/pages/mission" },
-      { label: "Contact", href: "/contact.html" },
+  inner.append(
+    buildListBlock("Policy", [
+      { label: "Privacy Policy", href: "/pages/privacy-policy.html" },
+      { label: "Satisfaction Guarantee", href: "/pages/satisfaction-guarantee.html" },
+      { label: "Returns & Exchanges", href: "/pages/returns-exchanges.html" },
     ])
   );
 
   const aboutBlock = document.createElement("div");
-  const aboutTitle = document.createElement("h5");
-  aboutTitle.className = "footer__title";
-  aboutTitle.textContent = "About Purvanti";
+  aboutBlock.className = "footer__block footer__block--about";
+  const aboutTitle = buildFooterHeading("Purvanti");
   const aboutText = document.createElement("p");
   aboutText.className = "footer__text";
   aboutText.textContent =
-    "Natural, science-backed essentials for energy, recovery, and daily vitality. We craft clean supplements you can trust every single day.";
-  aboutBlock.append(aboutTitle, aboutText);
+    "With 6 years of experience and a passion for helping our customers succeed, we’re here to ensure your journey with Purvanti is seamless. Got a compliment or complaint? Reach out!";
+  const payments = document.createElement("div");
+  payments.className = "footer__payments";
+  [
+    { src: `${base}assets/icons/payment-visa.svg`, alt: "Visa" },
+    { src: `${base}assets/icons/payment-mastercard.svg`, alt: "Mastercard" },
+    { src: `${base}assets/icons/payment-amex.svg`, alt: "American Express" },
+    { src: `${base}assets/icons/payment-paypal.svg`, alt: "PayPal" },
+    { src: `${base}assets/icons/payment-diners.svg`, alt: "Diners Club" },
+    { src: `${base}assets/icons/payment-discover.svg`, alt: "Discover" },
+  ].forEach((item) => {
+    const badge = document.createElement("div");
+    badge.className = "footer__payment";
+    const img = document.createElement("img");
+    img.src = item.src;
+    img.alt = item.alt;
+    badge.appendChild(img);
+    payments.appendChild(badge);
+  });
+  aboutBlock.append(aboutTitle, aboutText, payments);
   inner.appendChild(aboutBlock);
 
   const bottom = document.createElement("div");
   bottom.className = "footer__bottom";
-  bottom.innerHTML = `<span>© ${new Date().getFullYear()} Purvanti</span><span>Fuel your body, sustain the planet.</span>`;
-  const payments = document.createElement("div");
-  payments.className = "footer__payments";
-  [
-    `${base}assets/icons/payment-visa.svg`,
-    `${base}assets/icons/payment-mastercard.svg`,
-    `${base}assets/icons/payment-amex.svg`,
-    `${base}assets/icons/payment-apple.svg`,
-    `${base}assets/icons/payment-discover.svg`,
-  ].forEach((src) => {
-    const badge = document.createElement("div");
-    badge.className = "footer__payment";
-    const img = document.createElement("img");
-    img.src = src;
-    img.alt = "Payment option";
-    badge.appendChild(img);
-    payments.appendChild(badge);
-  });
-  bottom.appendChild(payments);
+  const currentYear = new Date().getFullYear();
+  const yearRange = currentYear > 2019 ? `2019-${currentYear}` : "2019";
+  bottom.textContent =
+    `purvanti.com © Copyright ${yearRange} Purvanti, LLC. All rights reserved. ` +
+    "Purvanti® is a registered trademark of Purvanti, LLC. " +
+    "*Disclaimer: Statements made, or products sold through this website, have not been evaluated by the United States Food and Drug Administration. " +
+    "They are not intended to diagnose, treat, cure or prevent any disease.";
 
   const brandMark = document.createElement("div");
   brandMark.className = "footer__brandmark";
-  const logoWhite = document.createElement("img");
-  logoWhite.src = `${base}assets/icons/logo-bottom.svg`;
-  logoWhite.alt = "Purvanti";
-  brandMark.appendChild(logoWhite);
+  const brandImg = document.createElement("img");
+  brandImg.src = `${base}assets/icons/logo-bottom.svg`;
+  brandImg.alt = "Purvanti";
+  brandMark.appendChild(brandImg);
 
-  section.append(inner, bottom, brandMark);
+  section.append(inner, brandMark, bottom);
   target.replaceChildren(section);
+}
+
+function buildFooterHeading(label) {
+  const h = document.createElement("h5");
+  h.className = "footer__title";
+  h.textContent = label;
+  return h;
+}
+
+function buildFooterText(...lines) {
+  const block = document.createElement("div");
+  block.className = "footer__text-block";
+  lines.forEach((line) => {
+    const p = document.createElement("p");
+    p.className = "footer__text";
+    p.textContent = line;
+    block.appendChild(p);
+  });
+  return block;
 }
 
 function buildListBlock(title, links) {
   const block = document.createElement("div");
-  const heading = document.createElement("h5");
-  heading.className = "footer__title";
-  heading.textContent = title;
+  block.className = "footer__block";
+  const heading = buildFooterHeading(title);
   const list = document.createElement("ul");
   list.className = "footer__links";
   links.forEach((link) => {

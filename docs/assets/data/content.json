@@ -7,7 +7,8 @@
             "image": "assets/images/main/category-minerals-electrolytes.png",
             "tagline": "Balance hydration and essential minerals.",
             "pre_header": "Essential balance",
-            "video": "assets/videos/home-banner-bg.mp4"
+            "video": "assets/videos/category-banner-bg.mp4",
+            "video_still": "assets/videos/category-banner-bg.jpg"
         },
         {
             "category": "Vitamins & Multivitamins",
@@ -15,7 +16,8 @@
             "image": "assets/images/main/category-vitamins-multivitamins.png",
             "tagline": "Daily nutrients for whole-body wellness.",
             "pre_header": "Daily essentials",
-            "video": "assets/videos/home-banner-bg.mp4"
+            "video": "assets/videos/category-banner-bg.mp4",
+            "video_still": "assets/videos/category-banner-bg.jpg"
         },
         {
             "category": "Omegas & Heart Health",
@@ -23,7 +25,8 @@
             "image": "assets/images/main/category-omegas-heart-health.png",
             "tagline": "Support cardiovascular and cognitive function.",
             "pre_header": "Heart & brain fuel",
-            "video": "assets/videos/home-banner-bg.mp4"
+            "video": "assets/videos/category-banner-bg.mp4",
+            "video_still": "assets/videos/category-banner-bg.jpg"
         },
         {
             "category": "Proteins & Performance",
@@ -31,7 +34,8 @@
             "image": "assets/images/main/category-proteins-performance.png",
             "tagline": "Fuel recovery and strength with clean protein.",
             "pre_header": "Stronger every day",
-            "video": "assets/videos/home-banner-bg.mp4"
+            "video": "assets/videos/category-banner-bg.mp4",
+            "video_still": "assets/videos/category-banner-bg.jpg"
         },
         {
             "category": "Gut & Digestive Health",
@@ -39,7 +43,8 @@
             "image": "assets/images/main/category-gut-digestive-health.png",
             "tagline": "Support digestion and microbiome balance.",
             "pre_header": "Happy gut",
-            "video": "assets/videos/home-banner-bg.mp4"
+            "video": "assets/videos/category-banner-bg.mp4",
+            "video_still": "assets/videos/category-banner-bg.jpg"
         },
         {
             "category": "Superfoods & Mushrooms",
@@ -47,7 +52,8 @@
             "image": "assets/images/main/category-superfoods-mushrooms.png",
             "tagline": "Antioxidant-rich blends for everyday vitality.",
             "pre_header": "Superpowered blends",
-            "video": "assets/videos/home-banner-bg.mp4"
+            "video": "assets/videos/category-banner-bg.mp4",
+            "video_still": "assets/videos/category-banner-bg.jpg"
         },
         {
             "category": "Stress & Sleep",
@@ -55,7 +61,8 @@
             "image": "assets/images/main/category-stress-sleep.png",
             "tagline": "Calm the mind and support restful sleep.",
             "pre_header": "Rest & unwind",
-            "video": "assets/videos/home-banner-bg.mp4"
+            "video": "assets/videos/category-banner-bg.mp4",
+            "video_still": "assets/videos/category-banner-bg.jpg"
         }
     ],
     "home": [
@@ -67,11 +74,6 @@
             "video_desktop_still": "assets/videos/hero-desktop.jpg",
             "video_mobile": "assets/videos/hero-mobile.mp4",
             "video_mobile_still": "assets/videos/hero-mobile.jpg",
-
-            "video": [
-                "assets/videos/hero-desktop.mp4",
-                "assets/videos/hero-mobile.mp4"
-            ],
             "images": [
                 "assets/images/main/home-hero-full.jpg"
             ]
