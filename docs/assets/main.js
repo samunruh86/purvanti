@@ -503,6 +503,10 @@ async function hydratePage(app) {
       if (node) app.appendChild(node);
     });
 
+    if (new URLSearchParams(window.location.search).get("devAssign") === "1") {
+      initDevAssignTool(homeSections, productMap);
+    }
+
     window.dispatchEvent(
       new CustomEvent("purvanti:page-hydrated", {
         detail: { products: uniqueProducts(productMap) },
@@ -1337,10 +1341,10 @@ function renderFeatured(data, productMap) {
   const list = document.createElement("div");
   list.className = "featured__list";
 
-  (data.product_ids || []).forEach((id) => {
+  (data.product_ids || []).forEach((id, idx) => {
     const product = productMap.get(id);
     if (!product) return;
-    const card = renderProductCard(product);
+    const card = renderProductCard(product, { section: "featured_collection", index: idx });
     list.appendChild(card);
   });
 
@@ -1362,37 +1366,8 @@ function renderFeatured(data, productMap) {
   return section;
 }
 
-function renderProductCard(product) {
-  const card = document.createElement("a");
-  card.className = "featured__card";
-  card.href = productPageHref(product);
-
-  const media = document.createElement("div");
-  media.className = "featured__media";
-  const img = document.createElement("img");
-  img.src = productImageSrc(product, "small", 0);
-  img.alt = product.title_short || product.title_long || "Product";
-  media.appendChild(img);
-
-  const name = document.createElement("h3");
-  name.className = "featured__name";
-  name.textContent = product.title_short || product.title_long || "";
-
-  const price = document.createElement("p");
-  price.className = "featured__price";
-  price.textContent = formatPrice(product.price);
-
-  const actions = document.createElement("div");
-  actions.className = "featured__actions";
-  const addBtn = buildAddToCartButton(product, "ghost");
-  actions.append(price, addBtn);
-
-  const view = document.createElement("span");
-  view.className = "featured__view";
-  view.textContent = "View Product";
-
-  card.append(media, name, actions, view);
-  return card;
+function renderProductCard(product, meta) {
+  return buildHomeProductCard(product, "home-product-card", meta);
 }
 
 function renderBanner(data) {
@@ -1585,36 +1560,226 @@ function renderCategoryProductCard(product) {
   card.className = "category-card";
   card.href = productPageHref(product);
 
+  const frame = document.createElement("div");
+  frame.className = "category-card__frame";
+
   const media = document.createElement("div");
   media.className = "category-card__media";
   const img = document.createElement("img");
   img.src = productImageSrc(product, "small", 0);
   img.alt = product.title_short || product.title_long || "Product";
   media.appendChild(img);
+  frame.appendChild(media);
 
   const body = document.createElement("div");
   body.className = "category-card__body";
+
+  const header = document.createElement("div");
+  header.className = "category-card__header";
+
   const name = document.createElement("h3");
   name.className = "category-card__name";
   name.textContent = product.title_short || product.title_long || "Product";
-  const meta = document.createElement("div");
-  meta.className = "category-card__meta";
+
+  const rating = document.createElement("div");
+  rating.className = "category-card__rating";
+
+  const stars = document.createElement("span");
+  stars.className = "category-card__stars";
+  stars.textContent = "★★★★★";
+
+  const reviews = document.createElement("span");
+  reviews.className = "category-card__reviews";
+  const reviewCount =
+    product.reviews != null
+      ? product.reviews
+      : (product.reviews_data || []).length || 0;
+  const formatReviewCount = (count) => {
+    const n = Number(count);
+    if (!Number.isFinite(n)) return "0";
+    return n.toLocaleString("en-US");
+  };
+  const reviewLabel =
+    reviewCount && Number(reviewCount) > 0
+      ? `${formatReviewCount(reviewCount)} reviews`
+      : "No reviews";
+  reviews.textContent = reviewLabel;
+
+  rating.append(stars, reviews);
+  header.append(name, rating);
+
+  const metaRow = document.createElement("div");
+  metaRow.className = "category-card__meta-row";
+
+  const brandWrap = document.createElement("div");
+  brandWrap.className = "category-card__brand-wrap";
+
   const brand = document.createElement("p");
   brand.className = "category-card__brand";
   brand.textContent = product.brand || product.category || "";
+  brandWrap.appendChild(brand);
+
+  const addBtn = buildAddToCartButton(product, "ghost");
+  addBtn.classList.add("category-card__cta");
+  brandWrap.appendChild(addBtn);
+
   const price = document.createElement("p");
   price.className = "category-card__price";
   price.textContent = formatPrice(product.price);
-  meta.append(brand, price);
 
-  const actions = document.createElement("div");
-  actions.className = "category-card__actions";
-  const addBtn = buildAddToCartButton(product, "icon");
-  actions.appendChild(addBtn);
+  metaRow.append(brandWrap, price);
 
-  body.append(name, meta, actions);
-  card.append(media, body);
+  body.append(header, metaRow);
+  card.append(frame, body);
   return card;
+}
+
+function buildHomeProductCard(product, extraClass, meta) {
+  const card = renderCategoryProductCard(product);
+  if (extraClass) card.classList.add(extraClass);
+  if (meta && typeof meta === "object") {
+    card.dataset.assignSection = meta.section || "";
+    card.dataset.assignIndex = String(meta.index ?? "");
+  }
+  return card;
+}
+
+function initDevAssignTool(homeSections, productMap) {
+  const slotMap = homeSections.reduce((map, block) => {
+    if (block && block.section) map[block.section] = block;
+    return map;
+  }, {});
+
+  const overlay =
+    document.querySelector(".dev-assign") ||
+    buildDevAssignOverlay(uniqueProducts(productMap), homeSections);
+
+  function buildDevAssignOverlay(products, homeBlocks) {
+    const categories = Array.from(
+      new Set(
+        homeBlocks
+          .flatMap((block) => block.section === "categories" ? [] : [])
+          .concat(products.map((p) => p.category || "").filter(Boolean))
+      )
+    ).sort((a, b) => a.localeCompare(b));
+
+    const wrap = document.createElement("div");
+    wrap.className = "dev-assign";
+    wrap.innerHTML = `
+      <div class="dev-assign__backdrop" data-assign-close></div>
+      <aside class="dev-assign__drawer">
+        <header class="dev-assign__head">
+          <div>
+            <p class="dev-assign__eyebrow">Dev assign mode</p>
+            <h4 class="dev-assign__title">Pick a product</h4>
+          </div>
+          <button type="button" class="dev-assign__close" data-assign-close aria-label="Close">&times;</button>
+        </header>
+        <div class="dev-assign__filters" data-assign-filters></div>
+        <div class="dev-assign__slot" data-assign-slot>Slot: -</div>
+        <p class="dev-assign__hint">Click a product below to generate a patch note for content.json.</p>
+        <div class="dev-assign__list" data-assign-list></div>
+        <div class="dev-assign__result" data-assign-result hidden></div>
+      </aside>
+    `;
+    document.body.appendChild(wrap);
+
+    const activeFilters = new Set();
+    const filterWrap = wrap.querySelector("[data-assign-filters]");
+    if (filterWrap) {
+      categories.forEach((cat) => {
+        const pill = document.createElement("button");
+        pill.type = "button";
+        pill.className = "dev-assign__pill";
+        pill.textContent = cat;
+        pill.addEventListener("click", () => {
+          if (activeFilters.has(cat)) {
+            activeFilters.delete(cat);
+            pill.classList.remove("is-active");
+          } else {
+            activeFilters.add(cat);
+            pill.classList.add("is-active");
+          }
+          renderList();
+        });
+        filterWrap.appendChild(pill);
+      });
+    }
+
+    const list = wrap.querySelector("[data-assign-list]");
+    const assignedIds = new Set(
+      homeBlocks
+        .flatMap((block) => Array.isArray(block.product_ids) ? block.product_ids : [])
+        .filter(Boolean)
+    );
+
+    function renderList() {
+      if (!list) return;
+      list.innerHTML = "";
+      products
+        .slice()
+        .sort((a, b) => (b.reviews || 0) - (a.reviews || 0))
+        .filter((product) => {
+          if (!activeFilters.size) return true;
+          return activeFilters.has(product.category || "");
+        })
+        .forEach((product) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "dev-assign__product";
+          if (assignedIds.has(product.id)) btn.classList.add("is-assigned");
+          btn.dataset.productId = product.id;
+          btn.innerHTML = `
+            <span class="dev-assign__thumb">
+              <img src="${productImageSrc(product, "small", 0)}" alt="${product.title_short || "Product"}" />
+            </span>
+            <span class="dev-assign__meta">
+              <span class="dev-assign__product-category">${product.category || ""}</span>
+              <span class="dev-assign__product-brand">${product.brand || ""}</span>
+              <span class="dev-assign__product-name">${product.title_short || product.title_long || ""}</span>
+            </span>
+          `;
+          btn.addEventListener("click", () => {
+            if (!wrap.dataset.currentSlot) return;
+            const { section, index } = JSON.parse(wrap.dataset.currentSlot);
+            const res = wrap.querySelector("[data-assign-result]");
+            if (res) {
+              res.hidden = false;
+              res.textContent = `Set ${section}.product_ids[${index}] = "${product.id}" in content.json`;
+            }
+          });
+          list.appendChild(btn);
+        });
+    }
+
+    renderList();
+
+    wrap.querySelectorAll("[data-assign-close]").forEach((el) =>
+      el.addEventListener("click", () => wrap.classList.remove("is-open"))
+    );
+
+    return wrap;
+  }
+
+  document.addEventListener("click", (event) => {
+    const target = event.target.closest("[data-assign-section]");
+    if (!target) return;
+    if (!(event.metaKey || event.ctrlKey)) return;
+    event.preventDefault();
+    const section = target.dataset.assignSection;
+    const index = Number(target.dataset.assignIndex || 0);
+    const block = slotMap[section];
+    const slotLabel = `${section}.product_ids[${index}]`;
+    overlay.dataset.currentSlot = JSON.stringify({ section, index, block });
+    const slotEl = overlay.querySelector("[data-assign-slot]");
+    const result = overlay.querySelector("[data-assign-result]");
+    if (slotEl) slotEl.textContent = `Slot: ${slotLabel}`;
+    if (result) {
+      result.hidden = true;
+      result.textContent = "";
+    }
+    overlay.classList.add("is-open");
+  });
 }
 
 function renderJournalHero(target, hero) {
@@ -1856,10 +2021,12 @@ function renderLifestyleCarousel(data, productMap) {
     price.className = "lifestyle-slide__price";
     price.textContent = formatPrice(product.price);
 
-    const addBtn = buildAddToCartButton(product, "ghost");
-    addBtn.classList.add("lifestyle-slide__add");
+    productImg.style.cursor = "pointer";
+    productImg.addEventListener("click", () => {
+      window.location.href = productPageHref(product);
+    });
 
-    productPane.append(productImg, name, price, addBtn);
+    productPane.append(productImg, name, price);
 
     const lifePane = document.createElement("div");
     lifePane.className = "lifestyle-slide__image";
@@ -2003,6 +2170,11 @@ function renderVideoReels(data, productMap) {
 
     const card = document.createElement("div");
     card.className = "video-reels__card";
+    card.addEventListener("click", (e) => {
+      e.stopPropagation();
+      window.location.href = productPageHref(product);
+    });
+    card.style.cursor = "pointer";
 
     const pImg = document.createElement("img");
     pImg.src = productImageSrc(product, "small", 0);
@@ -2019,11 +2191,8 @@ function renderVideoReels(data, productMap) {
     pPrice.className = "video-reels__card-price";
     pPrice.textContent = formatPrice(product.price);
 
-    const addBtn = buildAddToCartButton(product, "icon");
-    addBtn.classList.add("video-reels__add");
-
     cardText.append(pName, pPrice);
-    card.append(pImg, cardText, addBtn);
+    card.append(pImg, cardText);
 
     slide.append(media, card);
 
@@ -2069,24 +2238,14 @@ function renderVideoReels(data, productMap) {
   viewport.append(nav, track);
   section.append(header, viewport, dots);
 
-  const prev = document.createElement("button");
-  prev.className = "video-reels__nav-btn";
-  prev.setAttribute("aria-label", "Previous reel");
-  prev.textContent = "<";
-  prev.addEventListener("click", (e) => {
-    e.stopPropagation();
+  const prev = navButton("prev", (e) => {
+    e?.stopPropagation?.();
     setActive(current - 1);
   });
-
-  const next = document.createElement("button");
-  next.className = "video-reels__nav-btn";
-  next.setAttribute("aria-label", "Next reel");
-  next.textContent = ">";
-  next.addEventListener("click", (e) => {
-    e.stopPropagation();
+  const next = navButton("next", (e) => {
+    e?.stopPropagation?.();
     setActive(current + 1);
   });
-
   nav.append(prev, next);
 
   let current = 0;
@@ -2163,61 +2322,18 @@ function renderEnduranceGrid(data, productMap) {
   const grid = document.createElement("div");
   grid.className = "endurance__layout";
 
-  ids.forEach((id) => {
+  ids.forEach((id, idx) => {
     const product = productMap.get(id);
     if (!product) return;
-    grid.appendChild(buildEnduranceCard(product));
+    grid.appendChild(buildEnduranceCard(product, { section: "endurance_grid", index: idx }));
   });
 
   section.append(head, grid);
   return section;
 }
 
-function buildEnduranceCard(product) {
-  const card = document.createElement("div");
-  card.className = "endurance-card";
-
-  const media = document.createElement("div");
-  media.className = "endurance-card__media";
-
-  const img = document.createElement("img");
-  img.src = productImageSrc(product, "small", 0);
-  img.alt = product.title_short || product.title_long || "Product";
-  media.appendChild(img);
-
-  const name = document.createElement("h4");
-  name.className = "endurance-card__name";
-  name.textContent = product.title_short || product.title_long || "";
-
-  const meta = document.createElement("p");
-  meta.className = "endurance-card__meta";
-  meta.textContent = `${product.brand || ""}`;
-
-  const rating = document.createElement("div");
-  rating.className = "endurance-card__rating";
-  const stars = document.createElement("span");
-  stars.textContent = "★★★★★";
-  const reviewCount = document.createElement("span");
-  reviewCount.textContent = `(${product.reviews || 0} reviews)`;
-  rating.append(stars, reviewCount);
-
-  const price = document.createElement("p");
-  price.className = "endurance-card__price";
-  price.textContent = formatPrice(product.price);
-
-  const cta = document.createElement("a");
-  cta.className = "endurance-card__cta";
-  cta.href = productPageHref(product);
-  cta.textContent = "View product";
-
-  const actions = document.createElement("div");
-  actions.className = "endurance-card__actions";
-  const addBtn = buildAddToCartButton(product, "pill");
-  addBtn.classList.add("endurance-card__add");
-  actions.append(addBtn, cta);
-
-  card.append(media, name, meta, rating, price, actions);
-  return card;
+function buildEnduranceCard(product, meta) {
+  return buildHomeProductCard(product, "home-product-card", meta);
 }
 
 function renderStatement(data) {
@@ -2360,67 +2476,18 @@ function renderNewArrivals(data, productMap) {
   const grid = document.createElement("div");
   grid.className = "arrivals__grid";
 
-  ids.forEach((id) => {
+  ids.forEach((id, idx) => {
     const product = productMap.get(id);
     if (!product) return;
-    grid.appendChild(buildArrivalCard(product));
+    grid.appendChild(buildArrivalCard(product, { section: "new_arrivals", index: idx }));
   });
 
   section.append(head, grid);
   return section;
 }
 
-function buildArrivalCard(product) {
-  const card = document.createElement("a");
-  card.className = "arrivals-card";
-  card.href = productPageHref(product);
-  card.style.textDecoration = "none";
-  card.style.color = "inherit";
-
-  const media = document.createElement("div");
-  media.className = "arrivals-card__media";
-  const img = document.createElement("img");
-  img.src = productImageSrc(product, "small", 0);
-  img.alt = product.title_short || product.title_long || "Product";
-  media.appendChild(img);
-
-  const body = document.createElement("div");
-  body.className = "arrivals-card__body";
-
-  const name = document.createElement("h4");
-  name.className = "arrivals-card__name";
-  name.textContent = product.title_short || product.title_long || "";
-
-  const meta = document.createElement("p");
-  meta.className = "arrivals-card__meta";
-  meta.textContent = product.brand || "";
-
-  const rating = document.createElement("div");
-  rating.className = "arrivals-card__rating";
-  const stars = document.createElement("span");
-  stars.textContent = "★★★★★";
-  const reviews = document.createElement("span");
-  reviews.textContent = `(${product.reviews || 0} reviews)`;
-  rating.append(stars, reviews);
-
-  const price = document.createElement("p");
-  price.className = "arrivals-card__price";
-  price.textContent = formatPrice(product.price);
-
-  const cta = document.createElement("a");
-  cta.className = "arrivals-card__cta";
-  cta.href = productPageHref(product);
-  cta.textContent = "View product";
-
-  const actions = document.createElement("div");
-  actions.className = "arrivals-card__actions";
-  const addBtn = buildAddToCartButton(product, "pill");
-  addBtn.classList.add("arrivals-card__add");
-  actions.append(addBtn, cta);
-
-  body.append(name, meta, rating, price, actions);
-  card.append(media, body);
-  return card;
+function buildArrivalCard(product, meta) {
+  return buildHomeProductCard(product, "home-product-card", meta);
 }
 
 function renderReviews(data) {
@@ -2450,6 +2517,13 @@ function renderReviews(data) {
   const dots = document.createElement("div");
   dots.className = "reviews__dots";
 
+  const nav = document.createElement("div");
+  nav.className = "reviews__nav";
+
+  const prev = navButton("prev", () => setActive(current - 1));
+  const next = navButton("next", () => setActive(current + 1));
+  nav.append(prev, next);
+
   let current = 0;
 
   function setActive(idx) {
@@ -2472,7 +2546,7 @@ function renderReviews(data) {
     dots.appendChild(dot);
   });
 
-  inner.append(avatar, stars, quote, author, dots);
+  inner.append(avatar, stars, quote, author, dots, nav);
   section.appendChild(inner);
   setActive(0);
   return section;

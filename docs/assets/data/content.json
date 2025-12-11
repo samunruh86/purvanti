@@ -65,161 +65,6 @@
             "video_still": "assets/videos/category-banner-bg.jpg"
         }
     ],
-    "home": [
-        {
-            "section": "hero",
-            "pre_header": "The Future of Wellness",
-            "header": "Gear up for great health",
-            "video_desktop": "assets/videos/hero-desktop.mp4",
-            "video_desktop_still": "assets/videos/hero-desktop.jpg",
-            "video_mobile": "assets/videos/hero-mobile.mp4",
-            "video_mobile_still": "assets/videos/hero-mobile.jpg",
-            "images": [
-                "assets/images/main/home-hero-full.jpg"
-            ]
-        },
-        {
-            "section": "featured_collection",
-            "pre_header": "Plant Powered",
-            "header": "Daily supplements with benefits for you to feel good",
-            "product_ids": [
-                "pr160265",
-                "pr680073",
-                "pr178380",
-                "pr188026",
-                "pr121794"
-            ],
-            "cta_text": "View all",
-            "cta_href": "/collections/frontpage"
-        },
-        {
-            "section": "banner_full",
-            "header": "Your wellness, our priority!",
-            "media": {
-                "desktop": "assets/images/main/home-banner-runner-full.jpg",
-                "mobile": "assets/images/main/home-banner-runner-full.jpg"
-            },
-            "cta_text": "Boost Energy",
-            "cta_href": "/collections/frontpage"
-        },
-        {
-            "section": "product_lifestyle_carousel",
-            "slides": [
-                {
-                    "headline": "Boost Your Energy Levels!",
-                    "product_id": "pr290626",
-                    "lifestyle_image": "assets/images/main/home-lifestyle-c1a-full.jpg"
-                },
-                {
-                    "headline": "Relax Naturally, Live Fully!",
-                    "product_id": "pr178380",
-                    "lifestyle_image": "assets/images/main/home-lifestyle-c1a-full.jpg"
-                }
-            ]
-        },
-        {
-            "section": "video_reels",
-            "title": "Real Stores, Real Recommendations!",
-            "items": [
-                {
-                    "video": "assets/videos/reels-1.mp4",
-                    "poster": "assets/images/main/reels-1.jpg",
-                    "product_id": "pr188026"
-                },
-                {
-                    "video": "assets/videos/reels-2.mp4",
-                    "poster": "assets/images/main/reels-2.jpg",
-                    "product_id": "pr136188"
-                },
-                {
-                    "video": "assets/videos/reels-3.mp4",
-                    "poster": "assets/images/main/reels-3.jpg",
-                    "product_id": "pr253894"
-                },
-                {
-                    "video": "assets/videos/reels-4.mp4",
-                    "poster": "assets/images/main/reels-4.jpg",
-                    "product_id": "pr178380"
-                },
-                {
-                    "video": "assets/videos/reels-5.mp4",
-                    "poster": "assets/images/main/reels-5.jpg",
-                    "product_id": "pr290626"
-                },
-                {
-                    "video": "assets/videos/reels-6.mp4",
-                    "poster": "assets/images/main/reels-6.jpg",
-                    "product_id": "pr160265"
-                }
-            ]
-        },
-        {
-            "section": "endurance_grid",
-            "title": "Engineered for Endurance",
-            "product_ids": [
-                "pr178380",
-                "pr290626",
-                "pr136188",
-                "pr188026",
-                "pr680073",
-                "pr160265"
-            ]
-        },
-        {
-            "section": "brand_statement",
-            "title": "Empowering your health naturally",
-            "body": "At Wellness, we believe that true vitality starts from within. That's why we create high-quality, natural supplements designed to support your well-being, enhance your energy, and help you thrive every day.",
-            "cta_text": "About us",
-            "cta_href": "/pages/about"
-        },
-        {
-            "section": "blog_feature",
-            "title": "Latest From The Journal",
-            "posts": []
-        },
-        {
-            "section": "mission_video",
-            "pre_header": "Fuel your body, sustain the planet",
-            "header": "Sustainable solutions for a healthier life.",
-            "cta_text": "Our mission",
-            "cta_href": "/pages/mission",
-            "video": "assets/videos/home-banner-bg.mp4",
-            "video_still": "assets/videos/home-banner-bg.jpg"
-        },
-        {
-            "section": "new_arrivals",
-            "title": "Shop the top new arrivals",
-            "product_ids": [
-                "pr188026",
-                "pr178380",
-                "pr290626",
-                "pr136188",
-                "pr680073",
-                "pr160265"
-            ]
-        },
-        {
-            "section": "reviews_slider",
-            "title": "What people are saying",
-            "items": [
-                {
-                    "quote": "Finally, a product that delivers on its promises. My skin glows, and I feel amazing inside and out!",
-                    "author": "Martin B.",
-                    "image": "assets/images/main/home-reviews-1.jpg"
-                },
-                {
-                    "quote": "These supplements fit seamlessly into my routine and keep my energy steady all day.",
-                    "author": "Priya K.",
-                    "image": "assets/images/main/home-reviews-2.jpg"
-                },
-                {
-                    "quote": "Quality I can trust and results I can feel. I’m a fan for life.",
-                    "author": "Jason L.",
-                    "image": "assets/images/main/home-reviews-3.jpg"
-                }
-            ]
-        }
-    ],
     "product": [
         {
             "section": "banner_full",
@@ -276,12 +121,11 @@
             "pre_header": "What Our Customers Say",
             "headline": "Genuine Feedback",
             "lifestyle_images": [
-                "product-reviews-1.jpg",
-                "product-reviews-2.jpg",
-                "product-reviews-3.jpg",
-                "product-reviews-4.jpg"
-            ],
-            "lifestyle_image": "assets/images/main/product-50-50-b.jpg"
+                "assets/images/main/product-reviews-1.jpg",
+                "assets/images/main/product-reviews-2.jpg",
+                "assets/images/main/product-reviews-3.jpg",
+                "assets/images/main/product-reviews-4.jpg"
+            ]
         }
     ],
     "journalAll": {
@@ -302,44 +146,154 @@
             "image": "assets/images/main/main-contact.jpg"
         }
     },
+
     "about": {
         "hero": {
-            "pre_header": "About Us",
-            "header": "Think. Design. Evolve.",
-            "subhead": "- Amanda Turner the CEO of Wellness Inc.",
+            "pre_header": "About Purvanti",
+            "header": "Wellness, thoughtfully designed.",
+            "subhead": "A note from our founder",
             "image": "assets/images/posts/p1.jpg"
         },
+
         "headline": {
-            "eyebrow": "Wellness Inc.",
-            "title": "By integrating biological knowledge with cutting-edge technology, we create sustainable, people-centered solutions.",
+            "eyebrow": "Our Philosophy",
+            "title": "We believe better health begins with clarity, quality, and science-led simplicity.",
             "images_inline": [
-                "assets/images/main/home-banner-runner-full.jpg",
-                "assets/images/posts/p12-small.jpg"
+            "assets/images/main/home-banner-runner-full.jpg",
+            "assets/images/posts/p12-small.jpg"
             ]
         },
+
         "panels": [
             {
-                "image": "assets/images/posts/p3.jpg",
-                "title": "Supplements for a thriving you",
-                "body": "At Wellness, we believe that true vitality starts from within. That’s why we create high-quality, natural supplements designed to support your well-being, enhance your energy, and help you thrive every day. Our mission is to empower you to feel your best by providing products that are rooted in science and inspired by nature."
+            "image": "assets/images/posts/p3.jpg",
+            "title": "Supplements made to support real life",
+            "body": "At Purvanti, we curate clean, effective supplements that support energy, balance, digestion, sleep, and daily vitality. Every product is selected for its quality, scientific backing, and ability to make a meaningful difference in the way you feel—day after day."
             },
             {
-                "image": "assets/images/posts/p7.jpg",
-                "title": "Innovating wellness, empowering lives",
-                "body": "At Wellness Inc., we combine cutting-edge innovation with the power of nature to create products that truly make a difference. Trusted by countless satisfied customers, our commitment to quality and well-being has made us a leader in redefining health."
+            "image": "assets/images/posts/p7.jpg",
+            "title": "Where modern research meets natural wellness",
+            "body": "We partner with trusted brands that prioritize purity, transparency, and evidence-based formulations. Our goal is simple: to bring you wellness solutions that fit seamlessly into everyday routines while supporting long-term health and well-being."
             }
         ],
 
         "letter": {
-            "eyebrow": "Letter from CEO",
-            "quote": "Wellness Inc. envisions a future where biology and technology unite, unlocking new possibilities and redefining innovation.",
+            "eyebrow": "Our Commitment",
+            "quote": "We focus on products that are clean, effective, and backed by modern nutritional science.",
             "image": "assets/images/main/home-banner-runner-full.jpg"
-        },
+            },
+
         "brand_statement": {
-            "title": "Empowering your health naturally",
-            "body": "At Wellness Inc., we blend science-led innovation with nature’s best ingredients to craft products that help you feel your best—every single day.",
+            "title": "Wellness that meets you where you are",
+            "body": "Purvanti blends modern nutritional science with nature’s most reliable ingredients to help you feel grounded, energized, and supported every day. We’re here to simplify your wellness journey—one thoughtfully chosen formula at a time.",
             "cta_text": "Explore our mission",
             "cta_href": "/journal-all.html"
         }
-    }
+    },
+
+"home": [
+  {
+    "section": "hero",
+    "pre_header": "Your Path to Better Health",
+    "header": "Wellness that fits your life",
+    "video_desktop": "assets/videos/hero-desktop.mp4",
+    "video_desktop_still": "assets/videos/hero-desktop.jpg",
+    "video_mobile": "assets/videos/hero-mobile.mp4",
+    "video_mobile_still": "assets/videos/hero-mobile.jpg",
+    "images": [
+      "assets/images/main/home-hero-full.jpg"
+    ]
+  },
+  {
+    "section": "featured_collection",
+    "pre_header": "Your Daily Foundation",
+    "header": "Essential nutrients for energy, balance, and every day wellness",
+    "product_ids": ["pr121794","pr680073","pr178380","pr160265","pr253894"]
+  },
+ 
+  {
+    "section": "product_lifestyle_carousel",
+    "slides": [
+      {
+        "headline": "Fuel your performance—every single day",
+        "product_id": "pr290626",
+        "lifestyle_image": "assets/images/main/home-lifestyle-c1a-full.jpg"
+      },
+      {
+        "headline": "Find calm, restore balance, and unwind naturally",
+        "product_id": "pr746627",
+        "lifestyle_image": "assets/images/main/home-lifestyle-c1a-full.jpg"
+      }
+    ]
+  },
+  {
+    "section": "video_reels",
+    "title": "Trusted products, real results",
+    "items": [
+      {
+        "video": "assets/videos/reels-1.mp4",
+        "poster": "assets/images/main/reels-1.jpg",
+        "product_id": "pr607884"
+      },
+      {
+        "video": "assets/videos/reels-2.mp4",
+        "poster": "assets/images/main/reels-2.jpg",
+        "product_id": "pr290626"
+      },
+      {
+        "video": "assets/videos/reels-3.mp4",
+        "poster": "assets/images/main/reels-3.jpg",
+        "product_id": "pr278638"
+      },
+      {
+        "video": "assets/videos/reels-4.mp4",
+        "poster": "assets/images/main/reels-4.jpg",
+        "product_id": "pr746627"
+      },
+      {
+        "video": "assets/videos/reels-5.mp4",
+        "poster": "assets/images/main/reels-5.jpg",
+        "product_id": "pr525163"
+      },
+      {
+        "video": "assets/videos/reels-6.mp4",
+        "poster": "assets/images/main/reels-6.jpg",
+        "product_id": "pr899490"
+      }
+    ]
+  },
+  {
+    "section": "endurance_grid",
+    "title": "Performance formulas for strength and stamina",
+    "product_ids": ["pr290626","pr338340","pr536332","pr250222","pr506774","pr377534"]
+  },
+  {
+    "section": "brand_statement",
+    "title": "Wellness designed to help you thrive",
+    "body": "We bring together clean, science-backed supplements from trusted brands to support real, lasting well-being. From foundational nutrients to performance essentials, every product is selected to help you feel your best—naturally and consistently.",
+    "cta_text": "About Purvanti",
+    "cta_href": "/pages/about"
+  },
+  {
+    "section": "blog_feature",
+    "title": "Insights for a healthier you",
+    "posts": []
+  },
+  {
+    "section": "mission_video",
+    "pre_header": "Better health, better choices",
+    "header": "Sustainable wellness for you and the planet",
+    "cta_text": "Explore our mission",
+    "cta_href": "/pages/mission",
+    "video": "assets/videos/home-banner-bg.mp4",
+    "video_still": "assets/videos/home-banner-bg.jpg"
+  },
+  {
+    "section": "new_arrivals",
+    "title": "Trending now in wellness",
+    "product_ids": ["pr525163","pr551722","pr223638","pr265924","pr607884","pr241897"]
+  }
+
+]
+
 }

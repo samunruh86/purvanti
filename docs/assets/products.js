@@ -428,6 +428,13 @@ function renderProductReviews(block) {
   const reviews = currentProduct?.reviews_data || [];
   if (!reviews.length) return null;
 
+  const lifestyleImages = Array.isArray(block.lifestyle_images)
+    ? block.lifestyle_images.filter(Boolean)
+    : [];
+  const selectedLifestyle =
+    lifestyleImages[Math.floor(Math.random() * lifestyleImages.length)] ||
+    block.lifestyle_image;
+
   const section = document.createElement("section");
   section.className = "product-reviews";
   section.setAttribute("data-section", "product-reviews");
@@ -459,7 +466,7 @@ function renderProductReviews(block) {
   const media = document.createElement("div");
   media.className = "product-reviews__media";
   const img = document.createElement("img");
-  img.src = resolveAsset(block.lifestyle_image);
+  img.src = resolveAsset(selectedLifestyle);
   img.alt = block.headline || "Customer story";
   media.appendChild(img);
 
