@@ -666,9 +666,7 @@ async function hydrateCategoryPage() {
   const loadingNote = document.getElementById("loading-note");
   const hero = document.getElementById("category-hero");
   const introTitle = document.getElementById("category-title");
-  const introEyebrow = document.querySelector(".category-intro__eyebrow");
   const introHeadline = document.querySelector(".category-intro__headline");
-  const countEl = document.querySelector("[data-category-count]");
   const listTarget = document.getElementById("category-products");
 
   try {
@@ -694,14 +692,9 @@ async function hydrateCategoryPage() {
 
     renderCategoryHero(hero, currentCategory);
     if (introTitle) introTitle.textContent = categoryName || "Wellness Products";
-    if (introEyebrow) introEyebrow.textContent = currentCategory.pre_header || "Plant Powered";
     if (introHeadline)
       introHeadline.textContent =
         currentCategory.tagline || "Daily supplements with benefits for you to feel good";
-    if (countEl) {
-      const count = items.length;
-      countEl.textContent = `${count} product${count === 1 ? "" : "s"}`;
-    }
     renderCategoryProducts(listTarget, items);
   } catch (error) {
     console.error(error);
@@ -2539,46 +2532,55 @@ function renderStatement(data) {
   }
 
   if (data.cta_text && data.cta_href) {
-    const form = document.createElement("form");
-    form.className = "brand-application";
-    form.innerHTML = `
-      <div class="brand-application__row">
-        <label>
-          <span>Brand name</span>
-          <input type="text" name="brand_name" placeholder="Your brand" required>
-        </label>
-        <label>
-          <span>Contact name</span>
-          <input type="text" name="contact_name" placeholder="Your name" required>
-        </label>
-      </div>
-      <div class="brand-application__row">
-        <label>
-          <span>Email</span>
-          <input type="email" name="email" placeholder="you@example.com" required>
-        </label>
-        <label>
-          <span>Phone number</span>
-          <input type="tel" name="phone" placeholder="(555) 000-0000">
-        </label>
-      </div>
-      <div class="brand-application__row is-single">
-        <label>
-          <span>Product focus</span>
-          <textarea name="focus" rows="3" placeholder="Briefly describe your products and formulations"></textarea>
-        </label>
-      </div>
-      <div class="brand-application__row is-single">
-        <label>
-          <span>Notes</span>
-          <textarea name="notes" rows="3" placeholder="Any testing, certifications, or distribution notes"></textarea>
-        </label>
-      </div>
-      <div class="brand-application__actions">
-        <a class="statement__cta" href="${data.cta_href}">Submit</a>
-      </div>
-    `;
-    section.appendChild(form);
+    const isBrandsPage = document.body?.dataset?.page === "brands";
+    if (!isBrandsPage) {
+      const cta = document.createElement("a");
+      cta.className = "statement__cta";
+      cta.href = data.cta_href;
+      cta.textContent = data.cta_text;
+      section.appendChild(cta);
+    } else {
+      const form = document.createElement("form");
+      form.className = "brand-application";
+      form.innerHTML = `
+        <div class="brand-application__row">
+          <label>
+            <span>Brand name</span>
+            <input type="text" name="brand_name" placeholder="Your brand" required>
+          </label>
+          <label>
+            <span>Contact name</span>
+            <input type="text" name="contact_name" placeholder="Your name" required>
+          </label>
+        </div>
+        <div class="brand-application__row">
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" placeholder="you@example.com" required>
+          </label>
+          <label>
+            <span>Phone number</span>
+            <input type="tel" name="phone" placeholder="(555) 000-0000">
+          </label>
+        </div>
+        <div class="brand-application__row is-single">
+          <label>
+            <span>Product focus</span>
+            <textarea name="focus" rows="3" placeholder="Briefly describe your products and formulations"></textarea>
+          </label>
+        </div>
+        <div class="brand-application__row is-single">
+          <label>
+            <span>Notes</span>
+            <textarea name="notes" rows="3" placeholder="Any testing, certifications, or distribution notes"></textarea>
+          </label>
+        </div>
+        <div class="brand-application__actions">
+          <a class="statement__cta" href="${data.cta_href}">Submit</a>
+        </div>
+      `;
+      section.appendChild(form);
+    }
   }
 
   return section;
@@ -2904,7 +2906,7 @@ function renderFooter(productMap, categories = []) {
   email.href = "mailto:hello@purvanti.com";
   email.textContent = "hello@purvanti.com";
   const ticket = document.createElement("a");
-  ticket.href = "mailto:hello@purvanti.com?subject=Support%20Ticket";
+  ticket.href = `${base}contact.html`;
   ticket.textContent = "Support Ticket";
   contactBlock.append(phone, email, ticket);
 

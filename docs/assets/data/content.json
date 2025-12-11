@@ -6,7 +6,6 @@
             "cta_href": "/category.html?category=minerals-electrolytes",
             "image": "assets/images/main/category-minerals-electrolytes.png",
             "tagline": "Balance hydration and essential minerals.",
-            "pre_header": "Essential balance",
             "video": "assets/videos/category-banner-bg.mp4",
             "video_still": "assets/videos/category-banner-bg.jpg"
         },
@@ -15,7 +14,6 @@
             "cta_href": "/category.html?category=vitamins-multivitamins",
             "image": "assets/images/main/category-vitamins-multivitamins.png",
             "tagline": "Daily nutrients for whole-body wellness.",
-            "pre_header": "Daily essentials",
             "video": "assets/videos/category-banner-bg.mp4",
             "video_still": "assets/videos/category-banner-bg.jpg"
         },
@@ -24,7 +22,6 @@
             "cta_href": "/category.html?category=omegas-heart-health",
             "image": "assets/images/main/category-omegas-heart-health.png",
             "tagline": "Support cardiovascular and cognitive function.",
-            "pre_header": "Heart & brain fuel",
             "video": "assets/videos/category-banner-bg.mp4",
             "video_still": "assets/videos/category-banner-bg.jpg"
         },
@@ -33,7 +30,6 @@
             "cta_href": "/category.html?category=proteins-performance",
             "image": "assets/images/main/category-proteins-performance.png",
             "tagline": "Fuel recovery and strength with clean protein.",
-            "pre_header": "Stronger every day",
             "video": "assets/videos/category-banner-bg.mp4",
             "video_still": "assets/videos/category-banner-bg.jpg"
         },
@@ -42,7 +38,6 @@
             "cta_href": "/category.html?category=gut-digestive-health",
             "image": "assets/images/main/category-gut-digestive-health.png",
             "tagline": "Support digestion and microbiome balance.",
-            "pre_header": "Happy gut",
             "video": "assets/videos/category-banner-bg.mp4",
             "video_still": "assets/videos/category-banner-bg.jpg"
         },
@@ -51,7 +46,6 @@
             "cta_href": "/category.html?category=superfoods-mushrooms",
             "image": "assets/images/main/category-superfoods-mushrooms.png",
             "tagline": "Antioxidant-rich blends for everyday vitality.",
-            "pre_header": "Superpowered blends",
             "video": "assets/videos/category-banner-bg.mp4",
             "video_still": "assets/videos/category-banner-bg.jpg"
         },
@@ -60,7 +54,6 @@
             "cta_href": "/category.html?category=stress-sleep",
             "image": "assets/images/main/category-stress-sleep.png",
             "tagline": "Calm the mind and support restful sleep.",
-            "pre_header": "Rest & unwind",
             "video": "assets/videos/category-banner-bg.mp4",
             "video_still": "assets/videos/category-banner-bg.jpg"
         }
@@ -74,7 +67,7 @@
                 "mobile": "assets/images/main/product-banner-runner-mobile.jpg"
             },
             "cta_text": "Our Mission",
-            "cta_href": "/our-mission"
+            "cta_href": "/about"
         },
         {
             "section": "faqs",
@@ -186,8 +179,8 @@
         "brand_statement": {
             "title": "Wellness that meets you where you are",
             "body": "Purvanti blends modern nutritional science with nature’s most reliable ingredients to help you feel grounded, energized, and supported every day. We’re here to simplify your wellness journey—one thoughtfully chosen formula at a time.",
-            "cta_text": "Explore our mission",
-            "cta_href": "/journal-all.html"
+            "cta_text": "Get in touch",
+            "cta_href": "/contact"
         }
     },
 
@@ -415,7 +408,7 @@
     "title": "Wellness designed to help you thrive",
     "body": "We bring together clean, science-backed supplements from trusted brands to support real, lasting well-being. From foundational nutrients to performance essentials, every product is selected to help you feel your best—naturally and consistently.",
     "cta_text": "About Purvanti",
-    "cta_href": "/pages/about"
+    "cta_href": "/about"
   },
   {
     "section": "blog_feature",
@@ -427,7 +420,7 @@
     "pre_header": "Better health, better choices",
     "header": "Sustainable wellness for you and the planet",
     "cta_text": "Explore our mission",
-    "cta_href": "/pages/mission",
+    "cta_href": "/about",
     "video": "assets/videos/home-banner-bg.mp4",
     "video_still": "assets/videos/home-banner-bg.jpg"
   },

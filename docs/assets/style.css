@@ -2450,7 +2450,6 @@ body[data-page="policy"] h2 {
   text-decoration: none;
   font-size: 15px;
   position: relative;
-  padding-bottom: 3px;
   overflow: hidden;
   max-width: fit-content;
 }
@@ -2522,6 +2521,7 @@ body[data-page="policy"] h2 {
 .footer__text-block {
   display: grid;
   gap: 6px;
+  margin-bottom: 18px;
 }
 
 @media (max-width: 800px) {
@@ -3369,7 +3369,6 @@ body[data-page="policy"] h2 {
   position: relative;
   z-index: 1;
   padding: clamp(22px, 5vw, 44px);
-  display: grid;
   gap: 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -3427,7 +3426,7 @@ body[data-page="policy"] h2 {
 .product-reviews__row {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
-  gap: 24px;
+  gap: 50px;
   align-items: center;
 }
 
@@ -3577,6 +3576,7 @@ body[data-page="policy"] h2 {
     font-size: 0.95rem;
     color: var(--gray-700);
     margin-top: 0.5rem;
+    display: none;
   }
 
 .category-intro__headline {
@@ -3604,6 +3604,7 @@ body[data-page="policy"] h2 {
   margin-bottom: 1rem;
   color: var(--gray-700);
   font-size: 0.95rem;
+  display: none;
 }
 
 .category-grid__count {
@@ -3627,7 +3628,9 @@ body[data-page="policy"] h2 {
 
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  max-width: 1120px;
+  margin: 0 auto;
   gap: 1.25rem;
 }
 
@@ -4038,7 +4041,7 @@ body[data-page="policy"] h2 {
 
 @media (min-width: 1400px) {
   .category-grid {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
