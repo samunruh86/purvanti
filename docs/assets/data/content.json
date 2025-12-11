@@ -270,14 +270,54 @@
             "lifestyle_image": "assets/images/main/product-50-50-b.jpg"
         }
     ],
-    "journal": {
-        "pre_header": "From the journal",
-        "header": "Fresh takes on everyday wellness",
-        "image": "assets/images/main/home-banner-runner-full.jpg"
-    },
     "journalAll": {
         "pre_header": "From the journal",
         "header": "Fresh takes on everyday wellness",
         "image": "assets/images/main/home-banner-runner-full.jpg"
+    },
+    "about": {
+        "hero": {
+            "pre_header": "About Us",
+            "header": "Think. Design. Evolve.",
+            "subhead": "- Amanda Turner the CEO of Wellness Inc.",
+            "image": "assets/images/posts/p1.jpg"
+        },
+        "headline": {
+            "eyebrow": "Wellness Inc.",
+            "title": "By integrating biological knowledge with cutting-edge technology, we create sustainable, people-centered solutions.",
+            "images_inline": [
+                "assets/images/main/home-banner-runner-full.jpg",
+                "assets/images/posts/p12-small.jpg"
+            ]
+        },
+        "panels": [
+            {
+                "image": "assets/images/posts/p3.jpg",
+                "title": "Supplements for a thriving you",
+                "body": "At Wellness, we believe that true vitality starts from within. That’s why we create high-quality, natural supplements designed to support your well-being, enhance your energy, and help you thrive every day. Our mission is to empower you to feel your best by providing products that are rooted in science and inspired by nature."
+            },
+            {
+                "image": "assets/images/posts/p7.jpg",
+                "title": "Innovating wellness, empowering lives",
+                "body": "At Wellness Inc., we combine cutting-edge innovation with the power of nature to create products that truly make a difference. Trusted by countless satisfied customers, our commitment to quality and well-being has made us a leader in redefining health."
+            }
+        ],
+
+        "brand_statement": {
+            "title": "Empowering your health naturally",
+            "body": "At Wellness, we believe that true vitality starts from within. That's why we create high-quality, natural supplements designed to support your well-being, enhance your energy, and help you thrive every day."
+        },
+
+        "letter": {
+            "eyebrow": "Letter from CEO",
+            "quote": "Wellness Inc. envisions a future where biology and technology unite, unlocking new possibilities and redefining innovation.",
+            "image": "assets/images/main/home-banner-runner-full.jpg"
+        },
+        "brand_statement": {
+            "title": "Empowering your health naturally",
+            "body": "At Wellness Inc., we blend science-led innovation with nature’s best ingredients to craft products that help you feel your best—every single day.",
+            "cta_text": "Explore our mission",
+            "cta_href": "/journal-all.html"
+        }
     }
 }

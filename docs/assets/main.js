@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
   rewriteCategoryAnchors();
   rewriteBlogAnchors();
   const pageType = document.body.dataset.page;
+  if (pageType === "about") {
+    hydrateAboutPage();
+    return;
+  }
   if (pageType === "category") {
     hydrateCategoryPage();
     return;
@@ -372,6 +376,42 @@ async function hydrateJournalListPage() {
   } catch (error) {
     console.error(error);
     if (grid) grid.textContent = "We couldn't load the journal right now.";
+  } finally {
+    loadingNote?.remove();
+  }
+}
+
+async function hydrateAboutPage() {
+  const loadingNote = document.getElementById("loading-note");
+  const heroEl = document.getElementById("about-hero");
+  const headlineEl = document.getElementById("about-headline");
+  const panelsEl = document.getElementById("about-panels");
+  const brandEl = document.getElementById("about-brand");
+  const letterEl = document.getElementById("about-letter");
+
+  try {
+    const [content, products] = await Promise.all([
+      fetchJSON(CONTENT_PATH),
+      fetchJSON(PRODUCTS_PATH),
+    ]);
+
+    const categories = content?.categories || [];
+    const productMap = mapProducts(products?.products || []);
+    renderChrome(productMap, categories);
+
+    const about = content?.about || {};
+    renderAboutHero(heroEl, about.hero);
+    renderAboutHeadline(headlineEl, about.headline);
+    renderAboutPanels(panelsEl, about.panels);
+    if (brandEl) {
+      brandEl.innerHTML = "";
+      const brandNode = renderStatement(about.brand_statement);
+      if (brandNode) brandEl.appendChild(brandNode);
+    }
+    renderAboutLetter(letterEl, about.letter);
+  } catch (error) {
+    console.error(error);
+    if (headlineEl) headlineEl.textContent = "We couldn't load this page right now.";
   } finally {
     loadingNote?.remove();
   }
@@ -908,6 +948,189 @@ function renderJournalHero(target, hero) {
   overlay.className = "journal-hero__overlay";
 
   wrap.append(img, overlay);
+  target.appendChild(wrap);
+}
+
+function renderAboutHero(target, hero) {
+  if (!target) return;
+  target.hidden = false;
+  target.innerHTML = "";
+
+  const wrap = document.createElement("div");
+  wrap.className = "about-hero__inner";
+
+  const img = document.createElement("img");
+  img.className = "about-hero__image";
+  img.src = resolveAssetPath(hero?.image || "assets/images/main/home-banner-runner-full.jpg");
+  img.alt = hero?.header || "About hero";
+
+  const overlay = document.createElement("div");
+  overlay.className = "about-hero__overlay";
+
+  const content = document.createElement("div");
+  content.className = "about-hero__content";
+
+  if (hero?.pre_header) {
+    const eyebrow = document.createElement("p");
+    eyebrow.className = "about-hero__eyebrow";
+    eyebrow.textContent = hero.pre_header;
+    content.appendChild(eyebrow);
+  }
+
+  if (hero?.header) {
+    const h = document.createElement("h1");
+    h.className = "about-hero__title";
+    h.innerHTML = formatRichText(hero.header);
+    content.appendChild(h);
+  }
+
+  if (hero?.subhead) {
+    const sub = document.createElement("p");
+    sub.className = "about-hero__subhead";
+    sub.textContent = hero.subhead;
+    content.appendChild(sub);
+  }
+
+  wrap.append(img, overlay, content);
+  target.appendChild(wrap);
+}
+
+function renderAboutHeadline(target, data) {
+  if (!target) return;
+  target.innerHTML = "";
+  if (!data) return;
+  const wrap = document.createElement("div");
+  wrap.className = "about-headline__inner";
+
+  if (data.eyebrow) {
+    const eyebrow = document.createElement("p");
+    eyebrow.className = "about-headline__eyebrow";
+    eyebrow.textContent = data.eyebrow;
+    wrap.appendChild(eyebrow);
+  }
+
+  if (data.title) {
+    const title = document.createElement("h2");
+    title.className = "about-headline__title";
+    title.innerHTML = formatRichText(data.title);
+    wrap.appendChild(title);
+  }
+
+  if (Array.isArray(data.images_inline) && data.images_inline.length) {
+    const inline = document.createElement("div");
+    inline.className = "about-headline__inline";
+    data.images_inline.forEach((src) => {
+      const img = document.createElement("img");
+      img.src = resolveAssetPath(src);
+      img.alt = "detail";
+      inline.appendChild(img);
+    });
+    wrap.appendChild(inline);
+  }
+
+  target.appendChild(wrap);
+}
+
+function renderAboutPanels(target, panels) {
+  if (!target) return;
+  target.innerHTML = "";
+  const list = Array.isArray(panels) ? panels : [];
+  list.forEach((panel, idx) => {
+    const row = document.createElement("div");
+    row.className = "about-panel";
+    const imageCol = document.createElement("div");
+    imageCol.className = "about-panel__media";
+    const img = document.createElement("img");
+    img.src = resolveAssetPath(panel.image || "");
+    img.alt = panel.title || "About image";
+    imageCol.appendChild(img);
+
+    const textCol = document.createElement("div");
+    textCol.className = "about-panel__content";
+    const title = document.createElement("h3");
+    title.textContent = panel.title || "";
+    const body = document.createElement("p");
+    body.textContent = panel.body || "";
+    textCol.append(title, body);
+
+    if (idx % 2 === 0) {
+      row.append(imageCol, textCol);
+    } else {
+      row.append(textCol, imageCol);
+    }
+    target.appendChild(row);
+  });
+}
+
+function renderAboutLetter(target, data) {
+  if (!target) return;
+  target.hidden = false;
+  target.innerHTML = "";
+  if (!data) return;
+
+  const wrap = document.createElement("div");
+  wrap.className = "about-letter__inner";
+  wrap.style.backgroundImage = `url('${resolveAssetPath(data.image || "")}')`;
+
+  const overlay = document.createElement("div");
+  overlay.className = "about-letter__overlay";
+
+  const content = document.createElement("div");
+  content.className = "about-letter__content";
+  if (data.eyebrow) {
+    const eyebrow = document.createElement("p");
+    eyebrow.className = "about-letter__eyebrow";
+    eyebrow.textContent = data.eyebrow;
+    content.appendChild(eyebrow);
+  }
+  if (data.quote) {
+    const quote = document.createElement("h3");
+    quote.className = "about-letter__quote";
+    quote.textContent = data.quote;
+    content.appendChild(quote);
+  }
+
+  wrap.append(overlay, content);
+  target.appendChild(wrap);
+}
+
+function renderAboutTeam(target, team) {
+  if (!target) return;
+  target.innerHTML = "";
+  const list = Array.isArray(team) ? team : [];
+  if (!list.length) return;
+
+  const wrap = document.createElement("div");
+  wrap.className = "about-team__inner";
+  const title = document.createElement("h3");
+  title.className = "about-team__title";
+  title.textContent = "Meet our perfect team";
+  wrap.appendChild(title);
+
+  const grid = document.createElement("div");
+  grid.className = "about-team__grid";
+
+  list.forEach((member) => {
+    const card = document.createElement("div");
+    card.className = "about-team__card";
+
+    const img = document.createElement("img");
+    img.src = resolveAssetPath(member.image || "");
+    img.alt = member.name || "Team member";
+
+    const name = document.createElement("p");
+    name.className = "about-team__name";
+    name.textContent = member.name || "";
+
+    const role = document.createElement("p");
+    role.className = "about-team__role";
+    role.textContent = member.role || "";
+
+    card.append(img, name, role);
+    grid.appendChild(card);
+  });
+
+  wrap.appendChild(grid);
   target.appendChild(wrap);
 }
 
@@ -1573,7 +1796,7 @@ function renderHeader(productMap, categories) {
 
   const navItems = [
     { label: "Shop", href: "/collections/frontpage", dropdown: true, categories },
-    { label: "About", href: "/pages/about" },
+    { label: "About", href: "/about.html" },
     { label: "Journal", href: "/journal-all.html" },
     { label: "Contact", href: "/pages/contact" },
   ];
