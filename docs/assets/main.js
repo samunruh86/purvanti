@@ -106,6 +106,10 @@ document.addEventListener("DOMContentLoaded", () => {
     hydrateContactPage();
     return;
   }
+  if (pageType === "brands") {
+    hydrateBrandsPage();
+    return;
+  }
   if (pageType === "policy") {
     hydratePolicyPage();
     return;
@@ -894,6 +898,44 @@ async function hydrateContactPage() {
   }
 }
 
+async function hydrateBrandsPage() {
+  const loadingNote = document.getElementById("loading-note");
+  const heroEl = document.getElementById("brands-hero");
+  const scienceEl = document.getElementById("brands-science");
+  const faqEl = document.getElementById("brands-faq");
+  const statementEl = document.getElementById("brands-statement");
+
+  try {
+    const [content, products] = await Promise.all([
+      fetchJSON(CONTENT_PATH),
+      fetchJSON(PRODUCTS_PATH),
+    ]);
+
+    const categories = content?.categories || [];
+    const productMap = mapProducts(products?.products || []);
+    renderChrome(productMap, categories);
+
+    const brands = content?.brands || {};
+    renderAboutHero(heroEl, brands.hero);
+    renderBrandsScience(scienceEl, brands.science);
+    const faqNode = renderProductFaq(brands.faqs);
+    if (faqEl && faqNode) {
+      faqEl.innerHTML = "";
+      faqEl.appendChild(faqNode);
+    }
+    if (statementEl) {
+      statementEl.innerHTML = "";
+      const node = renderStatement(brands.brand_statement);
+      if (node) statementEl.appendChild(node);
+    }
+  } catch (error) {
+    console.error(error);
+    if (headlineEl) headlineEl.textContent = "We couldn't load this page right now.";
+  } finally {
+    loadingNote?.remove();
+  }
+}
+
 async function hydratePolicyPage() {
   const loadingNote = document.getElementById("loading-note");
 
@@ -927,24 +969,27 @@ function renderContactContent(contact = {}) {
       "Questions about products, ingredients, or your order? Reach out and our team will respond quickly.";
 
   const banner = contact.banner_full || {};
-  const bannerImg = document.querySelector("[data-contact-banner-img]");
-  if (bannerImg) {
-    const imgSrc = banner.image || banner.media?.desktop || banner.media?.mobile || bannerImg.src || "";
-    bannerImg.src = resolveAssetPath(imgSrc);
-    bannerImg.alt = banner.header || bannerImg.alt || "Contact banner";
+  const heroImg = document.querySelector("[data-contact-hero-img]");
+  if (heroImg) {
+    const imgSrc =
+      banner.image || banner.media?.desktop || banner.media?.mobile || hero.image || heroImg.src || "";
+    heroImg.src = resolveAssetPath(imgSrc);
+    heroImg.alt = banner.header || hero.header || heroImg.alt || "Contact banner";
   }
-  const bannerEyebrow = document.querySelector("[data-contact-banner-eyebrow]");
-  const bannerTitle = document.querySelector("[data-contact-banner-title]");
-  const bannerBody = document.querySelector("[data-contact-banner-body]");
-  if (bannerEyebrow)
-    bannerEyebrow.textContent =
-      banner.pre_header || bannerEyebrow.textContent || hero.pre_header || "Team Purvanti";
-  if (bannerTitle) bannerTitle.textContent = banner.header || bannerTitle.textContent || "Thoughtful support from real people";
-  if (bannerBody)
-    bannerBody.textContent =
-      banner.subhead ||
-      bannerBody.textContent ||
-      "We're committed to fast answers on wellness guidance, ingredients, shipping, and wholesale inquiries.";
+
+  const phoneLink = document.querySelector("[data-contact-phone]");
+  const emailLink = document.querySelector("[data-contact-email]");
+  const phoneNumber = "1 (720) 419-1089";
+  const phoneHref = "tel:17204191089";
+  const emailAddress = "hello@purvanti.com";
+  if (phoneLink) {
+    phoneLink.textContent = phoneNumber;
+    phoneLink.href = phoneHref;
+  }
+  if (emailLink) {
+    emailLink.textContent = emailAddress;
+    emailLink.href = `mailto:${emailAddress}`;
+  }
 }
 
 function initContactForm() {
@@ -1985,6 +2030,144 @@ function renderAboutTeam(target, team) {
   target.appendChild(wrap);
 }
 
+function renderBrandsStandards(target, data) {
+  if (!target || !data) return;
+  target.innerHTML = "";
+  const wrap = document.createElement("div");
+  wrap.className = "brand-standards__inner";
+
+  if (data.eyebrow) {
+    const eyebrow = document.createElement("p");
+    eyebrow.className = "brand-standards__eyebrow";
+    eyebrow.textContent = data.eyebrow;
+    wrap.appendChild(eyebrow);
+  }
+
+  if (data.title) {
+    const title = document.createElement("h3");
+    title.className = "brand-standards__title";
+    title.textContent = data.title;
+    wrap.appendChild(title);
+  }
+
+  const list = document.createElement("ul");
+  list.className = "brand-standards__list";
+  (data.items || []).forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    list.appendChild(li);
+  });
+  wrap.appendChild(list);
+  target.appendChild(wrap);
+}
+
+function renderBrandsWhy(target, data) {
+  if (!target || !data) return;
+  target.innerHTML = "";
+  const wrap = document.createElement("div");
+  wrap.className = "brand-why__inner";
+
+  const text = document.createElement("div");
+  text.className = "brand-why__text";
+  if (data.title) {
+    const title = document.createElement("h3");
+    title.textContent = data.title;
+    text.appendChild(title);
+  }
+  if (data.body) {
+    const body = document.createElement("p");
+    body.textContent = data.body;
+    text.appendChild(body);
+  }
+
+  if (Array.isArray(data.images_inline) && data.images_inline.length) {
+    const inline = document.createElement("div");
+    inline.className = "brand-why__inline";
+    data.images_inline.forEach((src) => {
+      const img = document.createElement("img");
+      img.src = resolveAssetPath(src);
+      img.alt = "detail";
+      inline.appendChild(img);
+    });
+    wrap.append(text, inline);
+  } else {
+    wrap.appendChild(text);
+  }
+
+  target.appendChild(wrap);
+}
+
+function renderBrandsScience(target, data) {
+  if (!target || !data) return;
+  target.innerHTML = "";
+  const items = Array.isArray(data.items) ? data.items : [];
+  const left = items.slice(0, Math.ceil(items.length / 2));
+  const right = items.slice(Math.ceil(items.length / 2));
+
+  const wrap = document.createElement("div");
+  wrap.className = "wrap brand-science__inner";
+
+  const headline = document.createElement("div");
+  headline.className = "brand-science__headline";
+  const h2 = document.createElement("h2");
+  h2.textContent = data.title || "Science-Driven Confidence Boost";
+  headline.appendChild(h2);
+
+  const grid = document.createElement("div");
+  grid.className = "brand-science__grid";
+
+  const buildColumn = (list) => {
+    const col = document.createElement("div");
+    col.className = "brand-science__column";
+    list.forEach((item) => {
+      const icon = document.createElement("div");
+      icon.className = "brand-science__icon";
+
+      const glyph = document.createElement("span");
+      glyph.className = "brand-science__glyph";
+      const img = document.createElement("img");
+      img.src = resolveAssetPath(item.icon || "");
+      img.alt = item.title || "";
+      glyph.appendChild(img);
+
+      const title = document.createElement("h3");
+      title.textContent = item.title || "";
+      const body = document.createElement("p");
+      body.textContent = item.body || "";
+
+      icon.append(glyph, title, body);
+      col.appendChild(icon);
+    });
+    return col;
+  };
+
+  const leftCol = buildColumn(left);
+  leftCol.classList.add("brand-science__column--left");
+
+  const rightCol = buildColumn(right);
+  rightCol.classList.add("brand-science__column--right");
+
+  const center = document.createElement("div");
+  center.className = "brand-science__center";
+  const video = document.createElement("video");
+  video.className = "brand-science__video";
+  video.autoplay = true;
+  video.loop = true;
+  video.muted = true;
+  video.playsInline = true;
+  video.preload = "metadata";
+  video.poster = resolveAssetPath(data.poster || data.image || "");
+  const source = document.createElement("source");
+  source.src = resolveAssetPath(data.video || "");
+  source.type = "video/mp4";
+  video.appendChild(source);
+  center.appendChild(video);
+
+  grid.append(leftCol, center, rightCol);
+  wrap.append(headline, grid);
+  target.appendChild(wrap);
+}
+
 function renderLifestyleCarousel(data, productMap) {
   const slides = Array.isArray(data.slides) ? data.slides : [];
   if (!slides.length) return null;
@@ -2356,11 +2539,46 @@ function renderStatement(data) {
   }
 
   if (data.cta_text && data.cta_href) {
-    const cta = document.createElement("a");
-    cta.className = "statement__cta";
-    cta.href = data.cta_href;
-    cta.textContent = data.cta_text;
-    section.appendChild(cta);
+    const form = document.createElement("form");
+    form.className = "brand-application";
+    form.innerHTML = `
+      <div class="brand-application__row">
+        <label>
+          <span>Brand name</span>
+          <input type="text" name="brand_name" placeholder="Your brand" required>
+        </label>
+        <label>
+          <span>Contact name</span>
+          <input type="text" name="contact_name" placeholder="Your name" required>
+        </label>
+      </div>
+      <div class="brand-application__row">
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" placeholder="you@example.com" required>
+        </label>
+        <label>
+          <span>Phone number</span>
+          <input type="tel" name="phone" placeholder="(555) 000-0000">
+        </label>
+      </div>
+      <div class="brand-application__row is-single">
+        <label>
+          <span>Product focus</span>
+          <textarea name="focus" rows="3" placeholder="Briefly describe your products and formulations"></textarea>
+        </label>
+      </div>
+      <div class="brand-application__row is-single">
+        <label>
+          <span>Notes</span>
+          <textarea name="notes" rows="3" placeholder="Any testing, certifications, or distribution notes"></textarea>
+        </label>
+      </div>
+      <div class="brand-application__actions">
+        <a class="statement__cta" href="${data.cta_href}">Submit</a>
+      </div>
+    `;
+    section.appendChild(form);
   }
 
   return section;
@@ -2728,8 +2946,6 @@ function renderFooter(productMap, categories = []) {
     { src: `${base}assets/icons/payment-visa.svg`, alt: "Visa" },
     { src: `${base}assets/icons/payment-mastercard.svg`, alt: "Mastercard" },
     { src: `${base}assets/icons/payment-amex.svg`, alt: "American Express" },
-    { src: `${base}assets/icons/payment-paypal.svg`, alt: "PayPal" },
-    { src: `${base}assets/icons/payment-diners.svg`, alt: "Diners Club" },
     { src: `${base}assets/icons/payment-discover.svg`, alt: "Discover" },
   ].forEach((item) => {
     const badge = document.createElement("div");

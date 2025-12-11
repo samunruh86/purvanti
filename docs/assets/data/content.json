@@ -191,6 +191,149 @@
         }
     },
 
+
+  "brands_V1": {
+    "hero": {
+      "pre_header": "For Wellness Brands",
+      "header": "Partner with Purvanti",
+      "subhead": "A curated retail platform for science-led wellness companies.",
+      "image": "assets/images/main/home-banner-runner-full.jpg"
+    },
+    "science": {
+  "title": "The Science Behind Our Partnerships",
+  "subtitle": "Standards that protect your brand and elevate every product we represent.",
+  "video": "assets/videos/science.mp4",
+  "poster": "assets/images/main/home-banner-runner-full.jpg",
+  "items": [
+    {
+      "icon": "assets/icons/ing-quality.png",
+      "title": "Evidence-Aligned Curation",
+      "body": "We partner with brands whose formulations are backed by clear science and transparent ingredient standards."
+    },
+    {
+      "icon": "assets/icons/ing-lab.png",
+      "title": "Rigorous Quality Expectations",
+      "body": "We look for strong manufacturing practices, third-party testing, and consistency in product quality."
+    },
+    {
+      "icon": "assets/icons/ing-eng.png",
+      "title": "Thoughtful Product Evaluation",
+      "body": "Each product is reviewed for potency, effectiveness, and its real-world wellness impact."
+    },
+    {
+      "icon": "assets/icons/ing-nometal.png",
+      "title": "Purity & Safety Focus",
+      "body": "We value partners committed to high safety standards, including testing for contaminants and ensuring product purity."
+    }
+  ]
+},
+
+    "faqs": {
+      "pre_header": "What we look for in brands",
+      "title": "Partnering with Purvanti",
+      "items": [
+        {
+          "question": "Clean, transparent ingredient profiles",
+          "answer": "We prioritize formulations with clear labeling, minimal additives, and ingredient sourcing you’re proud to show customers."
+        },
+        {
+          "question": "Strong formulation rationale or clinical research",
+          "answer": "We look for evidence-backed formulations—whether clinical studies, published data, or a well-documented rationale for each active."
+        },
+        {
+          "question": "Trusted manufacturing and quality controls",
+          "answer": "Consistent QA, reliable manufacturing partners, and robust testing give us confidence to present your products to discerning shoppers."
+        },
+        {
+          "question": "Clear consumer benefits and brand story",
+          "answer": "We highlight products that communicate tangible benefits and a brand story customers can understand and trust."
+        },
+        {
+          "question": "Responsible pricing and channel alignment",
+          "answer": "We align with brands that respect thoughtful pricing and channel strategies so customers enjoy a consistent premium experience."
+        }
+      ]
+    },
+    "brand_statement": {
+      "title": "A shared mission",
+      "body": "We aim to build lasting relationships with brands that are committed to improving everyday health. Purvanti exists to thoughtfully connect customers with products that truly support their well-being—starting with the brands we choose to represent.",
+      "cta_text": "Brand Application",
+      "cta_href": "/contact.html?type=brand"
+    }
+  },
+
+  "brands": {
+  "hero": {
+    "pre_header": "For Wellness Brands",
+    "header": "Partner with Purvanti",
+    "subhead": "A curated retail destination for companies committed to science, quality, and modern wellness.",
+    "image": "assets/images/main/home-banner-runner-full.jpg"
+  },
+
+  "science": {
+    "title": "The Science Behind Our Partnerships",
+    "subtitle": "Clear standards that protect your brand and elevate every customer experience.",
+    "video": "assets/videos/science.mp4",
+    "poster": "assets/images/main/home-banner-runner-full.jpg",
+    "items": [
+      {
+        "icon": "assets/icons/ing-quality.png",
+        "title": "Evidence-Led Product Selection",
+        "body": "We partner with brands whose formulations demonstrate scientific rationale and ingredient transparency."
+      },
+      {
+        "icon": "assets/icons/ing-lab.png",
+        "title": "Quality You Can Trust",
+        "body": "Strong manufacturing practices, validated testing, and consistent QA are essential to our retail standards."
+      },
+      {
+        "icon": "assets/icons/ing-eng.png",
+        "title": "Thoughtful, Real-World Evaluation",
+        "body": "Every product is reviewed for potency, effectiveness, and its ability to support meaningful, everyday wellness outcomes."
+      },
+      {
+        "icon": "assets/icons/ing-nometal.png",
+        "title": "Safety & Purity First",
+        "body": "We align with partners who uphold rigorous safety expectations, including contaminant and purity testing."
+      }
+    ]
+  },
+
+  "faqs": {
+    "pre_header": "What We Look For in Brands",
+    "title": "Partnering With Purvanti",
+    "items": [
+      {
+        "question": "Clean, transparent ingredient profiles",
+        "answer": "Formulations should reflect clear labeling, purposeful ingredients, and sourcing practices that build consumer confidence."
+      },
+      {
+        "question": "Strong formulation rationale or clinical research",
+        "answer": "We value products supported by clinical data, published research, or a well-defined scientific reasoning for each active component."
+      },
+      {
+        "question": "Trusted manufacturing and quality controls",
+        "answer": "Consistency matters. We seek brands with reliable facilities, robust testing, and documented quality assurance standards."
+      },
+      {
+        "question": "Clear consumer benefits and brand story",
+        "answer": "Successful partnerships begin with products that communicate tangible benefits and a brand identity customers can connect with."
+      },
+      {
+        "question": "Responsible pricing and channel alignment",
+        "answer": "A cohesive pricing strategy across retail channels ensures customers experience your brand as intended—premium, consistent, and trustworthy."
+      }
+    ]
+  },
+
+  "brand_statement": {
+    "title": "A Shared Mission",
+    "body": "We build long-term relationships with brands committed to elevating everyday health. At Purvanti, our role is to guide customers toward products that truly support their well-being—starting with the partners we thoughtfully select.",
+    "cta_text": "Brand Application",
+    "cta_href": "/contact.html?type=brand"
+  }
+},
+
 "home": [
   {
     "section": "hero",

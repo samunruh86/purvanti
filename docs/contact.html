@@ -25,53 +25,78 @@
 <body data-page="contact">
   <div id="site-header"></div>
   <main class="page-main contact-page">
-    <section class="contact-section">
-      <div class="wrap contact-section__grid">
-        <div class="contact-section__copy">
-          <p class="eyebrow" data-contact-hero-eyebrow>Contact</p>
-          <h1 class="contact-section__title" data-contact-hero-title>We’re here to help</h1>
-          <p class="contact-section__body" data-contact-hero-body>Questions about products, ingredients, or your order? Reach out and our team will respond quickly.</p>
-        </div>
-        <form class="contact-form" data-contact-form data-form-name="contact_main">
-          <div class="contact-form__row">
-            <label class="contact-form__field">
-              <span>Name</span>
-              <input type="text" name="name" placeholder="Your name" required>
-            </label>
-            <label class="contact-form__field">
-              <span>Email</span>
-              <input type="email" name="email" placeholder="you@example.com" required>
-            </label>
-          </div>
-          <div class="contact-form__row">
-            <label class="contact-form__field">
-              <span>Phone (optional)</span>
-              <input type="tel" name="phone" placeholder="(555) 123-4567">
-            </label>
-            <label class="contact-form__field">
-              <span>Order # (optional)</span>
-              <input type="text" name="order_number" placeholder="If reaching about an order">
-            </label>
-          </div>
-          <label class="contact-form__field contact-form__field--wide">
-            <span>How can we help?</span>
-            <textarea name="message" rows="4" placeholder="Tell us what you need" required></textarea>
-          </label>
-          <div class="contact-form__actions">
-            <button type="submit" class="btn contact-form__submit">Send message</button>
-            <p class="contact__status" data-contact-status role="status" aria-live="polite"></p>
-          </div>
-        </form>
+    <section class="contact-hero">
+      <div class="contact-hero__media">
+        <img src="assets/images/main/main-contact.jpg" alt="Contact banner" data-contact-hero-img>
+        <div class="contact-hero__shade"></div>
+        <!-- <div class="contact-hero__text">
+        
+        </div> -->
       </div>
-    </section>
-
-    <section class="contact-banner">
-      <img src="assets/images/main/home-banner-runner-full.jpg" alt="Purvanti lifestyle" data-contact-banner-img>
-      <div class="contact-banner__overlay">
-        <div class="contact-banner__text">
-          <p class="eyebrow" data-contact-banner-eyebrow>Team Purvanti</p>
-          <h2 data-contact-banner-title>Thoughtful support from real people</h2>
-          <p data-contact-banner-body>We’re committed to fast answers on wellness guidance, ingredients, shipping, and wholesale inquiries.</p>
+      <div class="wrap contact-hero__content">
+        <div class="contact-hero__copy">
+          <p class="eyebrow">We’re here to help</p>
+          <h2 class="contact-hero__subtitle">Questions about products, ingredients, or your order?</h2>
+          <p class="contact-hero__lead">Our dedicated team is ready to assist quickly and efficiently. Reach out and experience our commitment to your satisfaction.</p>
+          <div class="contact-support__details">
+            <div class="contact-support__detail">
+              <span class="contact-support__label">Phone</span>
+              <a href="tel:17204191089" data-contact-phone>1 (720) 419-1089</a>
+            </div>
+            <div class="contact-support__detail">
+              <span class="contact-support__label">Email</span>
+              <a href="mailto:hello@purvanti.com" data-contact-email>hello@purvanti.com</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-hero__form-wrap">
+          <form class="contact-form contact-form--overlay" data-contact-form data-form-name="contact_main">
+            <div class="contact-form__row">
+              <label class="contact-form__field">
+                <span>Name</span>
+                <input type="text" name="name" placeholder="Your name" required>
+              </label>
+            </div>
+            <div class="contact-form__row">
+              <label class="contact-form__field">
+                <span>Email</span>
+                <input type="email" name="email" placeholder="you@example.com" required>
+              </label>
+            </div>
+            <div class="contact-form__row">
+              <label class="contact-form__field">
+                <span>Phone (optional)</span>
+                <input type="tel" name="phone" placeholder="(555) 123-4567">
+              </label>
+            </div>
+            <div class="contact-form__row">
+              <label class="contact-form__field">
+                <span>Order # (optional)</span>
+                <input type="text" name="order_number" placeholder="If reaching about an order">
+              </label>
+            </div>
+            <div class="contact-form__row">
+              <label class="contact-form__field">
+                <span>Inquiry reason</span>
+                <select name="inquiry_reason">
+                  <option value="General Inquiry">General Inquiry</option>
+                  <option value="Order Issue">Order Issue</option>
+                  <option value="Product Question">Product Question</option>
+                  <option value="Feedback">Feedback</option>
+                </select>
+              </label>
+            </div>
+            <div class="contact-form__row">
+              <label class="contact-form__field contact-form__field--wide">
+                <span>How can we help?</span>
+                <textarea name="message" rows="4" placeholder="Tell us what you need" required></textarea>
+              </label>
+            </div>
+            <div class="contact-form__actions">
+              <button type="submit" class="btn contact-form__submit">Send message</button>
+              <p class="contact__status" data-contact-status role="status" aria-live="polite"></p>
+            </div>
+          </form>
         </div>
       </div>
     </section>
