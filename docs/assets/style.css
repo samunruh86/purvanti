@@ -892,12 +892,6 @@ video {
   transition: transform 140ms ease, box-shadow 150ms ease;
 }
 
-.endurance-card:nth-child(2n) {
-  background: #ff5a5f;
-  color: #ffffff;
-  border-color: #ff5a5f;
-}
-
 .endurance-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 18px 38px rgba(0, 0, 0, 0.1);
@@ -962,19 +956,10 @@ video {
   flex: 1;
 }
 
-.endurance-card:nth-child(2n) .endurance-card__cta {
-  border-color: #ffffff;
-}
-
 .endurance-card__cta:hover {
   transform: translateY(-2px);
   background: rgba(0, 0, 0, 0.06);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-}
-
-.endurance-card:nth-child(2n) .endurance-card__cta:hover {
-  background: rgba(255, 255, 255, 0.18);
-  color: #ffffff;
 }
 
 /* Brand statement */
@@ -2479,6 +2464,15 @@ video {
   width: 100%;
   object-fit: contain;
   filter: drop-shadow(6px 10px 16px rgba(0, 0, 0, 0.16));
+}
+
+.image-fade {
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+
+.image-fade.is-loaded {
+  opacity: 1;
 }
 
 .product-hero__details {

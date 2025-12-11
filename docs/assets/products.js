@@ -112,6 +112,24 @@ function resolveProduct() {
   return productList[0];
 }
 
+function setImageWithFade(img, src, alt) {
+  if (!img) return;
+  img.classList.add("image-fade");
+  if (typeof alt === "string") img.alt = alt;
+  img.classList.remove("is-loaded");
+  const markLoaded = () => {
+    img.classList.add("is-loaded");
+    img.removeEventListener("load", markLoaded);
+    img.removeEventListener("error", markLoaded);
+  };
+  img.addEventListener("load", markLoaded);
+  img.addEventListener("error", markLoaded);
+  img.src = src || "";
+  if (img.complete && img.naturalWidth) {
+    requestAnimationFrame(markLoaded);
+  }
+}
+
 function getHandleFromLocation() {
   const params = new URLSearchParams(window.location.search);
   const fromParam = params.get("handle");
@@ -146,7 +164,10 @@ function updatePrettyPath(product) {
 
   const base = getBasePath().replace(/\/$/, "");
   const prettyPath = `${base}/products/${handle}`;
-  const target = `${prettyPath}${window.location.hash || ""}`;
+  const hash = window.location.hash || "";
+  const hashValue = hash.replace(/^#/, "");
+  const onlyHandleHash = hashValue && hashValue === `handle=${handle}`;
+  const target = onlyHandleHash ? prettyPath : `${prettyPath}${hash}`;
 
   if (window.location.pathname !== prettyPath) {
     window.history.replaceState({}, "", target);
@@ -500,8 +521,7 @@ function setupGallery(images, mainImg, thumbWrap, altText, mainImages = []) {
   const galleryImages = images.length ? images : [mainImg?.src || ""];
   const mainSet = mainImages.length ? mainImages : galleryImages;
   if (mainImg) {
-    mainImg.src = mainSet[0] || galleryImages[0] || "";
-    mainImg.alt = altText || "Product";
+    setImageWithFade(mainImg, mainSet[0] || galleryImages[0] || "", altText || "Product");
   }
 
   if (!thumbWrap) return;
@@ -512,14 +532,12 @@ function setupGallery(images, mainImg, thumbWrap, altText, mainImages = []) {
     btn.type = "button";
     btn.className = "product-hero__thumb";
     const img = document.createElement("img");
-    img.src = src;
-    img.alt = `${altText} view ${idx + 1}`;
+    setImageWithFade(img, src, `${altText} view ${idx + 1}`);
     btn.appendChild(img);
 
     btn.addEventListener("click", () => {
       if (mainImg) {
-        mainImg.src = mainSet[idx] || src;
-        mainImg.alt = altText;
+        setImageWithFade(mainImg, mainSet[idx] || src, altText);
       }
       thumbWrap
         .querySelectorAll(".product-hero__thumb")
