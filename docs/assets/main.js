@@ -2,6 +2,8 @@ const PRODUCTS_PATH = "assets/data/products_all.json";
 const CONTENT_PATH = "assets/data/content.json";
 const POSTS_PATH = "assets/data/posts.json";
 const CART_STORAGE_KEY = "purvanti:cart";
+const SHOPIFY_DOMAIN = "purvanti.myshopify.com";
+const SHOPIFY_TOKEN = "70d5623199b56a6ab54240048ede3cd1";
 const FORM_ENDPOINT = "https://trigger-2gb-616502391258.us-central1.run.app";
 const GA_MEASUREMENT_ID = "G-3P4ZR2BW7E";
 const EMAIL_CONFIRM_DEFAULT = ["528973", "2578189", "981164", "164646"];
@@ -32,6 +34,55 @@ const sectionBuilders = {
   new_arrivals: renderNewArrivals,
   reviews_slider: renderReviews,
 };
+
+async function goToShopifyCheckoutStorefront(cart, { shopDomain, storefrontToken }) {
+  const items = (cart?.items || [])
+    .filter(i => i.shopify_variant_id && Number(i.qty) > 0)
+    .map(i => ({
+      merchandiseId: `gid://shopify/ProductVariant/${Number(i.shopify_variant_id)}`,
+      quantity: Number(i.qty),
+    }));
+
+  if (!items.length) return;
+
+  // optional: your reconciliation hash
+  const purvantiCartId = crypto.randomUUID();
+
+  const query = `
+    mutation CartCreate($input: CartInput!) {
+      cartCreate(input: $input) {
+        cart { id checkoutUrl }
+        userErrors { field message }
+      }
+    }
+  `;
+
+  const variables = {
+    input: {
+      lines: items,
+      attributes: [{ key: "purvanti_cart_id", value: purvantiCartId }],
+    }
+  };
+
+  const res = await fetch(`https://${shopDomain}/api/2025-01/graphql.json`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Shopify-Storefront-Access-Token": storefrontToken,
+    },
+    body: JSON.stringify({ query, variables }),
+  });
+
+  const json = await res.json();
+  const errs = json?.data?.cartCreate?.userErrors;
+  if (errs?.length) throw new Error(errs.map(e => e.message).join("; "));
+
+  const checkoutUrl = json.data.cartCreate.cart.checkoutUrl;
+  // you can also store purvantiCartId locally if you want
+  // localStorage.setItem("purvanti:last_cart_id", purvantiCartId);
+
+  window.location.href = checkoutUrl;
+}
 
 async function recordFormSubmission(formName = null, formData = {}) {
   const url = FORM_ENDPOINT;
