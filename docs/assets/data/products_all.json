@@ -2,7 +2,8 @@
     "products": [
         {
             "id": "pr160265",
-            "shopify_id": "52094816977077",
+            "shopify_variant_id": 52094816977077,
+            "shopify_product_id": 10313589096629,
             "handle": "doctor-s-best-high-absorption-magnesium-240-tablets-100-mg-per-tablet",
             "url": "/products/doctor-s-best-high-absorption-magnesium-240-tablets-100-mg-per-tablet",
             "brand": "Doctor's Best",
@@ -55,7 +56,8 @@
         },
         {
             "id": "pr680073",
-            "shopify_id": "52094817009845",
+            "shopify_variant_id": 52094817009845,
+            "shopify_product_id": 10313589129397,
             "handle": "life-extension-two-per-day-multivitamin-120-capsules",
             "url": "/products/life-extension-two-per-day-multivitamin-120-capsules",
             "brand": "Life Extension",
@@ -107,7 +109,8 @@
         },
         {
             "id": "pr178380",
-            "shopify_id": "52094821400757",
+            "shopify_variant_id": 52094821400757,
+            "shopify_product_id": 10313590636725,
             "handle": "sports-research-omega-3-fish-oil-triple-strength-90-softgels",
             "url": "/products/sports-research-omega-3-fish-oil-triple-strength-90-softgels",
             "brand": "Sports Research",
@@ -160,7 +163,8 @@
         },
         {
             "id": "pr188026",
-            "shopify_id": "52094821499061",
+            "shopify_variant_id": 52094821499061,
+            "shopify_product_id": 10313590702261,
             "handle": "carlson-wild-caught-super-omega-3-gems-100-30-soft-gels",
             "url": "/products/carlson-wild-caught-super-omega-3-gems-100-30-soft-gels",
             "brand": "Carlson",
@@ -213,7 +217,8 @@
         },
         {
             "id": "pr290626",
-            "shopify_id": "52094821761205",
+            "shopify_variant_id": 52094821761205,
+            "shopify_product_id": 10313590866101,
             "handle": "optimum-nutrition-gold-standard-100-whey-protein-double-rich-chocolate-5-05-lb-2-29-kg",
             "url": "/products/optimum-nutrition-gold-standard-100-whey-protein-double-rich-chocolate-5-05-lb-2-29-kg",
             "brand": "Optimum Nutrition",
@@ -266,7 +271,8 @@
         },
         {
             "id": "pr121794",
-            "shopify_id": "52094821826741",
+            "shopify_variant_id": 52094821826741,
+            "shopify_product_id": 10313590898869,
             "handle": "thorne-vitamin-d-k2-1-fl-oz-30-ml",
             "url": "/products/thorne-vitamin-d-k2-1-fl-oz-30-ml",
             "brand": "Thorne",
@@ -318,7 +324,8 @@
         },
         {
             "id": "pr307233",
-            "shopify_id": "52094821859509",
+            "shopify_variant_id": 52094821859509,
+            "shopify_product_id": 10313590931637,
             "handle": "thorne-basic-b-complex-60-capsules",
             "url": "/products/thorne-basic-b-complex-60-capsules",
             "brand": "Thorne",
@@ -371,7 +378,8 @@
         },
         {
             "id": "pr335536",
-            "shopify_id": "52094821892277",
+            "shopify_variant_id": 52094821892277,
+            "shopify_product_id": 10313590964405,
             "handle": "nordic-naturals-ultimate-omega-great-lemon-180-soft-gels-640-mg-per-soft-gel",
             "url": "/products/nordic-naturals-ultimate-omega-great-lemon-180-soft-gels-640-mg-per-soft-gel",
             "brand": "Nordic Naturals",
@@ -424,7 +432,8 @@
         },
         {
             "id": "pr278638",
-            "shopify_id": "52094821957813",
+            "shopify_variant_id": 52094821957813,
+            "shopify_product_id": 10313591029941,
             "handle": "jarrow-formulas-jarro-dophilus-eps-120-veggie-caps-5-billion-cfu-per-capsule",
             "url": "/products/jarrow-formulas-jarro-dophilus-eps-120-veggie-caps-5-billion-cfu-per-capsule",
             "brand": "Jarrow Formulas",
@@ -477,7 +486,8 @@
         },
         {
             "id": "pr159020",
-            "shopify_id": "52094821990581",
+            "shopify_variant_id": 52094821990581,
+            "shopify_product_id": 10313591062709,
             "handle": "navitas-organics-organic-cacao-powder-unsweetened-16-oz-454-g",
             "url": "/products/navitas-organics-organic-cacao-powder-unsweetened-16-oz-454-g",
             "brand": "Navitas Organics",
@@ -530,7 +540,8 @@
         },
         {
             "id": "pr140852",
-            "shopify_id": "52094822023349",
+            "shopify_variant_id": 52094822023349,
+            "shopify_product_id": 10313591095477,
             "handle": "planetary-herbals-full-spectrum-ashwagandha-120-tablets",
             "url": "/products/planetary-herbals-full-spectrum-ashwagandha-120-tablets",
             "brand": "Planetary Herbals",
@@ -583,7 +594,8 @@
         },
         {
             "id": "pr220477",
-            "shopify_id": "52094822056117",
+            "shopify_variant_id": 52094822056117,
+            "shopify_product_id": 10313591128245,
             "handle": "thorne-basic-prenatal-90-capsules",
             "url": "/products/thorne-basic-prenatal-90-capsules",
             "brand": "Thorne",
@@ -636,7 +648,8 @@
         },
         {
             "id": "pr731126",
-            "shopify_id": "52094822088885",
+            "shopify_variant_id": 52094822088885,
+            "shopify_product_id": 10313591161013,
             "handle": "thorne-basic-nutrients-2-day-60-capsules",
             "url": "/products/thorne-basic-nutrients-2-day-60-capsules",
             "brand": "Thorne",
@@ -688,7 +701,8 @@
         },
         {
             "id": "pr525163",
-            "shopify_id": "52094822121653",
+            "shopify_variant_id": 52094822121653,
+            "shopify_product_id": 10313591193781,
             "handle": "host-defense-mushrooms-lion-s-mane-120-capsules-0-5-g-per-capsule",
             "url": "/products/host-defense-mushrooms-lion-s-mane-120-capsules-0-5-g-per-capsule",
             "brand": "Host Defense",
@@ -741,7 +755,8 @@
         },
         {
             "id": "pr338340",
-            "shopify_id": "52094822187189",
+            "shopify_variant_id": 52094822187189,
+            "shopify_product_id": 10313591259317,
             "handle": "dymatize-iso100-hydrolyzed-100-whey-protein-isolate-gourmet-chocolate-5-lbs-2-3-kg",
             "url": "/products/dymatize-iso100-hydrolyzed-100-whey-protein-isolate-gourmet-chocolate-5-lbs-2-3-kg",
             "brand": "Dymatize",
@@ -794,7 +809,8 @@
         },
         {
             "id": "pr791351",
-            "shopify_id": "52094822252725",
+            "shopify_variant_id": 52094822252725,
+            "shopify_product_id": 10313591292085,
             "handle": "natural-vitality-calm-relaxing-drink-mix-original-unflavored-16-oz-453-g",
             "url": "/products/natural-vitality-calm-relaxing-drink-mix-original-unflavored-16-oz-453-g",
             "brand": "Natural Vitality",
@@ -847,7 +863,8 @@
         },
         {
             "id": "pr136188",
-            "shopify_id": "52094822351029",
+            "shopify_variant_id": 52094822351029,
+            "shopify_product_id": 10313591357621,
             "handle": "sunwarrior-warrior-blend-protein-vanilla-1-65-lb-750-g",
             "url": "/products/sunwarrior-warrior-blend-protein-vanilla-1-65-lb-750-g",
             "brand": "Sunwarrior",
@@ -900,7 +917,8 @@
         },
         {
             "id": "pr253894",
-            "shopify_id": "52094822449333",
+            "shopify_variant_id": 52094822449333,
+            "shopify_product_id": 10313591455925,
             "handle": "culturelle-probiotics-digestive-daily-probiotic-50-once-daily-vegetarian-capsules",
             "url": "/products/culturelle-probiotics-digestive-daily-probiotic-50-once-daily-vegetarian-capsules",
             "brand": "Culturelle",
@@ -953,7 +971,8 @@
         },
         {
             "id": "pr377534",
-            "shopify_id": "52094822514869",
+            "shopify_variant_id": 52094822514869,
+            "shopify_product_id": 10313591488693,
             "handle": "gaia-herbs-adrenal-health-daily-support-120-liquid-phyto-caps",
             "url": "/products/gaia-herbs-adrenal-health-daily-support-120-liquid-phyto-caps",
             "brand": "Gaia Herbs",
@@ -1006,7 +1025,8 @@
         },
         {
             "id": "pr746627",
-            "shopify_id": "52094822613173",
+            "shopify_variant_id": 52094822613173,
+            "shopify_product_id": 10313591554229,
             "handle": "natural-vitality-calm-relaxing-drink-mix-raspberry-lemon-16-oz-453-g",
             "url": "/products/natural-vitality-calm-relaxing-drink-mix-raspberry-lemon-16-oz-453-g",
             "brand": "Natural Vitality",
@@ -1059,7 +1079,8 @@
         },
         {
             "id": "pr302936",
-            "shopify_id": "52094822645941",
+            "shopify_variant_id": 52094822645941,
+            "shopify_product_id": 10313591586997,
             "handle": "designs-for-health-gi-revive-peach-8-oz-225-g",
             "url": "/products/designs-for-health-gi-revive-peach-8-oz-225-g",
             "brand": "Designs For Health",
@@ -1112,7 +1133,8 @@
         },
         {
             "id": "pr103005",
-            "shopify_id": "52094822744245",
+            "shopify_variant_id": 52094822744245,
+            "shopify_product_id": 10313591652533,
             "handle": "solgar-omega-3-epa-dha-triple-strength-950-mg-100-softgels",
             "url": "/products/solgar-omega-3-epa-dha-triple-strength-950-mg-100-softgels",
             "brand": "Solgar",
@@ -1164,7 +1186,8 @@
         },
         {
             "id": "pr265924",
-            "shopify_id": "52094822809781",
+            "shopify_variant_id": 52094822809781,
+            "shopify_product_id": 10313591718069,
             "handle": "life-extension-super-omega-3-240-softgels",
             "url": "/products/life-extension-super-omega-3-240-softgels",
             "brand": "Life Extension",
@@ -1217,7 +1240,8 @@
         },
         {
             "id": "pr257262",
-            "shopify_id": "52094822875317",
+            "shopify_variant_id": 52094822875317,
+            "shopify_product_id": 10313591750837,
             "handle": "jarrow-formulas-vegan-saccharomyces-boulardii-mos-5-billion-cfu-90-veggie-capsules",
             "url": "/products/jarrow-formulas-vegan-saccharomyces-boulardii-mos-5-billion-cfu-90-veggie-capsules",
             "brand": "Jarrow Formulas",
@@ -1270,7 +1294,8 @@
         },
         {
             "id": "pr906608",
-            "shopify_id": "52094823006389",
+            "shopify_variant_id": 52094823006389,
+            "shopify_product_id": 10313591849141,
             "handle": "optimum-nutrition-opti-men-150-tablets",
             "url": "/products/optimum-nutrition-opti-men-150-tablets",
             "brand": "Optimum Nutrition",
@@ -1323,7 +1348,8 @@
         },
         {
             "id": "pr217841",
-            "shopify_id": "52094823071925",
+            "shopify_variant_id": 52094823071925,
+            "shopify_product_id": 10313591881909,
             "handle": "optimum-nutrition-opti-women-multivitamin-for-active-women-120-capsules",
             "url": "/products/optimum-nutrition-opti-women-multivitamin-for-active-women-120-capsules",
             "brand": "Optimum Nutrition",
@@ -1376,7 +1402,8 @@
         },
         {
             "id": "pr202212",
-            "shopify_id": "52094823170229",
+            "shopify_variant_id": 52094823170229,
+            "shopify_product_id": 10313591947445,
             "handle": "solgar-omega-3-fish-oil-concentrate-120-softgels",
             "url": "/products/solgar-omega-3-fish-oil-concentrate-120-softgels",
             "brand": "Solgar",
@@ -1429,7 +1456,8 @@
         },
         {
             "id": "pr324720",
-            "shopify_id": "52094823202997",
+            "shopify_variant_id": 52094823202997,
+            "shopify_product_id": 10313591980213,
             "handle": "life-extension-vitamins-d-and-k-with-sea-iodine-60-capsules",
             "url": "/products/life-extension-vitamins-d-and-k-with-sea-iodine-60-capsules",
             "brand": "Life Extension",
@@ -1482,7 +1510,8 @@
         },
         {
             "id": "pr323782",
-            "shopify_id": "52094823301301",
+            "shopify_variant_id": 52094823301301,
+            "shopify_product_id": 10313592045749,
             "handle": "solgar-magnesium-with-vitamin-b6-250-tablets",
             "url": "/products/solgar-magnesium-with-vitamin-b6-250-tablets",
             "brand": "Solgar",
@@ -1535,7 +1564,8 @@
         },
         {
             "id": "pr279642",
-            "shopify_id": "52094823334069",
+            "shopify_variant_id": 52094823334069,
+            "shopify_product_id": 10313592078517,
             "handle": "bluebonnet-nutrition-magnesium-vitamin-b6-90-vegetable-capsules",
             "url": "/products/bluebonnet-nutrition-magnesium-vitamin-b6-90-vegetable-capsules",
             "brand": "Bluebonnet Nutrition",
@@ -1587,7 +1617,8 @@
         },
         {
             "id": "pr114821",
-            "shopify_id": "52094823432373",
+            "shopify_variant_id": 52094823432373,
+            "shopify_product_id": 10313592144053,
             "handle": "carlson-norwegian-the-very-finest-fish-oil-natural-lemon-16-9-fl-oz-500-ml",
             "url": "/products/carlson-norwegian-the-very-finest-fish-oil-natural-lemon-16-9-fl-oz-500-ml",
             "brand": "Carlson",
@@ -1640,7 +1671,8 @@
         },
         {
             "id": "pr610290",
-            "shopify_id": "52094823497909",
+            "shopify_variant_id": 52094823497909,
+            "shopify_product_id": 10313592209589,
             "handle": "solgar-magnesium-citrate-120-tablets",
             "url": "/products/solgar-magnesium-citrate-120-tablets",
             "brand": "Solgar",
@@ -1693,7 +1725,8 @@
         },
         {
             "id": "pr506774",
-            "shopify_id": "52094823923893",
+            "shopify_variant_id": 52094823923893,
+            "shopify_product_id": 10313592275125,
             "handle": "life-extension-nad-cell-regenerator-100-mg-30-vegetarian-capsules",
             "url": "/products/life-extension-nad-cell-regenerator-100-mg-30-vegetarian-capsules",
             "brand": "Life Extension",
@@ -1745,7 +1778,8 @@
         },
         {
             "id": "pr134757",
-            "shopify_id": "52094823989429",
+            "shopify_variant_id": 52094823989429,
+            "shopify_product_id": 10313592340661,
             "handle": "optimum-nutrition-micronized-creatine-powder-unflavored-1-32-lb-600-g",
             "url": "/products/optimum-nutrition-micronized-creatine-powder-unflavored-1-32-lb-600-g",
             "brand": "Optimum Nutrition",
@@ -1798,7 +1832,8 @@
         },
         {
             "id": "pr551722",
-            "shopify_id": "52094824054965",
+            "shopify_variant_id": 52094824054965,
+            "shopify_product_id": 10313592373429,
             "handle": "navitas-organics-organic-acai-powder-8-oz-227-g",
             "url": "/products/navitas-organics-organic-acai-powder-8-oz-227-g",
             "brand": "Navitas Organics",
@@ -1851,7 +1886,8 @@
         },
         {
             "id": "pr536332",
-            "shopify_id": "52094824153269",
+            "shopify_variant_id": 52094824153269,
+            "shopify_product_id": 10313592438965,
             "handle": "xtend-7g-bcaa-mango-madness-2-68-lb-1-22-kg",
             "url": "/products/xtend-7g-bcaa-mango-madness-2-68-lb-1-22-kg",
             "brand": "Xtend",
@@ -1904,7 +1940,8 @@
         },
         {
             "id": "pr709006",
-            "shopify_id": "52094824218805",
+            "shopify_variant_id": 52094824218805,
+            "shopify_product_id": 10313592504501,
             "handle": "garden-of-life-raw-organic-protein-unflavored-1-lb-3-75-oz-560-g",
             "url": "/products/garden-of-life-raw-organic-protein-unflavored-1-lb-3-75-oz-560-g",
             "brand": "Garden of Life",
@@ -1957,7 +1994,8 @@
         },
         {
             "id": "pr205166",
-            "shopify_id": "52094824284341",
+            "shopify_variant_id": 52094824284341,
+            "shopify_product_id": 10313592537269,
             "handle": "navitas-organics-organic-maca-powder-16-oz-454-g",
             "url": "/products/navitas-organics-organic-maca-powder-16-oz-454-g",
             "brand": "Navitas Organics",
@@ -2010,7 +2048,8 @@
         },
         {
             "id": "pr197107",
-            "shopify_id": "52094824546485",
+            "shopify_variant_id": 52094824546485,
+            "shopify_product_id": 10313592635573,
             "handle": "bluebonnet-nutrition-liquid-magnesium-citrate-mixed-berry-16-fl-oz-473-ml",
             "url": "/products/bluebonnet-nutrition-liquid-magnesium-citrate-mixed-berry-16-fl-oz-473-ml",
             "brand": "Bluebonnet Nutrition",
@@ -2063,7 +2102,8 @@
         },
         {
             "id": "pr607884",
-            "shopify_id": "52094824612021",
+            "shopify_variant_id": 52094824612021,
+            "shopify_product_id": 10313592701109,
             "handle": "garden-of-life-organics-women-s-once-daily-60-vegan-tablets",
             "url": "/products/garden-of-life-organics-women-s-once-daily-60-vegan-tablets",
             "brand": "Garden of Life",
@@ -2115,7 +2155,8 @@
         },
         {
             "id": "pr223638",
-            "shopify_id": "52094824677557",
+            "shopify_variant_id": 52094824677557,
+            "shopify_product_id": 10313592733877,
             "handle": "gaia-herbs-women-vitex-berry-120-liquid-phyto-caps",
             "url": "/products/gaia-herbs-women-vitex-berry-120-liquid-phyto-caps",
             "brand": "Gaia Herbs",
@@ -2168,7 +2209,8 @@
         },
         {
             "id": "pr454078",
-            "shopify_id": "52094824743093",
+            "shopify_variant_id": 52094824743093,
+            "shopify_product_id": 10313592799413,
             "handle": "nordic-naturals-vitamin-d3-k2-gummies-pomegranate-60-gummies",
             "url": "/products/nordic-naturals-vitamin-d3-k2-gummies-pomegranate-60-gummies",
             "brand": "Nordic Naturals",
@@ -2221,7 +2263,8 @@
         },
         {
             "id": "pr899490",
-            "shopify_id": "52094825005237",
+            "shopify_variant_id": 52094825005237,
+            "shopify_product_id": 10313592864949,
             "handle": "weleda-skin-food-original-ultra-rich-cream-2-5-fl-oz-75-ml",
             "url": "/products/weleda-skin-food-original-ultra-rich-cream-2-5-fl-oz-75-ml",
             "brand": "Weleda",
@@ -2274,7 +2317,8 @@
         },
         {
             "id": "pr842072",
-            "shopify_id": "52094825103541",
+            "shopify_variant_id": 52094825103541,
+            "shopify_product_id": 10313592930485,
             "handle": "culturelle-probiotics-digestive-daily-probiotic-30-vegetarian-capsules",
             "url": "/products/culturelle-probiotics-digestive-daily-probiotic-30-vegetarian-capsules",
             "brand": "Culturelle",
@@ -2327,7 +2371,8 @@
         },
         {
             "id": "pr241897",
-            "shopify_id": "52094825201845",
+            "shopify_variant_id": 52094825201845,
+            "shopify_product_id": 10313592996021,
             "handle": "natural-vitality-calm-gummies-magnesium-supplement-raspberry-lemon-120-gummies-82-5-mg-per-gummy",
             "url": "/products/natural-vitality-calm-gummies-magnesium-supplement-raspberry-lemon-120-gummies-82-5-mg-per-gummy",
             "brand": "Natural Vitality",
@@ -2380,7 +2425,8 @@
         },
         {
             "id": "pr196853",
-            "shopify_id": "52094825595061",
+            "shopify_variant_id": 52094825595061,
+            "shopify_product_id": 10313593061557,
             "handle": "gaia-herbs-adrenal-health-daily-support-60-liquid-phyto-caps",
             "url": "/products/gaia-herbs-adrenal-health-daily-support-60-liquid-phyto-caps",
             "brand": "Gaia Herbs",
@@ -2433,7 +2479,8 @@
         },
         {
             "id": "pr117334",
-            "shopify_id": "52094825857205",
+            "shopify_variant_id": 52094825857205,
+            "shopify_product_id": 10313593127093,
             "handle": "culturelle-probiotics-health-wellness-50-mg-15-billion-cfus-30-vegetarian-capsules",
             "url": "/products/culturelle-probiotics-health-wellness-50-mg-15-billion-cfus-30-vegetarian-capsules",
             "brand": "Culturelle",
@@ -2486,7 +2533,8 @@
         },
         {
             "id": "pr151348",
-            "shopify_id": "52094825955509",
+            "shopify_variant_id": 52094825955509,
+            "shopify_product_id": 10313593192629,
             "handle": "sunwarrior-plant-based-collagen-building-protein-peptides-tahitian-vanilla-1-1-lb-500-g",
             "url": "/products/sunwarrior-plant-based-collagen-building-protein-peptides-tahitian-vanilla-1-1-lb-500-g",
             "brand": "Sunwarrior",
@@ -2539,7 +2587,8 @@
         },
         {
             "id": "pr278309",
-            "shopify_id": "52094826021045",
+            "shopify_variant_id": 52094826021045,
+            "shopify_product_id": 10313593258165,
             "handle": "gaia-herbs-turmeric-supreme-120-vegan-liquid-phyto-caps",
             "url": "/products/gaia-herbs-turmeric-supreme-120-vegan-liquid-phyto-caps",
             "brand": "Gaia Herbs",
@@ -2591,7 +2640,8 @@
         },
         {
             "id": "pr331359",
-            "shopify_id": "52094826086581",
+            "shopify_variant_id": 52094826086581,
+            "shopify_product_id": 10313593290933,
             "handle": "sunwarrior-classic-plus-protein-vanilla-1-65-lb-750-g",
             "url": "/products/sunwarrior-classic-plus-protein-vanilla-1-65-lb-750-g",
             "brand": "Sunwarrior",
@@ -2644,7 +2694,8 @@
         },
         {
             "id": "pr329278",
-            "shopify_id": "52094826152117",
+            "shopify_variant_id": 52094826152117,
+            "shopify_product_id": 10313593356469,
             "handle": "host-defense-mushrooms-mycommunity-120-capsules",
             "url": "/products/host-defense-mushrooms-mycommunity-120-capsules",
             "brand": "Host Defense",
@@ -2697,7 +2748,8 @@
         },
         {
             "id": "pr269112",
-            "shopify_id": "52094826479797",
+            "shopify_variant_id": 52094826479797,
+            "shopify_product_id": 10313593422005,
             "handle": "sunwarrior-protein-classic-plus-chocolate-1-65-lb-750-g",
             "url": "/products/sunwarrior-protein-classic-plus-chocolate-1-65-lb-750-g",
             "brand": "Sunwarrior",
@@ -2750,7 +2802,8 @@
         },
         {
             "id": "pr249741",
-            "shopify_id": "52094826578101",
+            "shopify_variant_id": 52094826578101,
+            "shopify_product_id": 10313593487541,
             "handle": "host-defense-mushrooms-turkey-tail-120-capsules-0-5-g-per-capsule",
             "url": "/products/host-defense-mushrooms-turkey-tail-120-capsules-0-5-g-per-capsule",
             "brand": "Host Defense",
@@ -2803,7 +2856,8 @@
         },
         {
             "id": "pr186226",
-            "shopify_id": "52094826643637",
+            "shopify_variant_id": 52094826643637,
+            "shopify_product_id": 10313593553077,
             "handle": "renew-life-ultimate-flora-probiotic-50-billion-cfu-30-delayed-release-vegan-capsules",
             "url": "/products/renew-life-ultimate-flora-probiotic-50-billion-cfu-30-delayed-release-vegan-capsules",
             "brand": "Renew Life",
@@ -2856,7 +2910,8 @@
         },
         {
             "id": "pr766281",
-            "shopify_id": "52094826709173",
+            "shopify_variant_id": 52094826709173,
+            "shopify_product_id": 10313593585845,
             "handle": "metagenics-omegagenics-fish-oil-epa-dha-natural-lemon-1-000-mg-120-softgels",
             "url": "/products/metagenics-omegagenics-fish-oil-epa-dha-natural-lemon-1-000-mg-120-softgels",
             "brand": "Metagenics",
@@ -2909,7 +2964,8 @@
         },
         {
             "id": "pr237245",
-            "shopify_id": "52094826774709",
+            "shopify_variant_id": 52094826774709,
+            "shopify_product_id": 10313593651381,
             "handle": "vital-nutrients-vitamin-d3-k2-60-vegetarian-capsules",
             "url": "/products/vital-nutrients-vitamin-d3-k2-60-vegetarian-capsules",
             "brand": "Vital Nutrients",
@@ -2961,7 +3017,8 @@
         },
         {
             "id": "pr125894",
-            "shopify_id": "52094826840245",
+            "shopify_variant_id": 52094826840245,
+            "shopify_product_id": 10313593684149,
             "handle": "pure-encapsulations-b-complex-plus-120-capsules",
             "url": "/products/pure-encapsulations-b-complex-plus-120-capsules",
             "brand": "Pure Encapsulations",
@@ -3014,7 +3071,8 @@
         },
         {
             "id": "pr112946",
-            "shopify_id": "52094827036853",
+            "shopify_variant_id": 52094827036853,
+            "shopify_product_id": 10313593782453,
             "handle": "sports-research-omega-3-fish-oil-triple-strength-180-softgels",
             "url": "/products/sports-research-omega-3-fish-oil-triple-strength-180-softgels",
             "brand": "Sports Research",
@@ -3067,7 +3125,8 @@
         },
         {
             "id": "pr209752",
-            "shopify_id": "52094827069621",
+            "shopify_variant_id": 52094827069621,
+            "shopify_product_id": 10313593815221,
             "handle": "carlson-wild-norwegian-elite-omega-3-gems-natural-lemon-120-soft-gels",
             "url": "/products/carlson-wild-norwegian-elite-omega-3-gems-natural-lemon-120-soft-gels",
             "brand": "Carlson",
@@ -3120,7 +3179,8 @@
         },
         {
             "id": "pr167771",
-            "shopify_id": "52094827200693",
+            "shopify_variant_id": 52094827200693,
+            "shopify_product_id": 10313593913525,
             "handle": "jarrow-formulas-vegan-fem-dophilus-1-billion-cfu-60-veggie-capsules",
             "url": "/products/jarrow-formulas-vegan-fem-dophilus-1-billion-cfu-60-veggie-capsules",
             "brand": "Jarrow Formulas",
@@ -3173,7 +3233,8 @@
         },
         {
             "id": "pr474932",
-            "shopify_id": "52094827266229",
+            "shopify_variant_id": 52094827266229,
+            "shopify_product_id": 10313593979061,
             "handle": "nordic-naturals-omega-3-lemon-1-560-mg-8-fl-oz-237-ml",
             "url": "/products/nordic-naturals-omega-3-lemon-1-560-mg-8-fl-oz-237-ml",
             "brand": "Nordic Naturals",
@@ -3226,7 +3287,8 @@
         },
         {
             "id": "pr927469",
-            "shopify_id": "52094827331765",
+            "shopify_variant_id": 52094827331765,
+            "shopify_product_id": 10313594011829,
             "handle": "jarrow-formulas-vegan-mastic-gum-60-veggie-capsules-500-mg-per-capsule",
             "url": "/products/jarrow-formulas-vegan-mastic-gum-60-veggie-capsules-500-mg-per-capsule",
             "brand": "Jarrow Formulas",
@@ -3279,7 +3341,8 @@
         },
         {
             "id": "pr785258",
-            "shopify_id": "52094827430069",
+            "shopify_variant_id": 52094827430069,
+            "shopify_product_id": 10313594077365,
             "handle": "jarrow-formulas-ashwagandha-300-mg-120-veggie-capsules",
             "url": "/products/jarrow-formulas-ashwagandha-300-mg-120-veggie-capsules",
             "brand": "Jarrow Formulas",
@@ -3332,7 +3395,8 @@
         },
         {
             "id": "pr284460",
-            "shopify_id": "52094827462837",
+            "shopify_variant_id": 52094827462837,
+            "shopify_product_id": 10313594110133,
             "handle": "jarrow-formulas-lactoferrin-freeze-dried-250-mg-60-capsules",
             "url": "/products/jarrow-formulas-lactoferrin-freeze-dried-250-mg-60-capsules",
             "brand": "Jarrow Formulas",
@@ -3385,7 +3449,8 @@
         },
         {
             "id": "pr824516",
-            "shopify_id": "52094827561141",
+            "shopify_variant_id": 52094827561141,
+            "shopify_product_id": 10313594175669,
             "handle": "carlson-wild-norwegian-cod-liver-oil-natural-lemon-16-9-fl-oz-500-ml",
             "url": "/products/carlson-wild-norwegian-cod-liver-oil-natural-lemon-16-9-fl-oz-500-ml",
             "brand": "Carlson",
@@ -3438,7 +3503,8 @@
         },
         {
             "id": "pr203172",
-            "shopify_id": "52094827626677",
+            "shopify_variant_id": 52094827626677,
+            "shopify_product_id": 10313594241205,
             "handle": "navitas-organics-organic-cacao-nibs-16-oz-454-g",
             "url": "/products/navitas-organics-organic-cacao-nibs-16-oz-454-g",
             "brand": "Navitas Organics",
@@ -3491,7 +3557,8 @@
         },
         {
             "id": "pr136671",
-            "shopify_id": "52094827692213",
+            "shopify_variant_id": 52094827692213,
+            "shopify_product_id": 10313594273973,
             "handle": "eidon-ionic-minerals-ionic-minerals-zinc-liquid-concentrate-2-oz-60-ml",
             "url": "/products/eidon-ionic-minerals-ionic-minerals-zinc-liquid-concentrate-2-oz-60-ml",
             "brand": "Eidon Ionic Minerals",
@@ -3544,7 +3611,8 @@
         },
         {
             "id": "pr275867",
-            "shopify_id": "52094827790517",
+            "shopify_variant_id": 52094827790517,
+            "shopify_product_id": 10313594339509,
             "handle": "bluebonnet-nutrition-liquid-calcium-magnesium-citrate-vitamin-d3-blueberry-16-fl-oz-473-ml",
             "url": "/products/bluebonnet-nutrition-liquid-calcium-magnesium-citrate-vitamin-d3-blueberry-16-fl-oz-473-ml",
             "brand": "Bluebonnet Nutrition",
@@ -3596,7 +3664,8 @@
         },
         {
             "id": "pr250222",
-            "shopify_id": "52094827856053",
+            "shopify_variant_id": 52094827856053,
+            "shopify_product_id": 10313594405045,
             "handle": "thorne-creatine-16-oz-450-g",
             "url": "/products/thorne-creatine-16-oz-450-g",
             "brand": "Thorne",
@@ -3649,7 +3718,8 @@
         },
         {
             "id": "pr128807",
-            "shopify_id": "52094827921589",
+            "shopify_variant_id": 52094827921589,
+            "shopify_product_id": 10313594437813,
             "handle": "renew-life-intestinew-intestinal-lining-support-formula-6-oz-169-5-g",
             "url": "/products/renew-life-intestinew-intestinal-lining-support-formula-6-oz-169-5-g",
             "brand": "Renew Life",
@@ -3702,7 +3772,8 @@
         },
         {
             "id": "pr112424",
-            "shopify_id": "52094828347573",
+            "shopify_variant_id": 52094828347573,
+            "shopify_product_id": 10313594568885,
             "handle": "eidon-ionic-minerals-magnesium-liquid-concentrate-2-oz-60-ml",
             "url": "/products/eidon-ionic-minerals-magnesium-liquid-concentrate-2-oz-60-ml",
             "brand": "Eidon Ionic Minerals",
@@ -3755,7 +3826,8 @@
         },
         {
             "id": "pr164772",
-            "shopify_id": "52094828413109",
+            "shopify_variant_id": 52094828413109,
+            "shopify_product_id": 10313594601653,
             "handle": "sunwarrior-algae-based-omega-3-vegan-dha-epa-60-vegan-softgels",
             "url": "/products/sunwarrior-algae-based-omega-3-vegan-dha-epa-60-vegan-softgels",
             "brand": "Sunwarrior",
@@ -3808,7 +3880,8 @@
         },
         {
             "id": "pr600798",
-            "shopify_id": "52094828478645",
+            "shopify_variant_id": 52094828478645,
+            "shopify_product_id": 10313594667189,
             "handle": "kaged-creatine-hcl-75-veggie-capsules-750-mg-per-capsule",
             "url": "/products/kaged-creatine-hcl-75-veggie-capsules-750-mg-per-capsule",
             "brand": "Kaged",
@@ -3861,7 +3934,8 @@
         },
         {
             "id": "pr301075",
-            "shopify_id": "52094828544181",
+            "shopify_variant_id": 52094828544181,
+            "shopify_product_id": 10313594699957,
             "handle": "oregon-s-wild-harvest-organic-chaste-tree-90-vegan-capsules-440-mg-per-capsule",
             "url": "/products/oregon-s-wild-harvest-organic-chaste-tree-90-vegan-capsules-440-mg-per-capsule",
             "brand": "Oregon's Wild Harvest",
@@ -3914,7 +3988,8 @@
         },
         {
             "id": "pr259091",
-            "shopify_id": "52094828609717",
+            "shopify_variant_id": 52094828609717,
+            "shopify_product_id": 10313594765493,
             "handle": "pure-encapsulations-digestive-enzymes-ultra-90-capsules",
             "url": "/products/pure-encapsulations-digestive-enzymes-ultra-90-capsules",
             "brand": "Pure Encapsulations",
@@ -3966,7 +4041,8 @@
         },
         {
             "id": "pr355992",
-            "shopify_id": "52094828675253",
+            "shopify_variant_id": 52094828675253,
+            "shopify_product_id": 10313594798261,
             "handle": "heritage-store-rosewater-glycerin-hydrating-facial-mist-8-fl-oz-237-ml",
             "url": "/products/heritage-store-rosewater-glycerin-hydrating-facial-mist-8-fl-oz-237-ml",
             "brand": "Heritage Store",
@@ -4019,7 +4095,8 @@
         },
         {
             "id": "pr506213",
-            "shopify_id": "52094828773557",
+            "shopify_variant_id": 52094828773557,
+            "shopify_product_id": 10313594863797,
             "handle": "desert-essence-100-pure-jojoba-oil-for-hair-skin-and-scalp-4-fl-oz-118-ml",
             "url": "/products/desert-essence-100-pure-jojoba-oil-for-hair-skin-and-scalp-4-fl-oz-118-ml",
             "brand": "Desert Essence",
@@ -4072,7 +4149,8 @@
         },
         {
             "id": "pr219367",
-            "shopify_id": "52094828839093",
+            "shopify_variant_id": 52094828839093,
+            "shopify_product_id": 10313594929333,
             "handle": "bluebonnet-nutrition-buffered-chelated-magnesium-200-mg-120-vegetable-capsules",
             "url": "/products/bluebonnet-nutrition-buffered-chelated-magnesium-200-mg-120-vegetable-capsules",
             "brand": "Bluebonnet Nutrition",
@@ -4125,7 +4203,8 @@
         },
         {
             "id": "pr141441",
-            "shopify_id": "52094828904629",
+            "shopify_variant_id": 52094828904629,
+            "shopify_product_id": 10313594962101,
             "handle": "bluebonnet-nutrition-buffered-chelated-magnesium-200-mg-60-vegetable-capsules",
             "url": "/products/bluebonnet-nutrition-buffered-chelated-magnesium-200-mg-60-vegetable-capsules",
             "brand": "Bluebonnet Nutrition",
@@ -4178,7 +4257,8 @@
         },
         {
             "id": "pr467684",
-            "shopify_id": "52094829002933",
+            "shopify_variant_id": 52094829002933,
+            "shopify_product_id": 10313595027637,
             "handle": "navitas-organics-organic-goji-berries-16-oz-454-g",
             "url": "/products/navitas-organics-organic-goji-berries-16-oz-454-g",
             "brand": "Navitas Organics",
@@ -4231,7 +4311,8 @@
         },
         {
             "id": "pr154752",
-            "shopify_id": "52094829068469",
+            "shopify_variant_id": 52094829068469,
+            "shopify_product_id": 10313595093173,
             "handle": "badger-ultra-rich-beauty-balm-rosehip-rose-1-oz-28-g",
             "url": "/products/badger-ultra-rich-beauty-balm-rosehip-rose-1-oz-28-g",
             "brand": "Badger",
@@ -4284,7 +4365,8 @@
         },
         {
             "id": "pr289402",
-            "shopify_id": "52094829134005",
+            "shopify_variant_id": 52094829134005,
+            "shopify_product_id": 10313595125941,
             "handle": "gaia-herbs-oil-of-oregano-120-liquid-phyto-caps",
             "url": "/products/gaia-herbs-oil-of-oregano-120-liquid-phyto-caps",
             "brand": "Gaia Herbs",
@@ -4337,7 +4419,8 @@
         },
         {
             "id": "pr656505",
-            "shopify_id": "52094829199541",
+            "shopify_variant_id": 52094829199541,
+            "shopify_product_id": 10313595191477,
             "handle": "renew-life-cleanse-more-100-vegetarian-capsules",
             "url": "/products/renew-life-cleanse-more-100-vegetarian-capsules",
             "brand": "Renew Life",
@@ -4389,7 +4472,8 @@
         },
         {
             "id": "pr167593",
-            "shopify_id": "52094829265077",
+            "shopify_variant_id": 52094829265077,
+            "shopify_product_id": 10313595224245,
             "handle": "sunwarrior-collagen-building-protein-peptides-unflavored-1-1-lb-500-g",
             "url": "/products/sunwarrior-collagen-building-protein-peptides-unflavored-1-1-lb-500-g",
             "brand": "Sunwarrior",
@@ -4442,7 +4526,8 @@
         },
         {
             "id": "pr882247",
-            "shopify_id": "52094829592757",
+            "shopify_variant_id": 52094829592757,
+            "shopify_product_id": 10313595289781,
             "handle": "dymatize-super-mass-gainer-rich-chocolate-6-lb-2-7-kg",
             "url": "/products/dymatize-super-mass-gainer-rich-chocolate-6-lb-2-7-kg",
             "brand": "Dymatize",
@@ -4495,7 +4580,8 @@
         },
         {
             "id": "pr153735",
-            "shopify_id": "52094829658293",
+            "shopify_variant_id": 52094829658293,
+            "shopify_product_id": 10313595355317,
             "handle": "host-defense-mushrooms-stamets-7-120-capsules",
             "url": "/products/host-defense-mushrooms-stamets-7-120-capsules",
             "brand": "Host Defense",
@@ -4548,7 +4634,8 @@
         },
         {
             "id": "pr843854",
-            "shopify_id": "52094829756597",
+            "shopify_variant_id": 52094829756597,
+            "shopify_product_id": 10313595420853,
             "handle": "host-defense-mushrooms-stamets-7-7-oz-200-g",
             "url": "/products/host-defense-mushrooms-stamets-7-7-oz-200-g",
             "brand": "Host Defense",
@@ -4601,7 +4688,8 @@
         },
         {
             "id": "pr123677",
-            "shopify_id": "52094829822133",
+            "shopify_variant_id": 52094829822133,
+            "shopify_product_id": 10313595486389,
             "handle": "herb-pharm-thyroid-calming-1-fl-oz-30-ml",
             "url": "/products/herb-pharm-thyroid-calming-1-fl-oz-30-ml",
             "brand": "Herb Pharm",
@@ -4654,7 +4742,8 @@
         },
         {
             "id": "pr540591",
-            "shopify_id": "52094829887669",
+            "shopify_variant_id": 52094829887669,
+            "shopify_product_id": 10313595519157,
             "handle": "renew-life-extra-care-ultimate-flora-probiotic-30-delayed-release-vegan-capsules",
             "url": "/products/renew-life-extra-care-ultimate-flora-probiotic-30-delayed-release-vegan-capsules",
             "brand": "Renew Life",
@@ -4707,7 +4796,8 @@
         },
         {
             "id": "pr441160",
-            "shopify_id": "52094829985973",
+            "shopify_variant_id": 52094829985973,
+            "shopify_product_id": 10313595584693,
             "handle": "metagenics-berberine-gt-cardiometabolic-60-capsules",
             "url": "/products/metagenics-berberine-gt-cardiometabolic-60-capsules",
             "brand": "Metagenics",
