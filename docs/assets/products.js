@@ -558,24 +558,33 @@ function setupGallery(images, mainImg, thumbWrap, altText, mainImages = []) {
 }
 
 function productMediaLocal(product) {
+  const sharedMedia = window?.purvantiShared?.productMediaShared
+    ? window.purvantiShared.productMediaShared(product)
+    : null;
   const pid = product?.id || product?.handle;
   const existing = product?.media || {};
-  const fullRaw =
-    (existing.full && existing.full.length && existing.full) ||
-    (pid
+  const fallback = {
+    full: pid
       ? [
           `assets/images/products/primary/full/${pid}.png`,
           `assets/images/products/secondary/full/${pid}.png`,
         ]
-      : []);
-  const mobileRaw =
-    (existing.mobile && existing.mobile.length && existing.mobile) ||
-    (pid
+      : [],
+    mobile: pid
       ? [
           `assets/images/products/primary/small/${pid}.png`,
           `assets/images/products/secondary/small/${pid}.png`,
         ]
-      : []);
+      : [],
+  };
+  const fullRaw =
+    (sharedMedia?.full && sharedMedia.full.length && sharedMedia.full) ||
+    (existing.full && existing.full.length && existing.full) ||
+    fallback.full;
+  const mobileRaw =
+    (sharedMedia?.mobile && sharedMedia.mobile.length && sharedMedia.mobile) ||
+    (existing.mobile && existing.mobile.length && existing.mobile) ||
+    fallback.mobile;
   return {
     full: fullRaw.map(resolveAssetPathLocal),
     mobile: mobileRaw.map(resolveAssetPathLocal),

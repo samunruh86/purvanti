@@ -2191,6 +2191,9 @@ function formatPrice(value) {
 }
 
 function productMedia(product) {
+  if (window?.purvantiShared?.productMediaShared) {
+    return window.purvantiShared.productMediaShared(product);
+  }
   const pid = product?.id || product?.handle;
   const existing = product?.media || {};
   const full =
@@ -2213,6 +2216,9 @@ function productMedia(product) {
 }
 
 function productImageSrc(product, size = "small", idx = 0) {
+  if (window?.purvantiShared?.productImageSrcShared) {
+    return window.purvantiShared.productImageSrcShared(product, size, idx);
+  }
   const media = productMedia(product);
   const list = size === "full" ? media.full : media.mobile;
   const fallback = size === "full" ? media.mobile : media.full;
