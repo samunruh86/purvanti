@@ -236,6 +236,27 @@ function cartSubtotal() {
   );
 }
 
+function buildShopifyCartUrl() {
+  const base = "https://purvanti.myshopify.com/cart/";
+  const lines =
+    cartState.items
+      ?.map((item) => {
+        const product =
+          cartProductMap.get(item.id) ||
+          cartProductMap.get(Number(item.id)) ||
+          cartProductMap.get(item.handle) ||
+          cartProductMap.get((item.handle || "").toLowerCase());
+        const variantId = product?.shopify_variant_id || item.shopify_variant_id;
+        const qty = Math.max(0, Number(item.qty) || 0);
+        if (!variantId || qty <= 0) return null;
+        return `${variantId}:${qty}`;
+      })
+      .filter(Boolean) || [];
+
+  if (!lines.length) return null;
+  return `${base}${lines.join(",")}`;
+}
+
 function resolveCartImage(path) {
   if (!path) return "";
   if (typeof resolveAssetPath === "function") {
@@ -388,7 +409,16 @@ function ensureCartDrawer() {
 
   checkout.addEventListener("click", (e) => {
     e.preventDefault();
-    if (account.dataset.completed === "true") return;
+    if (account.dataset.completed === "true" || checkout.classList.contains("is-proceed")) {
+      const url = buildShopifyCartUrl();
+      console.log("[checkout] proceed click", { url, items: cartState.items });
+      if (url) {
+        window.location.href = url;
+      } else {
+        console.warn("[checkout] no valid Shopify items to checkout");
+      }
+      return;
+    }
     const isOpen = account.classList.toggle("is-open");
     account.hidden = !isOpen;
     checkout.textContent = isOpen ? "Close" : "Checkout";
@@ -508,6 +538,7 @@ function ensureCartDrawer() {
           }
           if (result === "password_match") {
             showAccountMessage(account, "Welcome back! You're ready to checkout.", "success");
+            console.log("[checkout] ready URL", buildShopifyCartUrl());
             finalizeAccountSuccess(account);
             return;
           }
@@ -1675,7 +1706,10 @@ function resetAccountForm(account, { keepCompletion = false } = {}) {
   }
   if (resetBtn) resetBtn.hidden = false;
   const checkoutBtn = cartUI?.checkout || document.querySelector(".cart__checkout");
-  if (checkoutBtn) checkoutBtn.textContent = "Checkout";
+  if (checkoutBtn) {
+    checkoutBtn.textContent = "Checkout";
+    checkoutBtn.classList.remove("is-proceed");
+  }
 }
 
 function hideConfirmationUI(account) {
@@ -1770,6 +1804,8 @@ function finalizeAccountSuccess(account) {
   account.hidden = true;
   hideAccountMessage(account);
   hideConfirmationUI(account, { hideMessage: true });
+  const shopifyUrl = buildShopifyCartUrl();
+  console.log("[checkout] ready URL", shopifyUrl);
   const checkoutBtn = cartUI?.checkout || document.querySelector(".cart__checkout");
   if (checkoutBtn) {
     checkoutBtn.textContent = "Proceed to Checkout";
