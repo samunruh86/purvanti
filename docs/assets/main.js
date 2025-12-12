@@ -6,7 +6,7 @@ const FORM_ENDPOINT = "https://trigger-2gb-616502391258.us-central1.run.app";
 const GA_MEASUREMENT_ID = "G-3P4ZR2BW7E";
 const EMAIL_CONFIRM_DEFAULT = ["528973", "2578189", "981164", "164646"];
 const SHOPIFY_DOMAIN = "purvanti.myshopify.com";
-const SHOPIFY_TOKEN = "70d5623199b56a6ab54240048ede3cd1";
+const SHOPIFY_TOKEN = "6a22e402edfee5831a3b5501187767ce";
 
 let cartState = { items: [], updatedAt: null };
 let cartProductMap = new Map();
