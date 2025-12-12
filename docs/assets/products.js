@@ -564,16 +564,16 @@ function productMediaLocal(product) {
     (existing.full && existing.full.length && existing.full) ||
     (pid
       ? [
-          `assets/images/products/full/${pid}-primary.png`,
-          `assets/images/products/full/${pid}-secondary.png`,
+          `assets/images/products/primary/full/${pid}.png`,
+          `assets/images/products/secondary/full/${pid}.png`,
         ]
       : []);
   const mobileRaw =
     (existing.mobile && existing.mobile.length && existing.mobile) ||
     (pid
       ? [
-          `assets/images/products/small/${pid}-primary.png`,
-          `assets/images/products/small/${pid}-secondary.png`,
+          `assets/images/products/primary/small/${pid}.png`,
+          `assets/images/products/secondary/small/${pid}.png`,
         ]
       : []);
   return {
