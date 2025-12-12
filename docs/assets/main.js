@@ -854,16 +854,26 @@ function uniqueProducts(productMap) {
 
 function preparePosts(list) {
   const today = new Date();
+  const currentYear = today.getFullYear();
   const normalized = Array.isArray(list) ? list : [];
   return normalized
     .map((post) => {
       const month = Number(post.month) || 1;
       const day = Number(post.day) || 1;
-      let year = today.getFullYear();
+      const yearOffsetRaw = post.year_offset;
+      const hasExplicitYear = typeof post.year === "number";
+      const hasYearOffset = yearOffsetRaw !== undefined && yearOffsetRaw !== null && yearOffsetRaw !== "";
+
+      let year = hasExplicitYear ? Number(post.year) : currentYear - (Number(yearOffsetRaw) || 0);
       let date = new Date(year, month - 1, day);
-      if (date > today) {
+
+      if (!hasExplicitYear && !hasYearOffset && date > today) {
         year -= 1;
         date = new Date(year, month - 1, day);
+      }
+
+      if (Number.isNaN(date.getTime())) {
+        date = today;
       }
       const dateStr = formatDate(date);
       return {
@@ -895,10 +905,16 @@ function buildBlogCard(post) {
 
   const media = document.createElement("div");
   media.className = "blog-card__media";
+  const mediaLink = document.createElement("a");
+  mediaLink.className = "blog-card__media-link";
+  mediaLink.href = blogPageHref(post);
+  mediaLink.dataset.blogSlug = post.slug || "";
+  attachBlogLinkHandlers(mediaLink, post.slug);
   const img = document.createElement("img");
   img.src = resolveAssetPath(post.image || post.image_full || post.image_small || "");
   img.alt = post.title || "Blog image";
-  media.appendChild(img);
+  mediaLink.appendChild(img);
+  media.appendChild(mediaLink);
 
   const meta = document.createElement("p");
   meta.className = "blog-card__meta";
@@ -1053,10 +1069,16 @@ async function hydrateBlogPage() {
         .forEach((post) => {
           const card = document.createElement("article");
           card.className = "blog-mini";
+          const imgLink = document.createElement("a");
+          imgLink.className = "blog-mini__image-link";
+          imgLink.href = blogPageHref(post);
+          imgLink.dataset.blogSlug = post.slug || "";
+          attachBlogLinkHandlers(imgLink, post.slug);
 
           const img = document.createElement("img");
           img.src = resolveAssetPath(post.image_small || post.image_full || "");
           img.alt = post.title || "Blog image";
+          imgLink.appendChild(img);
 
           const meta = document.createElement("p");
           meta.className = "blog-mini__meta";
@@ -1073,7 +1095,7 @@ async function hydrateBlogPage() {
           link.textContent = "Read more";
           attachBlogLinkHandlers(link, post.slug);
 
-          card.append(img, meta, h3, link);
+          card.append(imgLink, meta, h3, link);
           cardList.appendChild(card);
         });
     }
@@ -1106,14 +1128,21 @@ async function hydrateJournalListPage() {
     const posts = preparePosts(postsRaw || []);
     renderChrome(productMap, categories);
 
-    const heroData = content?.journalAll || content?.journal || {};
+    const heroData =
+      (Array.isArray(content?.journalAll)
+        ? content.journalAll.find((block) => block.section === "hero") || content.journalAll[0]
+        : null) ||
+      (content?.journalAll && typeof content.journalAll === "object" ? content.journalAll : null) ||
+      content?.journal ||
+      {};
     renderJournalHero(hero, heroData);
     if (eyebrowEl) eyebrowEl.textContent = heroData.pre_header || "From the journal";
     if (titleEl) titleEl.textContent = heroData.header || "Fresh takes on everyday wellness";
 
     if (grid) {
       grid.innerHTML = "";
-      posts.forEach((post) => {
+      const postsForDisplay = posts.slice(0, 21);
+      postsForDisplay.forEach((post) => {
         grid.appendChild(buildBlogCard(post));
       });
     }
@@ -1143,16 +1172,33 @@ async function hydrateAboutPage() {
     const productMap = mapProducts(products?.products || []);
     renderChrome(productMap, categories);
 
-    const about = content?.about || {};
-    renderAboutHero(heroEl, about.hero);
-    renderAboutHeadline(headlineEl, about.headline);
-    renderAboutPanels(panelsEl, about.panels);
+    const about = content?.about;
+    const findSection = (id) => {
+      if (Array.isArray(about)) {
+        return about.find((block) => block.section === id) || null;
+      }
+      if (about && typeof about === "object") {
+        if (about.section === id) return about;
+        if (about[id]) return about[id];
+      }
+      return null;
+    };
+
+    const heroData = findSection("hero") || {};
+    const headlineData = findSection("headline");
+    const panelsData = findSection("panels");
+    const letterData = findSection("letter");
+    const brandData = findSection("brand_statement");
+
+    renderAboutHero(heroEl, heroData);
+    renderAboutHeadline(headlineEl, headlineData);
+    renderAboutPanels(panelsEl, panelsData?.panels || panelsData);
     if (brandEl) {
       brandEl.innerHTML = "";
-      const brandNode = renderStatement(about.brand_statement);
+      const brandNode = renderStatement(brandData);
       if (brandNode) brandEl.appendChild(brandNode);
     }
-    renderAboutLetter(letterEl, about.letter);
+    renderAboutLetter(letterEl, letterData);
   } catch (error) {
     console.error(error);
     if (headlineEl) headlineEl.textContent = "We couldn't load this page right now.";
@@ -1204,17 +1250,33 @@ async function hydrateBrandsPage() {
     const productMap = mapProducts(products?.products || []);
     renderChrome(productMap, categories);
 
-    const brands = content?.brands || {};
-    renderAboutHero(heroEl, brands.hero);
-    renderBrandsScience(scienceEl, brands.science);
-    const faqNode = renderProductFaq(brands.faqs);
+    const brands = content?.brands;
+    const findSection = (id) => {
+      if (Array.isArray(brands)) {
+        return brands.find((block) => block.section === id) || null;
+      }
+      if (brands && typeof brands === "object") {
+        if (brands.section === id) return brands;
+        if (brands[id]) return brands[id];
+      }
+      return null;
+    };
+
+    const heroData = findSection("hero");
+    const scienceData = findSection("science");
+    const faqData = findSection("faqs");
+    const statementData = findSection("brand_statement");
+
+    renderAboutHero(heroEl, heroData);
+    renderBrandsScience(scienceEl, scienceData);
+    const faqNode = renderProductFaq(faqData);
     if (faqEl && faqNode) {
       faqEl.innerHTML = "";
       faqEl.appendChild(faqNode);
     }
     if (statementEl) {
       statementEl.innerHTML = "";
-      const node = renderStatement(brands.brand_statement);
+      const node = renderStatement(statementData);
       if (node) statementEl.appendChild(node);
     }
   } catch (error) {
@@ -1245,7 +1307,22 @@ async function hydratePolicyPage() {
 }
 
 function renderContactContent(contact = {}) {
-  const hero = contact.hero || {};
+  const findSection = (id) => {
+    if (Array.isArray(contact)) {
+      return contact.find((block) => block.section === id) || null;
+    }
+    if (contact && typeof contact === "object") {
+      if (Array.isArray(contact.sections)) {
+        const found = contact.sections.find((block) => block.section === id);
+        if (found) return found;
+      }
+      if (contact[id]) return contact[id];
+      if (contact.section === id) return contact;
+    }
+    return null;
+  };
+
+  const hero = findSection("hero") || {};
   const heroEyebrow = document.querySelector("[data-contact-hero-eyebrow]");
   const heroTitle = document.querySelector("[data-contact-hero-title]");
   const heroBody = document.querySelector("[data-contact-hero-body]");
@@ -1257,7 +1334,7 @@ function renderContactContent(contact = {}) {
       heroBody.textContent ||
       "Questions about products, ingredients, or your order? Reach out and our team will respond quickly.";
 
-  const banner = contact.banner_full || {};
+  const banner = findSection("banner_full") || {};
   const heroImg = document.querySelector("[data-contact-hero-img]");
   if (heroImg) {
     const imgSrc =
@@ -1270,7 +1347,7 @@ function renderContactContent(contact = {}) {
   const emailLink = document.querySelector("[data-contact-email]");
   const phoneNumber = "1 (720) 419-1089";
   const phoneHref = "tel:17204191089";
-  const emailAddress = "hello@purvanti.com";
+  const emailAddress = "info@purvanti.com";
   if (phoneLink) {
     phoneLink.textContent = phoneNumber;
     phoneLink.href = phoneHref;
@@ -2245,19 +2322,28 @@ function renderBanner(data) {
   section.className = "wide-banner";
   section.setAttribute("data-section", "banner-full");
 
+  const pick = (val) => {
+    if (Array.isArray(val) && val.length) {
+      return val[Math.floor(Math.random() * val.length)];
+    }
+    return val;
+  };
+
   const media = document.createElement("div");
   media.className = "wide-banner__media";
 
   const picture = document.createElement("picture");
-  if (data.media?.mobile) {
+  const mobileSrc = pick(data.media?.mobile || data.mobile);
+  if (mobileSrc) {
     const sourceMobile = document.createElement("source");
     sourceMobile.media = "(max-width: 768px)";
-    sourceMobile.srcset = resolveAssetPath(data.media.mobile);
+    sourceMobile.srcset = resolveAssetPath(mobileSrc);
     picture.appendChild(sourceMobile);
   }
 
   const img = document.createElement("img");
-  img.src = resolveAssetPath(data.media?.desktop || data.media?.mobile || "");
+  const desktopSrc = pick(data.media?.desktop || data.desktop);
+  img.src = resolveAssetPath(desktopSrc || mobileSrc || "");
   img.alt = data.header || "Banner image";
   picture.appendChild(img);
 
@@ -3739,8 +3825,8 @@ function renderFooter(productMap, categories = []) {
   phone.href = "tel:17204191089";
   phone.textContent = "1 (720) 419-1089";
   const email = document.createElement("a");
-  email.href = "mailto:hello@purvanti.com";
-  email.textContent = "hello@purvanti.com";
+  email.href = "mailto:info@purvanti.com";
+  email.textContent = "info@purvanti.com";
   const ticket = document.createElement("a");
   ticket.href = `${base}contact.html`;
   ticket.textContent = "Support Ticket";

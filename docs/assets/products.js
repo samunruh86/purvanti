@@ -248,17 +248,36 @@ function renderProductHero(hero, product) {
     });
     detailsWrap.innerHTML = "";
     detailsWrap.appendChild(list);
-    const toggleOpen = () => {
-      const isHidden = detailsWrap.hasAttribute("hidden");
-      if (isHidden) {
-        detailsWrap.removeAttribute("hidden");
-        detailsToggle.classList.add("is-open");
+    detailsWrap.style.maxHeight = "0px";
+    detailsToggle.setAttribute("aria-expanded", "false");
+
+    const setExpanded = (expanded) => {
+      detailsToggle.classList.toggle("is-open", expanded);
+      detailsToggle.setAttribute("aria-expanded", String(expanded));
+      if (expanded) {
+        detailsWrap.hidden = false;
+        detailsWrap.classList.add("is-open");
+        detailsWrap.style.maxHeight = `${detailsWrap.scrollHeight}px`;
       } else {
-        detailsWrap.setAttribute("hidden", "true");
-        detailsToggle.classList.remove("is-open");
+        const currentHeight = detailsWrap.scrollHeight;
+        detailsWrap.style.maxHeight = `${currentHeight}px`;
+        requestAnimationFrame(() => {
+          detailsWrap.classList.remove("is-open");
+          detailsWrap.style.maxHeight = "0px";
+        });
       }
     };
-    detailsToggle.addEventListener("click", toggleOpen);
+
+    detailsWrap.addEventListener("transitionend", (event) => {
+      if (event.propertyName === "max-height" && detailsWrap.style.maxHeight === "0px") {
+        detailsWrap.hidden = true;
+      }
+    });
+
+    detailsToggle.addEventListener("click", () => {
+      const expanded = detailsToggle.classList.contains("is-open");
+      setExpanded(!expanded);
+    });
   }
 
   if (cartBtn) {
