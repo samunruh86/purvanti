@@ -2,11 +2,11 @@ const PRODUCTS_PATH = "assets/data/products_all.json";
 const CONTENT_PATH = "assets/data/content.json";
 const POSTS_PATH = "assets/data/posts.json";
 const CART_STORAGE_KEY = "purvanti:cart";
-const SHOPIFY_DOMAIN = "purvanti.myshopify.com";
-const SHOPIFY_TOKEN = "70d5623199b56a6ab54240048ede3cd1";
 const FORM_ENDPOINT = "https://trigger-2gb-616502391258.us-central1.run.app";
 const GA_MEASUREMENT_ID = "G-3P4ZR2BW7E";
 const EMAIL_CONFIRM_DEFAULT = ["528973", "2578189", "981164", "164646"];
+const SHOPIFY_DOMAIN = "purvanti.myshopify.com";
+const SHOPIFY_TOKEN = "70d5623199b56a6ab54240048ede3cd1";
 
 let cartState = { items: [], updatedAt: null };
 let cartProductMap = new Map();
@@ -78,8 +78,12 @@ async function goToShopifyCheckoutStorefront(cart, { shopDomain, storefrontToken
   if (errs?.length) throw new Error(errs.map(e => e.message).join("; "));
 
   const checkoutUrl = json.data.cartCreate.cart.checkoutUrl;
-  // you can also store purvantiCartId locally if you want
-  // localStorage.setItem("purvanti:last_cart_id", purvantiCartId);
+  try {
+    localStorage.setItem("purvanti:last_cart_id", purvantiCartId);
+  } catch (e) {
+    console.warn("Could not store last cart id", e);
+  }
+  console.log("[shopify] cart created", { checkoutUrl, purvantiCartId, items });
 
   window.location.href = checkoutUrl;
 }
@@ -287,27 +291,6 @@ function cartSubtotal() {
   );
 }
 
-function buildShopifyCartUrl() {
-  const base = "https://purvanti.myshopify.com/cart/";
-  const lines =
-    cartState.items
-      ?.map((item) => {
-        const product =
-          cartProductMap.get(item.id) ||
-          cartProductMap.get(Number(item.id)) ||
-          cartProductMap.get(item.handle) ||
-          cartProductMap.get((item.handle || "").toLowerCase());
-        const variantId = product?.shopify_variant_id || item.shopify_variant_id;
-        const qty = Math.max(0, Number(item.qty) || 0);
-        if (!variantId || qty <= 0) return null;
-        return `${variantId}:${qty}`;
-      })
-      .filter(Boolean) || [];
-
-  if (!lines.length) return null;
-  return `${base}${lines.join(",")}`;
-}
-
 function resolveCartImage(path) {
   if (!path) return "";
   if (typeof resolveAssetPath === "function") {
@@ -442,6 +425,9 @@ function ensureCartDrawer() {
   checkout.className = "cart__checkout";
   checkout.textContent = "Checkout";
   checkout.type = "button";
+  const checkoutMessage = document.createElement("div");
+  checkoutMessage.className = "cart__checkout-message";
+  checkoutMessage.hidden = true;
 
   const account = document.createElement("div");
   account.className = "cart__account";
@@ -461,13 +447,7 @@ function ensureCartDrawer() {
   checkout.addEventListener("click", (e) => {
     e.preventDefault();
     if (account.dataset.completed === "true" || checkout.classList.contains("is-proceed")) {
-      const url = buildShopifyCartUrl();
-      console.log("[checkout] proceed click", { url, items: cartState.items });
-      if (url) {
-        window.location.href = url;
-      } else {
-        console.warn("[checkout] no valid Shopify items to checkout");
-      }
+      handleCheckoutRedirect(checkoutMessage);
       return;
     }
     const isOpen = account.classList.toggle("is-open");
@@ -589,7 +569,6 @@ function ensureCartDrawer() {
           }
           if (result === "password_match") {
             showAccountMessage(account, "Welcome back! You're ready to checkout.", "success");
-            console.log("[checkout] ready URL", buildShopifyCartUrl());
             finalizeAccountSuccess(account);
             return;
           }
@@ -654,6 +633,7 @@ function ensureCartDrawer() {
   cartUI.subtotal = subtotal;
   cartUI.empty = empty;
   cartUI.checkout = checkout;
+  cartUI.checkoutMessage = checkoutMessage;
   return overlay;
 }
 
@@ -1763,6 +1743,61 @@ function resetAccountForm(account, { keepCompletion = false } = {}) {
   }
 }
 
+function showCheckoutMessage(message, tone = "error") {
+  const el = cartUI.checkoutMessage;
+  if (!el) return;
+  el.textContent = message;
+  el.dataset.tone = tone;
+  el.hidden = false;
+}
+
+function hideCheckoutMessage() {
+  const el = cartUI.checkoutMessage;
+  if (!el) return;
+  el.textContent = "";
+  el.hidden = true;
+  delete el.dataset.tone;
+}
+
+async function handleCheckoutRedirect(messageEl) {
+  hideCheckoutMessage();
+  loadCartState();
+  const items =
+    cartState.items?.map((item) => {
+      const product =
+        cartProductMap.get(item.id) ||
+        cartProductMap.get(Number(item.id)) ||
+        cartProductMap.get(item.handle) ||
+        cartProductMap.get((item.handle || "").toLowerCase());
+      const variantId = item.shopify_variant_id || product?.shopify_variant_id;
+      return {
+        ...item,
+        shopify_variant_id: variantId,
+      };
+    }) || [];
+
+  const validItems = items.filter(
+    (item) => item.shopify_variant_id && Number(item.qty) > 0
+  );
+
+  console.log("[checkout] attempting redirect", { items: validItems });
+  if (!validItems.length) {
+    showCheckoutMessage("No checkout items found. Please add products to your cart.", "error");
+    console.warn("[checkout] no valid Shopify items to checkout");
+    return;
+  }
+
+  try {
+    await goToShopifyCheckoutStorefront(
+      { items: validItems },
+      { shopDomain: SHOPIFY_DOMAIN, storefrontToken: SHOPIFY_TOKEN }
+    );
+  } catch (error) {
+    console.error("[checkout] storefront checkout failed", error);
+    showCheckoutMessage("Checkout is unavailable right now. Please try again in a moment.", "error");
+  }
+}
+
 function hideConfirmationUI(account) {
   hideConfirmationUI(account, {});
 }
@@ -1855,8 +1890,6 @@ function finalizeAccountSuccess(account) {
   account.hidden = true;
   hideAccountMessage(account);
   hideConfirmationUI(account, { hideMessage: true });
-  const shopifyUrl = buildShopifyCartUrl();
-  console.log("[checkout] ready URL", shopifyUrl);
   const checkoutBtn = cartUI?.checkout || document.querySelector(".cart__checkout");
   if (checkoutBtn) {
     checkoutBtn.textContent = "Proceed to Checkout";

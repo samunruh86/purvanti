@@ -3948,6 +3948,17 @@ body[data-page="policy"] h2 {
   box-shadow: 0 10px 26px rgba(74, 40, 194, 0.2);
 }
 
+.cart__checkout-message {
+  margin: 6px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #d14343;
+}
+
+.cart__checkout-message[data-tone="success"] {
+  color: #1f7a1f;
+}
+
 .cart__checkout.is-disabled {
   opacity: 0.5;
   pointer-events: none;
