@@ -347,6 +347,7 @@ function ensureCartDrawer() {
     e.preventDefault();
     const isOpen = account.classList.toggle("is-open");
     account.hidden = !isOpen;
+    checkout.textContent = isOpen ? "Close" : "Checkout";
   });
 
   const loginBtn = account.querySelector(".cart__login");
@@ -367,6 +368,7 @@ function ensureCartDrawer() {
         passwordField.classList.add("is-hidden");
       }
       if (loginBtn) loginBtn.textContent = "Get Confirmation Code";
+      checkout.textContent = "Close";
     } else {
       signupBtn.classList.remove("is-signup");
       signupBtn.textContent = "Sign Up";
@@ -375,6 +377,11 @@ function ensureCartDrawer() {
         passwordField.classList.remove("is-hidden");
       }
       if (loginBtn) loginBtn.textContent = "Login";
+      checkout.textContent = account.classList.contains("is-open") ? "Close" : "Checkout";
+      const codeField = account.querySelector(".cart__code");
+      const codeNote = account.querySelector(".cart__code-note");
+      if (codeField) codeField.remove();
+      if (codeNote) codeNote.remove();
     }
   });
 
@@ -401,30 +408,56 @@ function ensureCartDrawer() {
         return;
       }
 
-      loginBtn.disabled = true;
+    loginBtn.disabled = true;
       const defaultText = loginBtn.textContent || "Submit";
       loginBtn.textContent = mode === "purvanti_signup" ? "Sending..." : "Sending...";
       try {
         const formData = new FormData();
         formData.append("account_email", emailVal);
-        if (mode === "purvanti_login" && passwordVal) {
-          formData.append("account_password", passwordVal);
+        formData.append("cart", JSON.stringify(cartState || {}));
+
+        if (mode === "purvanti_login") {
+          if (passwordVal) formData.append("account_password", passwordVal);
+          const payload = buildFormPayload(account, formData);
+          const res = await recordFormSubmission(mode, payload);
+          if (res?.ok === false) throw new Error(res?.error || "Submission failed");
+          return;
         }
-        const payload = buildFormPayload(account, formData);
-        const res = await recordFormSubmission(mode, payload);
-        if (res?.ok === false) {
-          throw new Error(res?.error || "Submission failed");
+
+        // Signup flow: first submit to request code, then verify code on subsequent submit.
+        const codeField = account.querySelector('input[name="account_code"]');
+        if (!codeField) {
+          const payload = buildFormPayload(account, formData);
+          const res = await recordFormSubmission("purvanti_signup", payload);
+          if (res?.ok === false) throw new Error(res?.error || "Submission failed");
+          addConfirmationStep(account, emailVal);
+          loginBtn.textContent = "Verify Confirmation Code";
+          return;
+        } else {
+          const codeVal = codeField.value?.trim();
+          if (!codeVal) {
+            codeField.classList.add("is-error");
+            codeField.focus();
+            return;
+          }
+          formData.append("account_code", codeVal);
+          const payload = buildFormPayload(account, formData);
+          const res = await recordFormSubmission("purvanti_confirm_code", payload);
+          if (res?.ok === false) throw new Error(res?.error || "Submission failed");
+          return;
         }
       } catch (error) {
         console.error(error);
       } finally {
         loginBtn.disabled = false;
-        loginBtn.textContent = mode === "purvanti_signup" ? "Get Confirmation Code" : "Login";
+        if (account.querySelector(".cart__code")) {
+          loginBtn.textContent = "Verify Confirmation Code";
+        } else {
+          loginBtn.textContent = mode === "purvanti_signup" ? "Get Confirmation Code" : "Login";
+        }
       }
     });
   }
-
-  account.hidden = true;
 
   footer.append(summary, checkout, account);
 
@@ -1164,6 +1197,34 @@ function findControlLabel(control, form) {
   const parentLabel = control.closest("label");
   if (parentLabel?.textContent) return parentLabel.textContent.trim();
   return control.getAttribute("aria-label") || control.placeholder || control.name || "";
+}
+
+function addConfirmationStep(account, emailVal) {
+  if (!account) return;
+  if (account.querySelector(".cart__code")) return;
+
+  const codeField = document.createElement("label");
+  codeField.className = "cart__account-field cart__code";
+  const codeInput = document.createElement("input");
+  codeInput.type = "text";
+  codeInput.name = "account_code";
+  codeInput.placeholder = `Enter the code sent to ${emailVal}`;
+  const codeLabel = document.createElement("span");
+  codeLabel.textContent = "Confirmation code";
+  codeField.append(codeLabel, codeInput);
+
+  const note = document.createElement("p");
+  note.className = "cart__code-note";
+  note.textContent = "Please check your inbox for the code to finish signing in.";
+
+  const actions = account;
+  const loginBtn = actions.querySelector(".cart__login");
+  if (loginBtn) {
+    actions.insertBefore(note, loginBtn);
+    actions.insertBefore(codeField, note);
+  } else {
+    actions.append(codeField, note);
+  }
 }
 
 function normalizeSubmissionValue(value) {

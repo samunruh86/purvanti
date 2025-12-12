@@ -4013,6 +4013,12 @@ body[data-page="policy"] h2 {
   background: #f6f6f6;
 }
 
+.cart__code-note {
+  margin: 0;
+  font-size: 14px;
+  color: #3c3c3c;
+}
+
 .cart__signup {
   background: none;
   border: none;
