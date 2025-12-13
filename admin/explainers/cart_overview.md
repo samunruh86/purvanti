@@ -26,7 +26,7 @@ Auth panel (cart footer)
 - Always available via Checkout (button text toggles “Close” when open).
 - Modes: Login (email + password) and Sign Up (email only, password hidden). Toggle via “Sign Up” / “Back to Login”.
 - Submit flows:
-  - Login: sends email/password + cart to `FORM_ENDPOINT` with action `purvanti_login`.
+  - Login: sends email/password + cart to `GCS_ENDPOINT` with action `purvanti_login`.
   - Sign Up: sends email + cart to `purvanti_signup`, reveals a 6-digit confirmation code input; button becomes “Resend Confirmation Code”.
   - Confirmation code: six single-digit fields auto-submit to `purvanti_confirm_code` (email + cart + code) when filled; resend re-triggers `purvanti_signup`.
 - UI details: code inputs styled as six boxes; inline note instructs the user. Inputs show error styling if missing required data.
@@ -39,6 +39,6 @@ Events & wiring
 
 Constraints & notes
 -------------------
-- Static site only; no real checkout. All submissions go to `FORM_ENDPOINT` with an action payload.
+- Static site only; no real checkout. All submissions go to `GCS_ENDPOINT` with an action payload.
 - No search/account icons in nav; cart is the sole header action.
 - Category grids capped at 4 columns; toolbar hidden.

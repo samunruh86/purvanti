@@ -4451,6 +4451,11 @@ html.nav-open {
   transform: translateY(-6px);
 }
 
+.cart__account-form {
+  display: grid;
+  gap: 14px;
+}
+
 .cart__account.is-open {
   max-height: 640px;
   opacity: 1;
@@ -4512,6 +4517,7 @@ html.nav-open {
   letter-spacing: 0.6px;
   cursor: pointer;
   transition: transform 120ms ease, box-shadow 140ms ease, background-color 140ms ease, color 140ms ease;
+  width: 100%;
 }
 
 .cart__login:hover {
