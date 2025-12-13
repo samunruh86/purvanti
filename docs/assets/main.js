@@ -3762,8 +3762,28 @@ function renderHeader(productMap, categories) {
     { label: "Contact", href: "/contact.html" },
   ];
 
+  const isMobileNav = window.matchMedia("(max-width: 800px)").matches;
+
   navItems.forEach((item, idx) => {
     if (idx === 0) {
+      if (!isMobileNav) {
+        const link = document.createElement("a");
+        link.href = item.href;
+        link.textContent = item.label;
+        link.dataset.dropdown = "true";
+        const dropdown = buildNavDropdown(item.categories, productMap);
+        if (dropdown) {
+          const wrapper = document.createElement("div");
+          wrapper.className = "header__nav-item";
+          wrapper.dataset.dropdown = "true";
+          wrapper.append(link, dropdown);
+          navList.appendChild(wrapper);
+        } else {
+          navList.appendChild(link);
+        }
+        return;
+      }
+
       const shopRow = document.createElement("button");
       shopRow.type = "button";
       shopRow.className = "header__nav-link is-accordion";
