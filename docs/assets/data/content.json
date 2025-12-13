@@ -7,7 +7,9 @@
             "image": "assets/images/main/category-minerals-electrolytes.png",
             "tagline": "Balance hydration and essential minerals.",
             "video": "assets/videos/category-banner-bg.mp4",
-            "video_still": "assets/videos/category-banner-bg.jpg"
+            "video_still": "assets/videos/category-banner-bg.jpg",
+            "reel": "assets/videos/reels-1.mp4",
+            "reel_still": "assets/images/main/reels-1.jpg"
         },
         {
             "category": "Vitamins & Multivitamins",
@@ -15,7 +17,9 @@
             "image": "assets/images/main/category-vitamins-multivitamins.png",
             "tagline": "Daily nutrients for whole-body wellness.",
             "video": "assets/videos/category-banner-bg.mp4",
-            "video_still": "assets/videos/category-banner-bg.jpg"
+            "video_still": "assets/videos/category-banner-bg.jpg",
+            "reel": "assets/videos/reels-2.mp4",
+            "reel_still": "assets/images/main/reels-2.jpg"
         },
         {
             "category": "Omegas & Heart Health",
@@ -23,7 +27,9 @@
             "image": "assets/images/main/category-omegas-heart-health.png",
             "tagline": "Support cardiovascular and cognitive function.",
             "video": "assets/videos/category-banner-bg.mp4",
-            "video_still": "assets/videos/category-banner-bg.jpg"
+            "video_still": "assets/videos/category-banner-bg.jpg",
+            "reel": "assets/videos/reels-3.mp4",
+            "reel_still": "assets/images/main/reels-3.jpg"
         },
         {
             "category": "Proteins & Performance",
@@ -31,7 +37,9 @@
             "image": "assets/images/main/category-proteins-performance.png",
             "tagline": "Fuel recovery and strength with clean protein.",
             "video": "assets/videos/category-banner-bg.mp4",
-            "video_still": "assets/videos/category-banner-bg.jpg"
+            "video_still": "assets/videos/category-banner-bg.jpg",
+            "reel": "assets/videos/reels-4.mp4",
+            "reel_still": "assets/images/main/reels-4.jpg"
         },
         {
             "category": "Gut & Digestive Health",
@@ -39,7 +47,9 @@
             "image": "assets/images/main/category-gut-digestive-health.png",
             "tagline": "Support digestion and microbiome balance.",
             "video": "assets/videos/category-banner-bg.mp4",
-            "video_still": "assets/videos/category-banner-bg.jpg"
+            "video_still": "assets/videos/category-banner-bg.jpg",
+            "reel": "assets/videos/reels-5.mp4",
+            "reel_still": "assets/images/main/reels-5.jpg"
         },
         {
             "category": "Superfoods & Mushrooms",
@@ -47,7 +57,9 @@
             "image": "assets/images/main/category-superfoods-mushrooms.png",
             "tagline": "Antioxidant-rich blends for everyday vitality.",
             "video": "assets/videos/category-banner-bg.mp4",
-            "video_still": "assets/videos/category-banner-bg.jpg"
+            "video_still": "assets/videos/category-banner-bg.jpg",
+            "reel": "assets/videos/reels-6.mp4",
+            "reel_still": "assets/images/main/reels-6.jpg"
         },
         {
             "category": "Stress & Sleep",
@@ -160,11 +172,7 @@
         {
             "section": "headline",
             "eyebrow": "Our Philosophy",
-            "title": "We believe better health begins with clarity, quality, and science-led simplicity.",
-            "images_inline": [
-                "assets/images/main/home-banner-runner-full.jpg",
-                "assets/images/posts/p12-small.jpg"
-            ]
+            "title": "We believe better health begins with clarity, quality, and science-led simplicity."
         },
         {
             "section": "panels",
@@ -182,90 +190,19 @@
             ]
         },
         {
-            "section": "letter",
-            "eyebrow": "Our Commitment",
-            "quote": "We focus on products that are clean, effective, and backed by modern nutritional science.",
-            "image": "assets/images/main/home-banner-runner-full.jpg"
-        },
-        {
             "section": "brand_statement",
             "title": "Wellness that meets you where you are",
             "body": "Purvanti blends modern nutritional science with nature’s most reliable ingredients to help you feel grounded, energized, and supported every day. We’re here to simplify your wellness journey—one thoughtfully chosen formula at a time.",
             "cta_text": "Get in touch",
             "cta_href": "/contact"
+        },
+        {
+            "section": "letter",
+            "eyebrow": "Our Commitment",
+            "quote": "We focus on products that are clean, effective, and backed by modern nutritional science.",
+            "image": "assets/images/main/about-cycling-bw.jpg"
         }
     ],
-
-
-  "brands_V1": {
-    "hero": {
-      "pre_header": "For Wellness Brands",
-      "header": "Partner with Purvanti",
-      "subhead": "A curated retail platform for science-led wellness companies.",
-      "image": "assets/images/main/home-banner-runner-full.jpg"
-    },
-    "science": {
-  "title": "The Science Behind Our Partnerships",
-  "subtitle": "Standards that protect your brand and elevate every product we represent.",
-  "video": "assets/videos/science.mp4",
-  "poster": "assets/images/main/home-banner-runner-full.jpg",
-  "items": [
-    {
-      "icon": "assets/icons/ing-quality.png",
-      "title": "Evidence-Aligned Curation",
-      "body": "We partner with brands whose formulations are backed by clear science and transparent ingredient standards."
-    },
-    {
-      "icon": "assets/icons/ing-lab.png",
-      "title": "Rigorous Quality Expectations",
-      "body": "We look for strong manufacturing practices, third-party testing, and consistency in product quality."
-    },
-    {
-      "icon": "assets/icons/ing-eng.png",
-      "title": "Thoughtful Product Evaluation",
-      "body": "Each product is reviewed for potency, effectiveness, and its real-world wellness impact."
-    },
-    {
-      "icon": "assets/icons/ing-nometal.png",
-      "title": "Purity & Safety Focus",
-      "body": "We value partners committed to high safety standards, including testing for contaminants and ensuring product purity."
-    }
-  ]
-},
-
-    "faqs": {
-      "pre_header": "What we look for in brands",
-      "title": "Partnering with Purvanti",
-      "items": [
-        {
-          "question": "Clean, transparent ingredient profiles",
-          "answer": "We prioritize formulations with clear labeling, minimal additives, and ingredient sourcing you’re proud to show customers."
-        },
-        {
-          "question": "Strong formulation rationale or clinical research",
-          "answer": "We look for evidence-backed formulations—whether clinical studies, published data, or a well-documented rationale for each active."
-        },
-        {
-          "question": "Trusted manufacturing and quality controls",
-          "answer": "Consistent QA, reliable manufacturing partners, and robust testing give us confidence to present your products to discerning shoppers."
-        },
-        {
-          "question": "Clear consumer benefits and brand story",
-          "answer": "We highlight products that communicate tangible benefits and a brand story customers can understand and trust."
-        },
-        {
-          "question": "Responsible pricing and channel alignment",
-          "answer": "We align with brands that respect thoughtful pricing and channel strategies so customers enjoy a consistent premium experience."
-        }
-      ]
-    },
-    "brand_statement": {
-      "title": "A shared mission",
-      "body": "We aim to build lasting relationships with brands that are committed to improving everyday health. Purvanti exists to thoughtfully connect customers with products that truly support their well-being—starting with the brands we choose to represent.",
-      "cta_text": "Brand Application",
-      "cta_href": "/contact.html?type=brand"
-    }
-  },
 
   "brands": [
     {
@@ -273,14 +210,14 @@
       "pre_header": "For Wellness Brands",
       "header": "Partner with Purvanti",
       "subhead": "A curated retail destination for companies committed to science, quality, and modern wellness.",
-      "image": "assets/images/main/home-banner-runner-full.jpg"
+      "image": "assets/images/main/about-hero-full.jpg",
+      "image_mobile": "assets/images/main/about-hero-mobile.jpg"
     },
     {
       "section": "science",
       "title": "The Science Behind Our Partnerships",
       "subtitle": "Clear standards that protect your brand and elevate every customer experience.",
       "video": "assets/videos/science.mp4",
-      "poster": "assets/images/main/home-banner-runner-full.jpg",
       "items": [
         {
           "icon": "assets/icons/ing-quality.png",
@@ -357,59 +294,32 @@
     "section": "featured_collection",
     "pre_header": "Your Daily Foundation",
     "header": "Essential nutrients for energy, balance, and every day wellness",
-    "product_ids": ["pr121794","pr680073","pr178380","pr160265","pr253894"]
+    "header_mobile": "Everyday nutrients for energy & balance",
+    "product_ids": ["pr121794","pr680073","pr178380","pr160265","pr253894","pr203172","pr219367"]
   },
- 
+
   {
     "section": "product_lifestyle_carousel",
     "slides": [
       {
         "headline": "Fuel your performance—every single day",
         "product_id": "pr290626",
-        "lifestyle_image": "assets/images/main/home-lifestyle-c1a-full.jpg"
+        "bg_color": "#ff5a5f",
+        "lifestyle_image": "assets/images/main/home-lifestyle-c1a-full.jpg",
+        "lifestyle_image_mobile": "assets/images/main/home-lifestyle-c1a-mobile.jpg"
       },
       {
         "headline": "Find calm, restore balance, and unwind naturally",
-        "product_id": "pr746627",
-        "lifestyle_image": "assets/images/main/home-lifestyle-c1a-full.jpg"
+        "product_id": "pr467684",
+        "bg_color": "#ffb2be",
+        "lifestyle_image": "assets/images/main/home-lifestyle-c1b-full.jpg",
+        "lifestyle_image_mobile": "assets/images/main/home-lifestyle-c1b-mobile.jpg"
       }
     ]
   },
   {
     "section": "video_reels",
-    "title": "Trusted products, real results",
-    "items": [
-      {
-        "video": "assets/videos/reels-1.mp4",
-        "poster": "assets/images/main/reels-1.jpg",
-        "product_id": "pr607884"
-      },
-      {
-        "video": "assets/videos/reels-2.mp4",
-        "poster": "assets/images/main/reels-2.jpg",
-        "product_id": "pr290626"
-      },
-      {
-        "video": "assets/videos/reels-3.mp4",
-        "poster": "assets/images/main/reels-3.jpg",
-        "product_id": "pr278638"
-      },
-      {
-        "video": "assets/videos/reels-4.mp4",
-        "poster": "assets/images/main/reels-4.jpg",
-        "product_id": "pr746627"
-      },
-      {
-        "video": "assets/videos/reels-5.mp4",
-        "poster": "assets/images/main/reels-5.jpg",
-        "product_id": "pr525163"
-      },
-      {
-        "video": "assets/videos/reels-6.mp4",
-        "poster": "assets/images/main/reels-6.jpg",
-        "product_id": "pr899490"
-      }
-    ]
+    "title": "Trusted products, real results"
   },
   {
     "section": "endurance_grid",
@@ -425,8 +335,7 @@
   },
   {
     "section": "blog_feature",
-    "title": "Insights for a healthier you",
-    "posts": []
+    "title": "Insights for a healthier you"
   },
   {
     "section": "mission_video",
@@ -441,8 +350,17 @@
     "section": "new_arrivals",
     "title": "Trending now in wellness",
     "product_ids": ["pr525163","pr551722","pr223638","pr265924","pr607884","pr241897"]
+  },
+  {
+    "section": "mission_static",
+    "pre_header": "Wellness, done right",
+    "header": "Supporting your health, responsibly",
+    "cta_text": "Learn more",
+    "cta_href": "/about",
+    "image": "assets/images/main/phome-bottom-full.jpg",
+    "image_mobile": "assets/images/main/home-bottom-mobile.jpg"
   }
-
 ]
 
 }
+

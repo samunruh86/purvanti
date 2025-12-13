@@ -32,6 +32,7 @@ const sectionBuilders = {
   brand_statement: renderStatement,
   blog_feature: renderBlogFeature,
   mission_video: renderMissionVideo,
+  mission_static: renderMissionStatic,
   new_arrivals: renderNewArrivals,
   reviews_slider: renderReviews,
 };
@@ -684,18 +685,21 @@ function buildCartLine(item) {
   input.addEventListener("change", () => updateCartQty(meta.id, Number(input.value)));
   qty.append(input);
 
-  const total = document.createElement("div");
-  total.className = "cart-line__total";
-  const sum = document.createElement("span");
-  sum.textContent = formatPrice(meta.price * meta.qty);
   const remove = document.createElement("button");
   remove.type = "button";
   remove.className = "cart-line__remove";
-  remove.textContent = "Remove";
+  const removeIcon = document.createElement("img");
+  removeIcon.src = `${getBasePath()}assets/icons/trash.svg`;
+  removeIcon.alt = "Remove";
+  remove.appendChild(removeIcon);
   remove.addEventListener("click", () => removeFromCart(meta.id));
-  total.append(sum, remove);
 
-  row.append(media, info, qty, total);
+  const metaRow = document.createElement("div");
+  metaRow.className = "cart-line__meta";
+  metaRow.append(price, remove, qty);
+  info.append(metaRow);
+
+  row.append(media, info);
   return row;
 }
 
@@ -809,7 +813,11 @@ async function hydratePage(app) {
       const builder = sectionBuilders[block.section];
       if (!builder) return;
     const dataForBlock =
-      block.section === "blog_feature" ? { ...block, posts: latestPosts } : block;
+      block.section === "blog_feature"
+        ? { ...block, posts: latestPosts }
+        : block.section === "video_reels"
+        ? { ...block, categories }
+        : block;
     const node = builder(dataForBlock, productMap, preparedPosts);
       if (node) app.appendChild(node);
     });
@@ -2289,7 +2297,8 @@ function renderFeatured(data, productMap) {
   if (data.header) {
     const title = document.createElement("h2");
     title.className = "featured__headline";
-    title.textContent = data.header;
+    const prefersMobile = window.matchMedia("(max-width: 800px)").matches;
+    title.textContent = prefersMobile && data.header_mobile ? data.header_mobile : data.header;
     head.appendChild(title);
   }
 
@@ -2306,7 +2315,70 @@ function renderFeatured(data, productMap) {
     list.appendChild(card);
   });
 
-  carousel.appendChild(list);
+  const scrollbar = document.createElement("div");
+  scrollbar.className = "featured__scrollbar";
+  const scrollbarThumb = document.createElement("div");
+  scrollbarThumb.className = "featured__scrollbar-thumb";
+  scrollbar.appendChild(scrollbarThumb);
+
+  const updateScrollbar = () => {
+    const scrollWidth = list.scrollWidth;
+    const visible = list.clientWidth;
+    const trackWidth = scrollbar.clientWidth || 1;
+    const maxScroll = Math.max(1, scrollWidth - visible);
+    if (scrollWidth <= visible) {
+      scrollbarThumb.style.width = `${trackWidth}px`;
+      scrollbarThumb.style.transform = "translateX(0px)";
+      return;
+    }
+    const ratio = visible / scrollWidth;
+    const thumbWidth = Math.max(20, ratio * trackWidth);
+    const progress = list.scrollLeft / maxScroll;
+    const translate = progress * (trackWidth - thumbWidth);
+    scrollbarThumb.style.width = `${thumbWidth}px`;
+    scrollbarThumb.style.transform = `translateX(${translate}px)`;
+  };
+
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartScroll = 0;
+
+  const onDragStart = (event) => {
+    isDragging = true;
+    dragStartX = event.touches ? event.touches[0].clientX : event.clientX;
+    dragStartScroll = list.scrollLeft;
+    event.preventDefault();
+  };
+
+  const onDragMove = (event) => {
+    if (!isDragging) return;
+    const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+    const delta = clientX - dragStartX;
+    const scrollWidth = list.scrollWidth;
+    const visible = list.clientWidth;
+    const trackWidth = scrollbar.clientWidth || 1;
+    const maxScroll = Math.max(1, scrollWidth - visible);
+    const thumbWidth = Math.max(20, (visible / scrollWidth) * trackWidth);
+    const scrollPerPx = maxScroll / Math.max(1, trackWidth - thumbWidth);
+    list.scrollLeft = Math.min(maxScroll, Math.max(0, dragStartScroll + delta * scrollPerPx));
+  };
+
+  const onDragEnd = () => {
+    isDragging = false;
+  };
+
+  scrollbarThumb.addEventListener("mousedown", onDragStart);
+  scrollbarThumb.addEventListener("touchstart", onDragStart, { passive: false });
+  window.addEventListener("mousemove", onDragMove);
+  window.addEventListener("touchmove", onDragMove, { passive: false });
+  window.addEventListener("mouseup", onDragEnd);
+  window.addEventListener("touchend", onDragEnd);
+
+  list.addEventListener("scroll", updateScrollbar);
+  window.addEventListener("resize", updateScrollbar);
+
+  carousel.append(list, scrollbar);
+  requestAnimationFrame(updateScrollbar);
   wrap.append(head, carousel);
 
   if (data.cta_text && data.cta_href) {
@@ -2785,7 +2857,9 @@ function renderAboutHero(target, hero) {
 
   const img = document.createElement("img");
   img.className = "about-hero__image";
-  img.src = resolveAssetPath(hero?.image || "assets/images/main/home-banner-runner-full.jpg");
+  const isMobile = window.matchMedia("(max-width: 800px)").matches;
+  const heroImg = isMobile ? hero?.image_mobile || hero?.image : hero?.image;
+  img.src = resolveAssetPath(heroImg || "assets/images/main/home-banner-runner-full.jpg");
   img.alt = hero?.header || "About hero";
 
   const overlay = document.createElement("div");
@@ -3118,7 +3192,7 @@ function renderLifestyleCarousel(data, productMap) {
 
     const productPane = document.createElement("div");
     productPane.className = "lifestyle-slide__product";
-    productPane.style.backgroundColor = palette[idx % palette.length];
+    productPane.style.backgroundColor = item.bg_color || palette[idx % palette.length];
 
     const productImg = document.createElement("img");
     productImg.src = productImageSrc(product, "full", 0);
@@ -3143,7 +3217,8 @@ function renderLifestyleCarousel(data, productMap) {
     lifePane.className = "lifestyle-slide__image";
 
     const lifeImg = document.createElement("img");
-    lifeImg.src = item.lifestyle_image || "";
+    const mobileSrc = item.lifestyle_image_mobile || item.lifestyle_image || "";
+    lifeImg.src = mobileSrc;
     lifeImg.alt = item.headline || "Lifestyle";
 
     const headline = document.createElement("h3");
@@ -3182,6 +3257,42 @@ function renderLifestyleCarousel(data, productMap) {
     });
   }
 
+  const attachSwipe = (el) => {
+    let startX = null;
+    let startY = null;
+    const threshold = 40;
+    el.addEventListener(
+      "touchstart",
+      (e) => {
+        const t = e.touches?.[0];
+        if (!t) return;
+        startX = t.clientX;
+        startY = t.clientY;
+      },
+      { passive: true }
+    );
+    el.addEventListener(
+      "touchend",
+      (e) => {
+        if (startX === null) return;
+        const t = e.changedTouches?.[0];
+        if (!t) return;
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+        startX = null;
+        startY = null;
+        if (Math.abs(dx) < Math.abs(dy)) return;
+        if (Math.abs(dx) > threshold) {
+          if (dx < 0) setActive(currentIndex + 1);
+          else setActive(currentIndex - 1);
+        }
+      },
+      { passive: true }
+    );
+  };
+
+  attachSwipe(slidesWrap);
+
   setActive(0);
   section.append(slidesWrap, nav, dots);
   return section;
@@ -3211,8 +3322,18 @@ function navButton(direction, onClick) {
 }
 
 function renderVideoReels(data, productMap) {
-  const items = Array.isArray(data.items) ? data.items : [];
-  if (!items.length) return null;
+  const categories = Array.isArray(data.categories) ? data.categories : [];
+  const reels = categories
+    .filter((cat) => cat.reel || cat.reel_still)
+    .map((cat) => ({
+      video: cat.reel || "",
+      poster: cat.reel_still || "",
+      cta_href: cat.cta_href || "#",
+      title: cat.category || "",
+      product_id: cat.product_id || "",
+      image: cat.image || "",
+    }));
+  if (!reels.length) return null;
 
   const section = document.createElement("section");
   section.className = "video-reels";
@@ -3283,26 +3404,31 @@ function renderVideoReels(data, productMap) {
     card.className = "video-reels__card";
     card.addEventListener("click", (e) => {
       e.stopPropagation();
-      window.location.href = productPageHref(product);
+      window.location.href = item.cta_href || "#";
     });
     card.style.cursor = "pointer";
 
     const pImg = document.createElement("img");
-    pImg.src = productImageSrc(product, "small", 0);
-    pImg.alt = product.title_short || product.title_long || "Product";
+    const imgSrc = productImageSrc(product, "small", 0) || item.image || "";
+    pImg.src = imgSrc;
+    pImg.alt = product.title_short || product.title_long || item.title || "Product";
 
     const cardText = document.createElement("div");
     cardText.className = "video-reels__card-text";
 
     const pName = document.createElement("p");
     pName.className = "video-reels__card-name";
-    pName.textContent = product.title_short || product.title_long || "";
+    pName.textContent = product.title_short || product.title_long || item.title || "";
+
+    const pSub = document.createElement("p");
+    pSub.className = "video-reels__card-sub";
+    pSub.textContent = "Shop Collection";
 
     const pPrice = document.createElement("p");
     pPrice.className = "video-reels__card-price";
-    pPrice.textContent = formatPrice(product.price);
+    pPrice.textContent = product.price ? formatPrice(product.price) : "";
 
-    cardText.append(pName, pPrice);
+    cardText.append(pName, pSub, pPrice);
     card.append(pImg, cardText);
 
     slide.append(media, card);
@@ -3321,9 +3447,9 @@ function renderVideoReels(data, productMap) {
     return { slide, video, playBtn, muteBtn, dot: null };
   }
 
-  const slides = items.map((item, idx) => buildReelSlide(item, idx, true));
-  const cloneLeft = items.map((item, idx) => buildReelSlide(item, idx, false));
-  const cloneRight = items.map((item, idx) => buildReelSlide(item, idx, false));
+  const slides = reels.map((item, idx) => buildReelSlide(item, idx, true));
+  const cloneLeft = reels.map((item, idx) => buildReelSlide(item, idx, false));
+  const cloneRight = reels.map((item, idx) => buildReelSlide(item, idx, false));
 
   cloneLeft.forEach(({ slide }) => track.appendChild(slide));
   slides.forEach(({ slide }) => track.appendChild(slide));
@@ -3407,7 +3533,42 @@ function renderVideoReels(data, productMap) {
     });
   }, { threshold: 0.25 });
 
+  const attachSwipe = (el) => {
+    let startX = null;
+    let startY = null;
+    const threshold = 40;
+    el.addEventListener(
+      "touchstart",
+      (e) => {
+        const t = e.touches?.[0];
+        if (!t) return;
+        startX = t.clientX;
+        startY = t.clientY;
+      },
+      { passive: true }
+    );
+    el.addEventListener(
+      "touchend",
+      (e) => {
+        if (startX === null) return;
+        const t = e.changedTouches?.[0];
+        if (!t) return;
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+        startX = null;
+        startY = null;
+        if (Math.abs(dx) < Math.abs(dy)) return;
+        if (Math.abs(dx) > threshold) {
+          if (dx < 0) setActive(current + 1);
+          else setActive(current - 1);
+        }
+      },
+      { passive: true }
+    );
+  };
+
   observer.observe(section);
+  attachSwipe(viewport);
   requestAnimationFrame(() => setActive(0));
   return section;
 }
@@ -3610,6 +3771,50 @@ function renderMissionVideo(data) {
   }
 
   section.append(fallback, video, shade, content);
+  return section;
+}
+
+function renderMissionStatic(data) {
+  const section = document.createElement("section");
+  section.className = "mission";
+  section.setAttribute("data-section", "mission-static");
+
+  const image = document.createElement("img");
+  image.className = "mission__video mission__video--fallback";
+  const mobileSrc = data.image_mobile || data.image || "";
+  image.src = mobileSrc;
+  image.alt = data.header || "Mission background";
+  image.loading = "lazy";
+
+  const shade = document.createElement("div");
+  shade.className = "mission__shade";
+
+  const content = document.createElement("div");
+  content.className = "mission__content";
+
+  if (data.pre_header) {
+    const eyebrow = document.createElement("p");
+    eyebrow.className = "mission__eyebrow";
+    eyebrow.textContent = data.pre_header;
+    content.appendChild(eyebrow);
+  }
+
+  if (data.header) {
+    const title = document.createElement("h2");
+    title.className = "mission__title";
+    title.textContent = data.header;
+    content.appendChild(title);
+  }
+
+  if (data.cta_text && data.cta_href) {
+    const cta = document.createElement("a");
+    cta.className = "mission__cta";
+    cta.href = data.cta_href;
+    cta.textContent = data.cta_text;
+    content.appendChild(cta);
+  }
+
+  section.append(image, shade, content);
   return section;
 }
 
