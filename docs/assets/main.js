@@ -2,6 +2,7 @@ const PRODUCTS_PATH = "assets/data/products_all.json";
 const CONTENT_PATH = "assets/data/content.json";
 const POSTS_PATH = "assets/data/posts.json";
 const CART_STORAGE_KEY = "purvanti:cart";
+const CART_MAX_AGE_MS = 60 * 60 * 1000; // 1 hour
 const FORM_ENDPOINT = "https://trigger-2gb-616502391258.us-central1.run.app";
 const GA_MEASUREMENT_ID = "G-3P4ZR2BW7E";
 const EMAIL_CONFIRM_DEFAULT = ["528973", "2578189", "981164", "164646"];
@@ -236,10 +237,17 @@ function loadCartState() {
     if (!raw) return;
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed?.items)) {
-      cartState = {
-        items: parsed.items.map(normalizeCartItem).filter(Boolean),
-        updatedAt: parsed.updatedAt || Date.now(),
-      };
+      const updatedAt = parsed.updatedAt || Date.now();
+      const isFresh = Date.now() - updatedAt < CART_MAX_AGE_MS;
+      if (isFresh) {
+        cartState = {
+          items: parsed.items.map(normalizeCartItem).filter(Boolean),
+          updatedAt,
+        };
+      } else {
+        cartState = { items: [], updatedAt: Date.now() };
+        localStorage.removeItem(CART_STORAGE_KEY);
+      }
     }
   } catch (error) {
     console.warn("Could not load cart", error);
@@ -402,7 +410,10 @@ function ensureCartDrawer() {
   close.className = "cart__close";
   close.dataset.cartClose = "true";
   close.setAttribute("aria-label", "Close cart");
-  close.textContent = "×";
+  const closeIcon = document.createElement("img");
+  closeIcon.src = `${getBasePath()}assets/icons/x_close.svg`;
+  closeIcon.alt = "Close";
+  close.appendChild(closeIcon);
   head.append(title, close);
 
   const list = document.createElement("div");
@@ -3727,6 +3738,22 @@ function renderHeader(productMap, categories) {
 
   const nav = document.createElement("nav");
   nav.className = "header__nav";
+  const navTop = document.createElement("div");
+  navTop.className = "header__nav-top";
+  const navHello = document.createElement("span");
+  navHello.textContent = "Hello!";
+  const navClose = document.createElement("button");
+  navClose.type = "button";
+  navClose.className = "header__nav-close";
+  navClose.setAttribute("aria-label", "Close navigation");
+  const navCloseIcon = document.createElement("img");
+  navCloseIcon.src = `${base}assets/icons/x_close.svg`;
+  navCloseIcon.alt = "Close";
+  navClose.appendChild(navCloseIcon);
+  navTop.append(navHello, navClose);
+
+  const navList = document.createElement("div");
+  navList.className = "header__nav-list";
 
   const navItems = [
     { label: "Shop", href: "/collections/frontpage", dropdown: true, categories },
@@ -3735,24 +3762,63 @@ function renderHeader(productMap, categories) {
     { label: "Contact", href: "/contact.html" },
   ];
 
-  navItems.forEach((item) => {
+  navItems.forEach((item, idx) => {
+    if (idx === 0) {
+      const shopRow = document.createElement("button");
+      shopRow.type = "button";
+      shopRow.className = "header__nav-link is-accordion";
+      shopRow.dataset.shopToggle = "true";
+      shopRow.textContent = item.label;
+      const icon = document.createElement("img");
+      icon.className = "header__nav-link-icon";
+      icon.src = `${base}assets/icons/plus.svg`;
+      icon.alt = "Expand";
+      shopRow.appendChild(icon);
+
+      const panel = document.createElement("div");
+      panel.className = "header__nav-accordion";
+
+      const grid = document.createElement("div");
+      grid.className = "header__nav-accordion-grid";
+      (item.categories || []).forEach((cat) => {
+        const card = document.createElement("a");
+        card.className = "header__nav-accordion-card";
+        card.href = cat.cta_href || "#";
+        const img = document.createElement("img");
+        img.src = resolveAssetPath(cat.image || "");
+        img.alt = cat.category || "Category";
+        const label = document.createElement("span");
+        label.textContent = cat.category || "";
+        card.append(img, label);
+        grid.appendChild(card);
+      });
+      panel.appendChild(grid);
+
+      shopRow.addEventListener("click", () => {
+        const open = shopRow.classList.toggle("is-open");
+        panel.classList.toggle("is-open", open);
+        icon.src = `${base}assets/icons/${open ? "minus" : "plus"}.svg`;
+        if (open) {
+          const maxHeight = Math.max(0, window.innerHeight - 400);
+          panel.style.maxHeight = `${Math.min(panel.scrollHeight, maxHeight)}px`;
+          panel.style.overflowY = "auto";
+        } else {
+          panel.style.maxHeight = "0px";
+          panel.style.overflowY = "hidden";
+        }
+      });
+
+      navList.append(shopRow, panel);
+      return;
+    }
+
     const link = document.createElement("a");
     link.href = item.href;
     link.textContent = item.label;
-    if (item.dropdown) {
-      link.dataset.dropdown = "true";
-      const dropdown = buildNavDropdown(item.categories, productMap);
-      if (dropdown) {
-        const wrapper = document.createElement("div");
-        wrapper.className = "header__nav-item";
-        wrapper.dataset.dropdown = "true";
-        wrapper.append(link, dropdown);
-        nav.appendChild(wrapper);
-        return;
-      }
-    }
-    nav.appendChild(link);
+    navList.appendChild(link);
   });
+
+  nav.append(navTop, navList);
 
   const actions = document.createElement("div");
   actions.className = "header__actions";
@@ -3768,9 +3834,26 @@ function renderHeader(productMap, categories) {
   const menuToggle = document.createElement("button");
   menuToggle.className = "header__icon-btn header__menu-toggle";
   menuToggle.setAttribute("aria-label", "Toggle navigation");
-  menuToggle.textContent = "☰";
-  menuToggle.addEventListener("click", () => {
-    nav.classList.toggle("is-open");
+  const menuIcon = document.createElement("img");
+  menuIcon.src = `${base}assets/icons/menu.svg`;
+  menuIcon.alt = "Menu";
+  menuToggle.appendChild(menuIcon);
+  menuToggle.setAttribute("aria-expanded", "false");
+  const toggleNav = (force) => {
+    const next = typeof force === "boolean" ? force : !nav.classList.contains("is-open");
+    nav.classList.toggle("is-open", next);
+    menuIcon.src = `${base}assets/icons/${next ? "x_close" : "menu"}.svg`;
+    menuToggle.setAttribute("aria-expanded", String(next));
+    document.body.classList.toggle("nav-open", next);
+    document.documentElement.classList.toggle("nav-open", next);
+  };
+  menuToggle.addEventListener("click", () => toggleNav());
+  navClose.addEventListener("click", () => toggleNav(false));
+  nav.addEventListener("click", (event) => {
+    const link = event.target.closest("a");
+    if (link && nav.classList.contains("is-open")) {
+      toggleNav(false);
+    }
   });
 
   bar.append(nav, actions, menuToggle);
@@ -3779,6 +3862,19 @@ function renderHeader(productMap, categories) {
   frag.appendChild(header);
   target.replaceChildren(frag);
   rewriteCategoryAnchors();
+
+  const updateHeaderState = () => {
+    const h = document.querySelector(".site-header");
+    if (!h) return;
+    const scrolled = window.scrollY > 8;
+    h.classList.toggle("is-solid", scrolled);
+  };
+
+  updateHeaderState();
+  if (!window.__purvantiHeaderScrollBound) {
+    window.addEventListener("scroll", updateHeaderState, { passive: true });
+    window.__purvantiHeaderScrollBound = true;
+  }
 
   // Expose header height so dropdown can align to full width position
   requestAnimationFrame(() => {
