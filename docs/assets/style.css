@@ -417,7 +417,11 @@ video {
   max-width: 720px;
   display: grid;
   gap: 16px;
-  color: #0c0c0c;
+  color: #fff;
+}
+
+.hero-block__copy .eyebrow {
+  color: #fff;
 }
 
 .hero-block__copy .title {
