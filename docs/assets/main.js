@@ -2367,12 +2367,10 @@ function renderHero(data) {
   video.loop = true;
   video.muted = true;
   video.playsInline = true;
-  const desktopVideo = data.video_desktop || data.video?.[0] || "";
-  const mobileVideo =
-    data.video_mobile ||
-    (Array.isArray(data.video) ? data.video[1] || data.video[0] || "" : "");
+  const desktopVideo = data.video || data.video_desktop || data.video?.[0] || "";
+  const mobileVideo = desktopVideo;
   const videoPoster =
-    data.video_desktop_still || data.video_mobile_still || data.images?.[0] || "";
+    data.video_still || data.video_desktop_still || data.video_mobile_still || data.images?.[0] || "";
   video.poster = videoPoster;
 
   if (desktopVideo) {
@@ -2427,7 +2425,7 @@ function renderHero(data) {
   const rightPane = document.createElement("div");
   rightPane.className = "hero-block__pane hero-block__pane--image";
   const rightImg = document.createElement("img");
-  rightImg.src = data.images?.[0] || "";
+  rightImg.src = data.image_secondary || data.images?.[0] || "";
   rightImg.alt = data.header || "hero image";
   rightPane.appendChild(rightImg);
 
