@@ -283,8 +283,8 @@
     "pre_header": "Your Path to Better Health",
     "header": "Wellness that fits your life",
     "video": "assets/videos/hero-video.mp4",
-    "video_still": "assets/videos/hero-still.jpg",
-    "image_secondary": "assets/images/main/home-hero-full.jpg"
+    "video_still": "assets/videos/hero-video.jpg",
+    "image_secondary": "assets/images/main/home-hero-secondary.jpg"
   },
   {
     "section": "featured_collection",
