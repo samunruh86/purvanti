@@ -1,26 +1,58 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Page Specific -->
   <title>About Purvanti | Our Mission & Team</title>
   <meta name="description" content="Discover Purvanti’s mission to craft sustainable, science-backed wellness essentials and meet the team behind the products.">
   <meta property="og:title" content="About Purvanti | Our Mission & Team">
   <meta property="og:description" content="Discover Purvanti’s mission to craft sustainable, science-backed wellness essentials and meet the team behind the products.">
-  <meta property="og:type" content="website">
   <meta property="og:image" content="https://purvanti.com/assets/images/main/home-banner-runner-full.jpg">
   <meta property="og:url" content="https://purvanti.com/about.html">
-  <link rel="icon" href="/assets/icons/favicon.png" type="image/png" sizes="32x32">
+
+  <!-- Universal -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="assets/style.css">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://purvanti.com/assets/schema/purvanti-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="icon" href="/assets/schema/purvanti-favicon.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/assets/schema/purvanti-apple-touch-icon.png" sizes="180x180">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Purvanti",
-    "url": "https://purvanti.com/",
-    "logo": "https://purvanti.com/assets/icons/logo-white.svg"
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://purvanti.com/#organization",
+        "name": "Purvanti",
+        "url": "https://purvanti.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://purvanti.com/assets/schema/purvanti-logo.png",
+          "width": 512,
+          "height": 512
+        },
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://purvanti.com/assets/schema/purvanti-image.jpg",
+          "width": 1200,
+          "height": 630
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://purvanti.com/#website",
+        "url": "https://purvanti.com/",
+        "name": "Purvanti",
+        "publisher": {
+          "@id": "https://purvanti.com/#organization"
+        }
+      }
+    ]
   }
   </script>
-  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body data-page="about">
   <div id="site-header"></div>
