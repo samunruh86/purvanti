@@ -4440,7 +4440,10 @@ function renderFooter(productMap, categories = []) {
   const ticket = document.createElement("a");
   ticket.href = `${base}contact.html`;
   ticket.textContent = "Support Ticket";
-  contactBlock.append(phone, email, ticket);
+  const brandLink = document.createElement("a");
+  brandLink.href = `${base}brands.html`;
+  brandLink.textContent = "Brand Partnerships";
+  contactBlock.append(phone, email, ticket, brandLink);
 
   const categoriesList = (Array.isArray(categories) ? categories : [])
     .slice(0, 7)
@@ -4474,11 +4477,23 @@ function renderFooter(productMap, categories = []) {
   aboutText.className = "footer__text";
   aboutText.textContent =
     "Purvanti is a curated wellness retailer focused on science-led products, clear product context, and brand-safe presentation. We connect customers with thoughtfully selected wellness solutions they can trust.";
-  const brandLink = document.createElement("a");
-  brandLink.href = `${base}brands.html`;
-  brandLink.className = "footer__link";
-  brandLink.textContent = "Brand Partnerships";
-  aboutBlock.append(aboutTitle, aboutText, brandLink);
+  const payments = document.createElement("div");
+  payments.className = "footer__payments";
+  [
+    { src: `${base}assets/icons/payment-visa.svg`, alt: "Visa" },
+    { src: `${base}assets/icons/payment-mastercard.svg`, alt: "Mastercard" },
+    { src: `${base}assets/icons/payment-amex.svg`, alt: "American Express" },
+    { src: `${base}assets/icons/payment-discover.svg`, alt: "Discover" },
+  ].forEach((item) => {
+    const badge = document.createElement("div");
+    badge.className = "footer__payment";
+    const img = document.createElement("img");
+    img.src = item.src;
+    img.alt = item.alt;
+    badge.appendChild(img);
+    payments.appendChild(badge);
+  });
+  aboutBlock.append(aboutTitle, aboutText, payments);
   inner.appendChild(aboutBlock);
 
   const bottom = document.createElement("div");

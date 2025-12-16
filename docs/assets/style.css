@@ -2769,6 +2769,23 @@ body[data-page="policy"] h2 {
   padding-top: 16px;
 }
 
+.footer__payments {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.footer__payment {
+  display: grid;
+  place-items: center;
+}
+
+.footer__payment img {
+  display: block;
+  height: 32px;
+  width: auto;
+}
+
 .footer__brandmark {
   width: 100%;
   margin: 18px auto 12px;
