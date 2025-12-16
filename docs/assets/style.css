@@ -2696,7 +2696,7 @@ body[data-page="policy"] h2 {
 .footer__text {
   margin: 0;
   color: #e4e4e4;
-  line-height: 1.6;
+  line-height: 1.4;
   font-size: 15px;
 }
 
@@ -2767,23 +2767,6 @@ body[data-page="policy"] h2 {
   font-size: 14px;
   line-height: 1.6;
   padding-top: 16px;
-}
-
-.footer__payments {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.footer__payment {
-  display: grid;
-  place-items: center;
-}
-
-.footer__payment img {
-  display: block;
-  height: 32px;
-  width: auto;
 }
 
 .footer__brandmark {
