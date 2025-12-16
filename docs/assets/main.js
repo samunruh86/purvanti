@@ -1374,7 +1374,9 @@ async function hydrateBrandsPage() {
   const heroEl = document.getElementById("brands-hero");
   const scienceEl = document.getElementById("brands-science");
   const faqEl = document.getElementById("brands-faq");
+  const channelEl = document.getElementById("brands-channel");
   const statementEl = document.getElementById("brands-statement");
+  const subtleCtaEl = document.getElementById("brands-subtle-cta");
 
   try {
     const [content, products] = await Promise.all([
@@ -1401,7 +1403,9 @@ async function hydrateBrandsPage() {
     const heroData = findSection("hero");
     const scienceData = findSection("science");
     const faqData = findSection("faqs");
+    const channelData = findSection("channel_clarifier");
     const statementData = findSection("brand_statement");
+    const subtleCtaData = findSection("subtle_cta");
 
     renderAboutHero(heroEl, heroData);
     renderBrandsScience(scienceEl, scienceData);
@@ -1410,10 +1414,20 @@ async function hydrateBrandsPage() {
       faqEl.innerHTML = "";
       faqEl.appendChild(faqNode);
     }
+    const channelNode = renderChannelClarifier(channelData);
+    if (channelEl && channelNode) {
+      channelEl.innerHTML = "";
+      channelEl.appendChild(channelNode);
+    }
     if (statementEl) {
       statementEl.innerHTML = "";
       const node = renderStatement(statementData);
       if (node) statementEl.appendChild(node);
+    }
+    const subtleNode = renderSubtleCta(subtleCtaData);
+    if (subtleCtaEl && subtleNode) {
+      subtleCtaEl.innerHTML = "";
+      subtleCtaEl.appendChild(subtleNode);
     }
   } catch (error) {
     console.error(error);
@@ -3327,6 +3341,104 @@ function renderBrandsScience(target, data) {
   target.appendChild(wrap);
 }
 
+function renderChannelClarifier(data) {
+  if (!data) return null;
+
+  const section = document.createElement("section");
+  section.className = "channel-clarifier";
+  section.setAttribute("data-section", "channel-clarifier");
+
+  const inner = document.createElement("div");
+  inner.className = "channel-clarifier__inner";
+
+  const header = document.createElement("div");
+  header.className = "channel-clarifier__header";
+  let hasHeader = false;
+
+  if (data.pre_header) {
+    const eyebrow = document.createElement("p");
+    eyebrow.className = "channel-clarifier__eyebrow";
+    eyebrow.textContent = data.pre_header;
+    header.appendChild(eyebrow);
+    hasHeader = true;
+  }
+
+  if (data.header) {
+    const title = document.createElement("h2");
+    title.className = "channel-clarifier__title";
+    title.textContent = data.header;
+    header.appendChild(title);
+    hasHeader = true;
+  }
+
+  const layout = document.createElement("div");
+  layout.className = "channel-clarifier__layout";
+
+  const imgWrap = document.createElement("div");
+  imgWrap.className = "channel-clarifier__image";
+  const img = document.createElement("img");
+  const useMobile = window.matchMedia("(max-width: 900px)").matches;
+  const imgSrc = useMobile ? data.image_mobile || data.image : data.image;
+  img.src = resolveAssetPath(imgSrc || data.image_mobile || data.image || "");
+  img.alt = data.header || "Channel clarity";
+  img.loading = "lazy";
+  imgWrap.appendChild(img);
+
+  const body = document.createElement("div");
+  body.className = "channel-clarifier__body";
+  const paragraphs =
+    typeof data.body === "string" ? data.body.split(/\n\s*\n/) : [];
+  paragraphs
+    .filter((text) => text && text.trim())
+    .forEach((text) => {
+      const p = document.createElement("p");
+      p.textContent = text.trim();
+      body.appendChild(p);
+    });
+
+  if (data.body_sub) {
+    const sub = document.createElement("p");
+    sub.className = "channel-clarifier__body-sub";
+    sub.textContent = data.body_sub;
+    body.appendChild(sub);
+  }
+
+  layout.append(imgWrap, body);
+  if (hasHeader) inner.appendChild(header);
+  inner.appendChild(layout);
+  section.appendChild(inner);
+  return section;
+}
+
+function renderSubtleCta(data) {
+  if (!data) return null;
+
+  const section = document.createElement("section");
+  section.className = "subtle-cta";
+  section.setAttribute("data-section", "subtle-cta");
+
+  const inner = document.createElement("div");
+  inner.className = "subtle-cta__inner";
+
+  if (data.title) {
+    const title = document.createElement("p");
+    title.className = "subtle-cta__title";
+    title.textContent = data.title;
+    inner.appendChild(title);
+  }
+
+  if (data.cta_text && data.cta_href) {
+    const link = document.createElement("a");
+    link.className = "subtle-cta__link";
+    link.href = data.cta_href;
+    link.textContent = data.cta_text;
+    inner.appendChild(link);
+  }
+
+  section.appendChild(inner);
+  return section;
+}
+
 function renderLifestyleCarousel(data, productMap) {
   const slides = Array.isArray(data.slides) ? data.slides : [];
   if (!slides.length) return null;
@@ -3820,6 +3932,26 @@ function renderStatement(data) {
           <label>
             <span>Product focus</span>
             <textarea name="focus" rows="3" placeholder="Briefly describe your products and formulations"></textarea>
+          </label>
+        </div>
+        <div class="brand-application__row is-single">
+          <label>
+            <span>Preferred retail channels or restrictions (if any)</span>
+            <textarea
+              name="preferred_channels"
+              rows="2"
+              placeholder="Website only / Select online retailers / Distributor-led / Open to discussion"
+            ></textarea>
+          </label>
+        </div>
+        <div class="brand-application__row is-single">
+          <label>
+            <span>Any channel or pricing requirements we should be aware of?</span>
+            <textarea
+              name="channel_requirements"
+              rows="2"
+              placeholder="MAP policies, distributor requirements, regional restrictions, or other guidelines"
+            ></textarea>
           </label>
         </div>
         <div class="brand-application__row is-single">

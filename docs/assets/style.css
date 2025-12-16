@@ -1722,6 +1722,120 @@ body[data-page="policy"] h2 {
   }
 }
 
+.channel-clarifier {
+  padding: 40px 20px 80px 20px;
+  background: #ffffff;
+}
+
+.channel-clarifier__inner {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  display: grid;
+  gap: clamp(26px, 5vw, 48px);
+}
+
+.channel-clarifier__header {
+  text-align: center;
+  display: grid;
+  gap: 8px;
+}
+
+.channel-clarifier__eyebrow {
+  margin: 0;
+  letter-spacing: 0.12em;
+  font-size: 0.9rem;
+  color: #3c3c3c;
+}
+
+.channel-clarifier__title {
+  margin: 0;
+  font-size: clamp(32px, 4vw + 12px, 52px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.channel-clarifier__layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(22px, 6vw, 44px);
+  align-items: center;
+}
+
+.channel-clarifier__image {
+  justify-self: center;
+}
+
+.channel-clarifier__image img {
+  width: min(620px, 100%);
+  height: auto;
+  display: block;
+  border-radius: 26px;
+  object-fit: cover;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
+}
+
+.channel-clarifier__body {
+  display: grid;
+  gap: 18px;
+  color: #0f1014;
+  font-size: clamp(17px, 1vw + 15px, 20px);
+  line-height: 1.7;
+  max-width: 620px;
+  justify-self: center;
+}
+
+.channel-clarifier__body p {
+  margin: 0;
+}
+
+.channel-clarifier__body-sub {
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .channel-clarifier {
+    padding: 10px 20px 40px 20px;
+  }
+  .channel-clarifier__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .channel-clarifier__body {
+    text-align: left;
+  }
+
+  .channel-clarifier__image img {
+    width: 100%;
+  }
+}
+
+.subtle-cta {
+  padding: 0px 20px 80px 20px;
+  background: #f7f5ed54;
+}
+
+.subtle-cta__inner {
+  width: min(700px, 100%);
+  margin: 0 auto;
+  text-align: center;
+  display: grid;
+  gap: 12px;
+}
+
+.subtle-cta__title {
+  margin: 0;
+  font-size: clamp(18px, 2vw + 12px, 22px);
+  font-weight: 600;
+  color: #222;
+}
+
+.subtle-cta__link {
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
 .about-hero {
   position: relative;
   width: 100%;

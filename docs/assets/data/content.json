@@ -263,10 +263,19 @@
           "answer": "Successful partnerships begin with products that communicate tangible benefits and a brand identity customers can connect with."
         },
         {
-          "question": "Responsible pricing and channel alignment",
+          "question": "Responsible pricing and thoughtful distribution",
           "answer": "A cohesive pricing strategy across retail channels ensures customers experience your brand as intended—premium, consistent, and trustworthy."
         }
       ]
+    },
+    {
+      "section": "channel_clarifier",
+      "pre_header": "Channel Approach",
+      "header": "How We Sell",
+      "body": "Purvanti is a curated wellness retailer with a controlled sales environment designed to protect brand positioning and customer trust. We emphasize clear product context, consistent pricing, and alignment with brand guidelines. Distribution is intentionally limited and brand-specific, with decisions made collaboratively.",
+      "body_sub": "Always aligned with brand standards. Never one-size-fits-all.",
+      "image": "assets/images/main/brands-channel-full.jpg",
+      "image_mobile": "assets/images/main/brands-channel-full.jpg"
     },
     {
       "section": "brand_statement",
@@ -274,6 +283,12 @@
       "body": "We build long-term relationships with brands committed to elevating everyday health. At Purvanti, our role is to guide customers toward products that truly support their well-being—starting with the partners we thoughtfully select.",
       "cta_text": "Brand Application",
       "cta_href": "/contact.html?type=brand"
+    },
+    {
+      "section": "subtle_cta",
+      "title": "Curious to learn more?",
+      "cta_text": "Explore our approach to wellness",
+      "cta_href": "/about.html"
     }
   ],
 
