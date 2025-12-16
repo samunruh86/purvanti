@@ -1,209 +1,209 @@
 {
-    "nav": [],
-    "categories": [
+  "nav": [],
+  "categories": [
+    {
+      "category": "Minerals & Electrolytes",
+      "cta_href": "/category.html?category=minerals-electrolytes",
+      "image": "assets/images/main/category-minerals-electrolytes.png",
+      "tagline": "Balance hydration and essential minerals.",
+      "video": "assets/videos/category-banner-bg.mp4",
+      "video_still": "assets/videos/category-banner-bg.jpg",
+      "reel": "assets/videos/reels-1.mp4",
+      "reel_still": "assets/images/main/reels-1.jpg"
+    },
+    {
+      "category": "Vitamins & Multivitamins",
+      "cta_href": "/category.html?category=vitamins-multivitamins",
+      "image": "assets/images/main/category-vitamins-multivitamins.png",
+      "tagline": "Daily nutrients for whole-body wellness.",
+      "video": "assets/videos/category-banner-bg.mp4",
+      "video_still": "assets/videos/category-banner-bg.jpg",
+      "reel": "assets/videos/reels-2.mp4",
+      "reel_still": "assets/images/main/reels-2.jpg"
+    },
+    {
+      "category": "Omegas & Heart Health",
+      "cta_href": "/category.html?category=omegas-heart-health",
+      "image": "assets/images/main/category-omegas-heart-health.png",
+      "tagline": "Support cardiovascular and cognitive function.",
+      "video": "assets/videos/category-banner-bg.mp4",
+      "video_still": "assets/videos/category-banner-bg.jpg",
+      "reel": "assets/videos/reels-3.mp4",
+      "reel_still": "assets/images/main/reels-3.jpg"
+    },
+    {
+      "category": "Proteins & Performance",
+      "cta_href": "/category.html?category=proteins-performance",
+      "image": "assets/images/main/category-proteins-performance.png",
+      "tagline": "Fuel recovery and strength with clean protein.",
+      "video": "assets/videos/category-banner-bg.mp4",
+      "video_still": "assets/videos/category-banner-bg.jpg",
+      "reel": "assets/videos/reels-4.mp4",
+      "reel_still": "assets/images/main/reels-4.jpg"
+    },
+    {
+      "category": "Gut & Digestive Health",
+      "cta_href": "/category.html?category=gut-digestive-health",
+      "image": "assets/images/main/category-gut-digestive-health.png",
+      "tagline": "Support digestion and microbiome balance.",
+      "video": "assets/videos/category-banner-bg.mp4",
+      "video_still": "assets/videos/category-banner-bg.jpg",
+      "reel": "assets/videos/reels-5.mp4",
+      "reel_still": "assets/images/main/reels-5.jpg"
+    },
+    {
+      "category": "Superfoods & Mushrooms",
+      "cta_href": "/category.html?category=superfoods-mushrooms",
+      "image": "assets/images/main/category-superfoods-mushrooms.png",
+      "tagline": "Antioxidant-rich blends for everyday vitality.",
+      "video": "assets/videos/category-banner-bg.mp4",
+      "video_still": "assets/videos/category-banner-bg.jpg",
+      "reel": "assets/videos/reels-6.mp4",
+      "reel_still": "assets/images/main/reels-6.jpg"
+    },
+    {
+      "category": "Stress & Sleep",
+      "cta_href": "/category.html?category=stress-sleep",
+      "image": "assets/images/main/category-stress-sleep.png",
+      "tagline": "Calm the mind and support restful sleep.",
+      "video": "assets/videos/category-banner-bg.mp4",
+      "video_still": "assets/videos/category-banner-bg.jpg"
+    }
+  ],
+  "product": [
+    {
+      "section": "banner_full",
+      "header": "Your health in trusted hands",
+      "media": {
+        "desktop": [
+          "assets/images/main/product-banner-runner-full-a.jpg",
+          "assets/images/main/product-banner-runner-full-b.jpg"
+        ],
+        "mobile": [
+          "assets/images/main/product-banner-runner-mobile-a.jpg",
+          "assets/images/main/product-banner-runner-mobile-b.jpg"
+        ]
+      },
+      "cta_text": "Our Mission",
+      "cta_href": "/about"
+    },
+    {
+      "section": "faqs",
+      "pre_header": "Everything You Need to Know!",
+      "title": "Frequently Asked Questions",
+      "items": [
         {
-            "category": "Minerals & Electrolytes",
-            "cta_href": "/category.html?category=minerals-electrolytes",
-            "image": "assets/images/main/category-minerals-electrolytes.png",
-            "tagline": "Balance hydration and essential minerals.",
-            "video": "assets/videos/category-banner-bg.mp4",
-            "video_still": "assets/videos/category-banner-bg.jpg",
-            "reel": "assets/videos/reels-1.mp4",
-            "reel_still": "assets/images/main/reels-1.jpg"
+          "question": "Are wellness supplements safe to use?",
+          "answer": "Our supplements are formulated with quality ingredients and third-party testing where available. Always review the label and consult your healthcare provider before starting a new regimen."
         },
         {
-            "category": "Vitamins & Multivitamins",
-            "cta_href": "/category.html?category=vitamins-multivitamins",
-            "image": "assets/images/main/category-vitamins-multivitamins.png",
-            "tagline": "Daily nutrients for whole-body wellness.",
-            "video": "assets/videos/category-banner-bg.mp4",
-            "video_still": "assets/videos/category-banner-bg.jpg",
-            "reel": "assets/videos/reels-2.mp4",
-            "reel_still": "assets/images/main/reels-2.jpg"
+          "question": "How should I store my supplements?",
+          "answer": "Keep your bottles in a cool, dry place away from direct sunlight and moisture. Avoid storing them in humid bathrooms or hot cars."
         },
         {
-            "category": "Omegas & Heart Health",
-            "cta_href": "/category.html?category=omegas-heart-health",
-            "image": "assets/images/main/category-omegas-heart-health.png",
-            "tagline": "Support cardiovascular and cognitive function.",
-            "video": "assets/videos/category-banner-bg.mp4",
-            "video_still": "assets/videos/category-banner-bg.jpg",
-            "reel": "assets/videos/reels-3.mp4",
-            "reel_still": "assets/images/main/reels-3.jpg"
+          "question": "Do you offer international shipping?",
+          "answer": "We currently ship within the US. We’re exploring options for expanded international delivery—sign up for updates to be notified."
         },
         {
-            "category": "Proteins & Performance",
-            "cta_href": "/category.html?category=proteins-performance",
-            "image": "assets/images/main/category-proteins-performance.png",
-            "tagline": "Fuel recovery and strength with clean protein.",
-            "video": "assets/videos/category-banner-bg.mp4",
-            "video_still": "assets/videos/category-banner-bg.jpg",
-            "reel": "assets/videos/reels-4.mp4",
-            "reel_still": "assets/images/main/reels-4.jpg"
-        },
-        {
-            "category": "Gut & Digestive Health",
-            "cta_href": "/category.html?category=gut-digestive-health",
-            "image": "assets/images/main/category-gut-digestive-health.png",
-            "tagline": "Support digestion and microbiome balance.",
-            "video": "assets/videos/category-banner-bg.mp4",
-            "video_still": "assets/videos/category-banner-bg.jpg",
-            "reel": "assets/videos/reels-5.mp4",
-            "reel_still": "assets/images/main/reels-5.jpg"
-        },
-        {
-            "category": "Superfoods & Mushrooms",
-            "cta_href": "/category.html?category=superfoods-mushrooms",
-            "image": "assets/images/main/category-superfoods-mushrooms.png",
-            "tagline": "Antioxidant-rich blends for everyday vitality.",
-            "video": "assets/videos/category-banner-bg.mp4",
-            "video_still": "assets/videos/category-banner-bg.jpg",
-            "reel": "assets/videos/reels-6.mp4",
-            "reel_still": "assets/images/main/reels-6.jpg"
-        },
-        {
-            "category": "Stress & Sleep",
-            "cta_href": "/category.html?category=stress-sleep",
-            "image": "assets/images/main/category-stress-sleep.png",
-            "tagline": "Calm the mind and support restful sleep.",
-            "video": "assets/videos/category-banner-bg.mp4",
-            "video_still": "assets/videos/category-banner-bg.jpg"
+          "question": "What is your return policy?",
+          "answer": "If you’re not satisfied, contact us within 30 days of delivery. Unopened items can be returned for a refund; opened items may qualify for store credit."
         }
-    ],
-    "product": [
+      ]
+    },
+    {
+      "section": "lifestyle_50_50",
+      "cards": [
         {
-            "section": "banner_full",
-            "header": "Your health in trusted hands",
-            "media": {
-                "desktop": [
-                  "assets/images/main/product-banner-runner-full-a.jpg",
-                  "assets/images/main/product-banner-runner-full-b.jpg"],
-                "mobile":[
-                  "assets/images/main/product-banner-runner-mobile-a.jpg",
-                  "assets/images/main/product-banner-runner-mobile-b.jpg"]
-            },
-            "cta_text": "Our Mission",
-            "cta_href": "/about"
+          "title": "Built With Purpose",
+          "cta_text": "Learn More",
+          "cta_href": "/about",
+          "image": "assets/images/main/product-50-50-a.jpg"
         },
         {
-            "section": "faqs",
-            "pre_header": "Everything You Need to Know!",
-            "title": "Frequently Asked Questions",
-            "items": [
-                {
-                    "question": "Are wellness supplements safe to use?",
-                    "answer": "Our supplements are formulated with quality ingredients and third-party testing where available. Always review the label and consult your healthcare provider before starting a new regimen."
-                },
-                {
-                    "question": "How should I store my supplements?",
-                    "answer": "Keep your bottles in a cool, dry place away from direct sunlight and moisture. Avoid storing them in humid bathrooms or hot cars."
-                },
-                {
-                    "question": "Do you offer international shipping?",
-                    "answer": "We currently ship within the US. We’re exploring options for expanded international delivery—sign up for updates to be notified."
-                },
-                {
-                    "question": "What is your return policy?",
-                    "answer": "If you’re not satisfied, contact us within 30 days of delivery. Unopened items can be returned for a refund; opened items may qualify for store credit."
-                }
-            ]
-        },
-        {
-            "section": "lifestyle_50_50",
-            "cards": [
-                {
-                    "title": "Built With Purpose",
-                    "cta_text": "Learn More",
-                    "cta_href": "/about",
-                    "image": "assets/images/main/product-50-50-a.jpg"
-                },
-                {
-                    "title": "Learn What Fuels You",
-                    "cta_text": "Dive In",
-                    "cta_href": "/journal-all",
-                    "image": "assets/images/main/product-50-50-b.jpg"
-                }
-            ]
-        },
-        {
-            "section": "product_reviews",
-            "pre_header": "What Our Customers Say",
-            "headline": "Genuine Feedback",
-            "lifestyle_images": [
-                "assets/images/main/product-reviews-1.jpg",
-                "assets/images/main/product-reviews-2.jpg",
-                "assets/images/main/product-reviews-3.jpg",
-                "assets/images/main/product-reviews-4.jpg"
-            ]
+          "title": "Learn What Fuels You",
+          "cta_text": "Dive In",
+          "cta_href": "/journal-all",
+          "image": "assets/images/main/product-50-50-b.jpg"
         }
-    ],
-    "journalAll": [
+      ]
+    },
+    {
+      "section": "product_reviews",
+      "pre_header": "What Our Customers Say",
+      "headline": "Genuine Feedback",
+      "lifestyle_images": [
+        "assets/images/main/product-reviews-1.jpg",
+        "assets/images/main/product-reviews-2.jpg",
+        "assets/images/main/product-reviews-3.jpg",
+        "assets/images/main/product-reviews-4.jpg"
+      ]
+    }
+  ],
+  "journalAll": [
+    {
+      "section": "hero",
+      "pre_header": "From the journal",
+      "header": "Fresh takes on everyday wellness",
+      "image": "assets/images/main/journal-hero.jpg"
+    }
+  ],
+  "contact": [
+    {
+      "section": "hero",
+      "pre_header": "Contact",
+      "header": "We’re here to help",
+      "subhead": "Questions about products, ingredients, or your order? Reach out and our team will respond quickly."
+    },
+    {
+      "section": "banner_full",
+      "pre_header": "Team Purvanti",
+      "header": "Thoughtful support from real people",
+      "subhead": "We’re committed to fast answers on wellness guidance, ingredients, shipping, and wholesale inquiries.",
+      "image": "assets/images/main/main-contact.jpg"
+    }
+  ],
+  "about": [
+    {
+      "section": "hero",
+      "pre_header": "About Purvanti",
+      "header": "Wellness, thoughtfully designed.",
+      "subhead": "A note from our founder",
+      "image": "assets/images/posts/p1.jpg"
+    },
+    {
+      "section": "headline",
+      "eyebrow": "Our Philosophy",
+      "title": "We believe better health begins with clarity, quality, and science-led simplicity."
+    },
+    {
+      "section": "panels",
+      "panels": [
         {
-            "section": "hero",
-            "pre_header": "From the journal",
-            "header": "Fresh takes on everyday wellness",
-            "image": "assets/images/main/journal-hero.jpg"
+          "image": "assets/images/posts/p3.jpg",
+          "title": "Supplements made to support real life",
+          "body": "At Purvanti, we curate clean, effective supplements that support energy, balance, digestion, sleep, and daily vitality. Every product is selected for its quality, scientific backing, and ability to make a meaningful difference in the way you feel—day after day."
+        },
+        {
+          "image": "assets/images/posts/p7.jpg",
+          "title": "Where modern research meets natural wellness",
+          "body": "We partner with trusted brands that prioritize purity, transparency, and evidence-based formulations. Our goal is simple: to bring you wellness solutions that fit seamlessly into everyday routines while supporting long-term health and well-being."
         }
-    ],
-    "contact": [
-        {
-            "section": "hero",
-            "pre_header": "Contact",
-            "header": "We’re here to help",
-            "subhead": "Questions about products, ingredients, or your order? Reach out and our team will respond quickly."
-        },
-        {
-            "section": "banner_full",
-            "pre_header": "Team Purvanti",
-            "header": "Thoughtful support from real people",
-            "subhead": "We’re committed to fast answers on wellness guidance, ingredients, shipping, and wholesale inquiries.",
-            "image": "assets/images/main/main-contact.jpg"
-        }
-    ],
-
-    "about": [
-        {
-            "section": "hero",
-            "pre_header": "About Purvanti",
-            "header": "Wellness, thoughtfully designed.",
-            "subhead": "A note from our founder",
-            "image": "assets/images/posts/p1.jpg"
-        },
-        {
-            "section": "headline",
-            "eyebrow": "Our Philosophy",
-            "title": "We believe better health begins with clarity, quality, and science-led simplicity."
-        },
-        {
-            "section": "panels",
-            "panels": [
-                {
-                    "image": "assets/images/posts/p3.jpg",
-                    "title": "Supplements made to support real life",
-                    "body": "At Purvanti, we curate clean, effective supplements that support energy, balance, digestion, sleep, and daily vitality. Every product is selected for its quality, scientific backing, and ability to make a meaningful difference in the way you feel—day after day."
-                },
-                {
-                    "image": "assets/images/posts/p7.jpg",
-                    "title": "Where modern research meets natural wellness",
-                    "body": "We partner with trusted brands that prioritize purity, transparency, and evidence-based formulations. Our goal is simple: to bring you wellness solutions that fit seamlessly into everyday routines while supporting long-term health and well-being."
-                }
-            ]
-        },
-        {
-            "section": "brand_statement",
-            "title": "Wellness that meets you where you are",
-            "body": "Purvanti blends modern nutritional science with nature’s most reliable ingredients to help you feel grounded, energized, and supported every day. We’re here to simplify your wellness journey—one thoughtfully chosen formula at a time.",
-            "cta_text": "Get in touch",
-            "cta_href": "/contact"
-        },
-        {
-            "section": "letter",
-            "eyebrow": "Our Commitment",
-            "quote": "We focus on products that are clean, effective, and backed by modern nutritional science.",
-            "image": "assets/images/main/about-cycling-bw.jpg"
-        }
-    ],
-
+      ]
+    },
+    {
+      "section": "brand_statement",
+      "title": "Wellness that meets you where you are",
+      "body": "Purvanti blends modern nutritional science with nature’s most reliable ingredients to help you feel grounded, energized, and supported every day. We’re here to simplify your wellness journey—one thoughtfully chosen formula at a time.",
+      "cta_text": "Get in touch",
+      "cta_href": "/contact"
+    },
+    {
+      "section": "letter",
+      "eyebrow": "Our Commitment",
+      "quote": "We focus on products that are clean, effective, and backed by modern nutritional science.",
+      "image": "assets/images/main/about-cycling-bw.jpg"
+    }
+  ],
   "brands": [
     {
       "section": "hero",
@@ -291,87 +291,109 @@
       "cta_href": "/about.html"
     }
   ],
-
-"home": [
-  {
-    "section": "hero",
-    "pre_header": "Your Path to Better Health",
-    "header": "Wellness that fits your life",
-    "video": "assets/videos/hero-video.mp4",
-    "video_still": "assets/videos/hero-video.jpg",
-    "image_secondary": "assets/images/main/home-hero-secondary.jpg"
-  },
-  {
-    "section": "featured_collection",
-    "pre_header": "Your Daily Foundation",
-    "header": "Essential nutrients for energy, balance, and every day wellness",
-    "header_mobile": "Everyday nutrients for energy & balance",
-    "product_ids": ["pr121794","pr680073","pr178380","pr160265","pr253894","pr203172","pr219367"]
-  },
-
-  {
-    "section": "product_lifestyle_carousel",
-    "slides": [
-      {
-        "headline": "Fuel your performance—every single day",
-        "product_id": "pr290626",
-        "bg_color": "#ff5a5f",
-        "lifestyle_image": "assets/images/main/home-lifestyle-c1a-full.jpg",
-        "lifestyle_image_mobile": "assets/images/main/home-lifestyle-c1a-mobile.jpg"
-      },
-      {
-        "headline": "Find calm, restore balance, and unwind naturally",
-        "product_id": "pr467684",
-        "bg_color": "#ffb2be",
-        "lifestyle_image": "assets/images/main/home-lifestyle-c1b-full.jpg",
-        "lifestyle_image_mobile": "assets/images/main/home-lifestyle-c1b-mobile.jpg"
-      }
-    ]
-  },
-  {
-    "section": "video_reels",
-    "title": "Trusted products, real results"
-  },
-  {
-    "section": "endurance_grid",
-    "title": "Performance formulas for strength and stamina",
-    "product_ids": ["pr290626","pr338340","pr536332","pr250222","pr506774","pr377534"]
-  },
-  {
-    "section": "brand_statement",
-    "title": "Wellness designed to help you thrive",
-    "body": "We bring together clean, science-backed supplements from trusted brands to support real, lasting well-being. From foundational nutrients to performance essentials, every product is selected to help you feel your best—naturally and consistently.",
-    "cta_text": "About Purvanti",
-    "cta_href": "/about"
-  },
-  {
-    "section": "blog_feature",
-    "title": "Insights for a healthier you"
-  },
-  {
-    "section": "mission_video",
-    "pre_header": "Better health, better choices",
-    "header": "Sustainable wellness for you and the planet",
-    "cta_text": "Explore our mission",
-    "cta_href": "/about",
-    "video": "assets/videos/home-banner-bg.mp4",
-    "video_still": "assets/videos/home-banner-bg.jpg"
-  },
-  {
-    "section": "new_arrivals",
-    "title": "Trending now in wellness",
-    "product_ids": ["pr525163","pr551722","pr223638","pr265924","pr607884","pr241897"]
-  },
-  {
-    "section": "mission_static",
-    "pre_header": "Wellness, done right",
-    "header": "Supporting your health, responsibly",
-    "cta_text": "Learn more",
-    "cta_href": "/about",
-    "image": "assets/images/main/home-bottom-full.jpg",
-    "image_mobile": "assets/images/main/home-bottom-mobile.jpg"
-  }
-]
-
+  "home": [
+    {
+      "section": "hero",
+      "pre_header": "Your Path to Better Health",
+      "header": "Wellness that fits your life",
+      "video": "assets/videos/hero-video.mp4",
+      "video_still": "assets/videos/hero-video.jpg",
+      "image_secondary": "assets/images/main/home-hero-secondary.jpg"
+    },
+    {
+      "section": "featured_collection",
+      "pre_header": "Your Daily Foundation",
+      "header": "Essential nutrients for energy, balance, and every day wellness",
+      "header_mobile": "Everyday nutrients for energy & balance",
+      "product_ids": [
+        "pr121794",
+        "pr680073",
+        "pr178380",
+        "pr160265",
+        "pr253894",
+        "pr203172",
+        "pr219367"
+      ]
+    },
+    {
+      "section": "product_lifestyle_carousel",
+      "slides": [
+        {
+          "headline": "Find calm, restore balance, and unwind naturally",
+          "product_id": "pr205166",
+          "bg_color": "#9ec786",
+          "lifestyle_image": "assets/images/main/home-lifestyle-green.jpg",
+          "lifestyle_image_mobile": "assets/images/main/home-lifestyle-green-mobile.jpg"
+        },
+        {
+          "headline": "Fuel your performance—every single day",
+          "product_id": "pr290626",
+          "bg_color": "#ff5a5f",
+          "lifestyle_image": "assets/images/main/home-lifestyle-c1a-full.jpg",
+          "lifestyle_image_mobile": "assets/images/main/home-lifestyle-c1a-mobile.jpg"
+        }
+      ]
+    },
+    {
+      "section": "video_reels",
+      "title": "Trusted products, real results"
+    },
+    {
+      "section": "endurance_grid",
+      "title": "Performance formulas for strength and stamina",
+      "product_ids": [
+        "pr290626",
+        "pr338340",
+        "pr536332",
+        "pr250222",
+        "pr506774",
+        "pr377534"
+      ]
+    },
+    {
+      "section": "brand_statement",
+      "title": "Wellness designed to help you thrive",
+      "body": "We bring together clean, science-backed supplements from trusted brands to support real, lasting well-being. From foundational nutrients to performance essentials, every product is selected to help you feel your best—naturally and consistently.",
+      "cta_text": "About Purvanti",
+      "cta_href": "/about"
+    },
+    {
+      "section": "blog_feature",
+      "title": "Insights for a healthier you"
+    },
+    {
+      "section": "mission_video",
+      "pre_header": "Better health, better choices",
+      "header": "Sustainable wellness for you and the planet",
+      "cta_text": "Explore our mission",
+      "cta_href": "/about",
+      "video": "assets/videos/home-banner-bg.mp4",
+      "video_still": "assets/videos/home-banner-bg.jpg"
+    },
+    {
+      "section": "new_arrivals",
+      "title": "Trending now in wellness",
+      "product_ids": [
+        "pr525163",
+        "pr551722",
+        "pr223638",
+        "pr265924",
+        "pr607884",
+        "pr241897"
+      ]
+    },
+    {
+      "section": "blog_secondary",
+      "title": "More from the journal"
+    },
+    {
+      "section": "mission_static",
+      "pre_header": "Wellness, done right",
+      "header": "Supporting your health, responsibly",
+      "cta_text": "Learn more",
+      "cta_href": "/about",
+      "image": "assets/images/main/home-bottom-full.jpg",
+      "image_mobile": "assets/images/main/home-bottom-mobile.jpg"
+    }
+  ]
 }
-

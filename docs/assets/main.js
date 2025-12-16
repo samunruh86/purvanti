@@ -33,6 +33,7 @@ const sectionBuilders = {
   video_reels: renderVideoReels,
   endurance_grid: renderEnduranceGrid,
   brand_statement: renderStatement,
+  blog_secondary: renderBlogSecondary,
   blog_feature: renderBlogFeature,
   mission_video: renderMissionVideo,
   mission_static: renderMissionStatic,
@@ -926,12 +927,15 @@ async function hydratePage(app) {
 
     renderChrome(productMap, categories);
 
+    const secondaryPosts = preparedPosts.slice(3, 6);
     homeSections.forEach((block) => {
       const builder = sectionBuilders[block.section];
       if (!builder) return;
     const dataForBlock =
       block.section === "blog_feature"
         ? { ...block, posts: latestPosts }
+        : block.section === "blog_secondary"
+        ? { ...block, posts: secondaryPosts }
         : block.section === "video_reels"
         ? { ...block, categories }
         : block;
@@ -3486,8 +3490,11 @@ function renderLifestyleCarousel(data, productMap) {
     lifePane.className = "lifestyle-slide__image";
 
     const lifeImg = document.createElement("img");
-    const mobileSrc = item.lifestyle_image_mobile || item.lifestyle_image || "";
-    lifeImg.src = mobileSrc;
+    const isMobile = window.matchMedia("(max-width: 900px)").matches;
+    const lifestyleSrc = isMobile
+      ? item.lifestyle_image_mobile || item.lifestyle_image || ""
+      : item.lifestyle_image || item.lifestyle_image_mobile || "";
+    lifeImg.src = lifestyleSrc;
     lifeImg.alt = item.headline || "Lifestyle";
 
     const headline = document.createElement("h3");
@@ -4000,6 +4007,74 @@ function renderBlogFeature(data) {
 
   posts.forEach((post) => {
     grid.appendChild(buildBlogCard(post));
+  });
+
+  section.append(head, grid);
+  rewriteBlogAnchors();
+  return section;
+}
+
+function renderBlogSecondary(data) {
+  const posts = Array.isArray(data.posts) ? data.posts.slice(0, 3) : [];
+  if (!posts.length) return null;
+
+  const section = document.createElement("section");
+  section.className = "blog blog--secondary";
+  section.setAttribute("data-section", "blog-secondary");
+
+  const head = document.createElement("div");
+  head.className = "blog__head";
+
+  const title = document.createElement("h3");
+  title.className = "blog__title";
+  title.textContent = data.title || "More from the journal";
+  head.appendChild(title);
+
+  if (data.cta_text && data.cta_href) {
+    const cta = document.createElement("a");
+    cta.className = "blog__cta";
+    cta.href = data.cta_href;
+    cta.textContent = data.cta_text;
+    head.appendChild(cta);
+  }
+
+  const grid = document.createElement("div");
+  grid.className = "blog__grid";
+
+  posts.forEach((post) => {
+    const card = document.createElement("article");
+    card.className = "blog-card blog-card--secondary";
+
+    const media = document.createElement("div");
+    media.className = "blog-card__media";
+    const mediaLink = document.createElement("a");
+    mediaLink.className = "blog-card__media-link";
+    mediaLink.href = blogPageHref(post);
+    mediaLink.dataset.blogSlug = post.slug || "";
+    attachBlogLinkHandlers(mediaLink, post.slug);
+    const img = document.createElement("img");
+    img.src = resolveAssetPath(post.image || post.image_full || post.image_small || "");
+    img.alt = post.title || "Blog image";
+    mediaLink.appendChild(img);
+    media.appendChild(mediaLink);
+
+    const h4 = document.createElement("h4");
+    h4.className = "blog-card__title";
+    h4.textContent = post.title || "";
+
+    const excerpt = document.createElement("p");
+    excerpt.className = "blog-card__excerpt";
+    excerpt.textContent = post.excerpt || "";
+
+    const link = document.createElement("a");
+    link.className = "blog-card__link";
+    link.href = blogPageHref(post);
+    link.dataset.blogSlug = post.slug || "";
+    link.textContent = "Read more";
+    attachBlogLinkHandlers(link, post.slug);
+
+    card.append(media, h4, excerpt, link);
+    grid.appendChild(card);
   });
 
   section.append(head, grid);
